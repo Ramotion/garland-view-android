@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:clipChildren="false">
 
-    <View
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="@dimen/item_v_offset"
-        android:background="@android:color/holo_green_light"/>
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
 
-</FrameLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_orange_light"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/item_v_offset"
+            android:background="@android:color/holo_blue_bright"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
