@@ -10,21 +10,23 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
 
     @Override
     public void transformPage(@NonNull View page, float position) {
+        final float alpha;
+        final float scale;
+
         if (position < -1) {
-            page.setAlpha(INACTIVE_ALPHA);
-            page.setScaleX(INACTIVE_SCALE);
-            page.setScaleY(INACTIVE_SCALE);
+            alpha = INACTIVE_ALPHA;
+            scale = INACTIVE_SCALE;
         } else if (position <= 1) {
-            float scale = INACTIVE_SCALE + (1 - INACTIVE_SCALE) * (1 - Math.abs(position));
-            float alpha = INACTIVE_ALPHA + (1 - INACTIVE_ALPHA) * (1 - Math.abs(position));
-            page.setScaleX(scale);
-            page.setScaleY(scale);
-            page.setAlpha(alpha);
+            alpha = INACTIVE_ALPHA + (1 - INACTIVE_ALPHA) * (1 - Math.abs(position));
+            scale = INACTIVE_SCALE + (1 - INACTIVE_SCALE) * (1 - Math.abs(position));
         } else {
-            page.setAlpha(INACTIVE_ALPHA);
-            page.setScaleX(INACTIVE_SCALE);
-            page.setScaleY(INACTIVE_SCALE);
+            alpha = INACTIVE_ALPHA;
+            scale = INACTIVE_SCALE;
         }
+
+        page.setAlpha(alpha);
+        page.setScaleX(scale);
+        page.setScaleY(scale);
     }
 
 }
