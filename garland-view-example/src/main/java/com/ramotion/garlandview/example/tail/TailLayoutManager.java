@@ -8,16 +8,23 @@ import android.view.View;
 
 public class TailLayoutManager extends RecyclerView.LayoutManager {
 
-    private final int SIDE_OFFSET = 50;
-    private final int VIEW_DISTANCE = 20;
+    public interface PageTransformer {
+        void transformPage(@NonNull View page, float position);
+    }
+
+    private static final int SIDE_OFFSET = 50;
+    private static final int VIEW_DISTANCE = -10;
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
     private final int mSideOffset;
     private final int mViewDistance;
 
+    private PageTransformer mPageTransformer;
+
     public TailLayoutManager(@NonNull Context context) {
         super();
+
         final float density = context.getResources().getDisplayMetrics().density;
         mViewDistance = (int) (VIEW_DISTANCE * density);
         mSideOffset = (int) (SIDE_OFFSET * density);
@@ -101,6 +108,10 @@ public class TailLayoutManager extends RecyclerView.LayoutManager {
         return scrolled;
     }
 
+    public void setPageTransformer(PageTransformer transformer) {
+        mPageTransformer = transformer;
+    }
+
     private int getAnchorPosition() {
         if (getChildCount() == 0) {
             return 0;
@@ -158,7 +169,18 @@ public class TailLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private void applyTransformation() {
+        if (mPageTransformer == null) {
+            return;
+        }
 
+        final int viewWidth = getWidth() - mSideOffset * 2;
+        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+            final View view = getChildAt(i);
+            final int viewLeft = getDecoratedLeft(view);
+            final float position = ((float) (viewLeft - mSideOffset)) / viewWidth;
+
+            mPageTransformer.transformPage(view, position);
+        }
     }
 
 }

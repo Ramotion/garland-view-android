@@ -9,7 +9,7 @@ import com.ramotion.garlandview.example.R;
 
 public class TailAdapter extends RecyclerView.Adapter<Tailtem> {
 
-    private static final int COUNT = 3;
+    private static final int COUNT = 6;
 
     @Override
     public Tailtem onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +32,7 @@ public class TailAdapter extends RecyclerView.Adapter<Tailtem> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 1) {
+        if (position % 2 == 0) {
             return R.layout.outter_rv_item_center;
         } else {
             return R.layout.outter_rv_item_side;
