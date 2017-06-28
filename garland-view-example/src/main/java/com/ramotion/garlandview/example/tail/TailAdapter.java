@@ -33,9 +33,9 @@ public class TailAdapter extends RecyclerView.Adapter<Tailtem> {
     @Override
     public int getItemViewType(int position) {
         if (position % 2 == 0) {
-            return R.layout.outer_rv_item_center;
+            return R.layout.tail_item_1;
         } else {
-            return R.layout.outer_rv_item_side;
+            return R.layout.tail_item_2;
         }
     }
 }

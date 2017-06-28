@@ -2,4 +2,6 @@
 <resources>
     <dimen name="item_v_offset">10dp</dimen>
     <dimen name="offset">10dp</dimen>
+
+    <dimen name="tail_item_width">300dp</dimen>
 </resources>
