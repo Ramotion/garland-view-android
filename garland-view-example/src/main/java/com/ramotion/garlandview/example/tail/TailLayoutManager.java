@@ -13,7 +13,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private static final int SIDE_OFFSET = 50;
-    private static final int VIEW_DISTANCE = -10;
+    private static final int VIEW_DISTANCE = 0;
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
