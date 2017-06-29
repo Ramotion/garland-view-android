@@ -8,15 +8,15 @@ import android.widget.LinearLayout;
 
 import com.ramotion.garlandview.example.R;
 
+
 public class AlphaScalePageTransformer implements TailLayoutManager.PageTransformer{
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_ALPHA = 0.5f;
+    private static final int OFFSET_MAX = 300;
 
     @Override
     public void transformPage(@NonNull View page, float position) {
-        Log.d("D", "position = " + position);
-
         final LinearLayout ll = (LinearLayout) page.findViewById(R.id.linear_layout);
 
         final int childCount = ll.getChildCount();
@@ -37,11 +37,6 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             scale = INACTIVE_SCALE;
         }
 
-        final int width = page.getWidth();
-
-        final float viewOffset = width * Math.abs(position);
-        final float step = viewOffset / 4;
-
         final int childHeight = ll.getChildAt(0).getHeight();
         final float yOffset = (childHeight - childHeight * scale) / 2;
 
@@ -53,8 +48,29 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
 
             final float j = Math.max(-2, 1 - i);
             ViewCompat.setTranslationY(child, j * yOffset);
+        }
 
+        offsetChildren(ll, position);
+    }
 
+    private void offsetChildren(@NonNull LinearLayout ll, float position) {
+        float floorDiff = position - (float) Math.floor(position);
+        if (floorDiff == 0f) {
+            floorDiff = 1f;
+        }
+
+        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff);
+
+        for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
+            final View child = ll.getChildAt(i);
+
+            final float childOffset;
+            if (floorDiff > 0.5f) {
+                childOffset = (1f - floorDiff) * OFFSET_MAX * i;
+            } else {
+                childOffset = floorDiff * OFFSET_MAX * i;
+            }
+            ViewCompat.setX(child, childOffset);
         }
     }
 
