@@ -13,6 +13,7 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_ALPHA = 0.5f;
+
     private static final int OFFSET_MAX = 300;
 
     @Override
@@ -54,12 +55,39 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
     }
 
     private void offsetChildren(@NonNull LinearLayout ll, float position) {
+        if (ll.getChildCount() < 2) {
+            return;
+        }
+
+        if (position < -1 || position > 1) {
+            for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
+                ViewCompat.setX(ll.getChildAt(i), 0);
+            }
+            return;
+        }
+
         float floorDiff = position - (float) Math.floor(position);
         if (floorDiff == 0f) {
             floorDiff = 1f;
         }
 
-        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff);
+        float sign;
+        final float childX = ViewCompat.getX(ll.getChildAt(1));
+        if (floorDiff > 0.5f) {
+            if (childX < -10){
+                sign = -1;
+            } else {
+                sign = 1;
+            }
+        } else {
+            if (childX > 10) {
+                sign = 1;
+            } else {
+                sign = -1;
+            }
+        }
+
+        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff + ", sign = " + sign);
 
         for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
@@ -70,7 +98,8 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             } else {
                 childOffset = floorDiff * OFFSET_MAX * i;
             }
-            ViewCompat.setX(child, childOffset);
+
+            ViewCompat.setX(child, sign * childOffset);
         }
     }
 
