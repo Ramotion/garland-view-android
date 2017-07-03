@@ -13,6 +13,7 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_ALPHA = 0.5f;
+    private static final float INACTIVE_ALPHA_CHILD = 0.0f;
 
     private static final int OFFSET_MAX = 300;
 
@@ -25,36 +26,54 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             return;
         }
 
-        final float alpha;
         final float scale;
+        final float alpha;
+        final float alphaChild;
+        final float pivotRatio;
         if (position < -1) {
-            alpha = INACTIVE_ALPHA;
             scale = INACTIVE_SCALE;
+            alpha = INACTIVE_ALPHA;
+            alphaChild = INACTIVE_ALPHA_CHILD;
+            pivotRatio = -1;
         } else if (position <= 1) {
-            alpha = INACTIVE_ALPHA + (1 - INACTIVE_ALPHA) * (1 - Math.abs(position));
             scale = INACTIVE_SCALE + (1 - INACTIVE_SCALE) * (1 - Math.abs(position));
+            alpha = INACTIVE_ALPHA + (1 - INACTIVE_ALPHA) * (1 - Math.abs(position));
+            alphaChild = INACTIVE_ALPHA_CHILD + (1 - INACTIVE_ALPHA_CHILD) * (1 - Math.abs(position));
+            pivotRatio = position;
         } else {
-            alpha = INACTIVE_ALPHA;
             scale = INACTIVE_SCALE;
+            alpha = INACTIVE_ALPHA;
+            alphaChild = INACTIVE_ALPHA_CHILD;
+            pivotRatio = 1;
         }
+
+        final int half = page.getWidth() / 2;
+        final float pivotX = half - pivotRatio * half;
 
         final int childHeight = ll.getChildAt(0).getHeight();
         final float yOffset = (childHeight - childHeight * scale) / 2;
 
         for (int i = 0, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
-            ViewCompat.setAlpha(child, alpha);
             ViewCompat.setScaleX(child, scale);
             ViewCompat.setScaleY(child, scale);
 
             final float j = Math.max(-2, 1 - i);
             ViewCompat.setTranslationY(child, j * yOffset);
+
+            if (i > 0) {
+                ViewCompat.setAlpha(child, alphaChild);
+            } else {
+                ViewCompat.setAlpha(child, alpha);
+            }
+
+            ViewCompat.setPivotX(child, pivotX);
         }
 
-        offsetChildren(ll, position);
+        applyTailEffect(ll, position);
     }
 
-    private void offsetChildren(@NonNull LinearLayout ll, float position) {
+    private void applyTailEffect(@NonNull LinearLayout ll, float position) {
         if (ll.getChildCount() < 2) {
             return;
         }
@@ -87,7 +106,7 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             }
         }
 
-        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff + ", sign = " + sign);
+//        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff + ", sign = " + sign);
 
         for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
