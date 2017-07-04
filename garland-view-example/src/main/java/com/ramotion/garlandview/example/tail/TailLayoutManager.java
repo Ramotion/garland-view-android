@@ -1,12 +1,14 @@
 package com.ramotion.garlandview.example.tail;
 
 import android.content.Context;
+import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
-public class TailLayoutManager extends RecyclerView.LayoutManager {
+public class TailLayoutManager extends RecyclerView.LayoutManager
+        implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
     public interface PageTransformer {
         void transformPage(@NonNull View page, float position);
@@ -17,7 +19,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager {
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
-    private final int mSideOffset;
+    private final int mSideOffset; // TODO: remove - center first view
     private final int mViewDistance;
 
     private PageTransformer mPageTransformer;
@@ -108,8 +110,22 @@ public class TailLayoutManager extends RecyclerView.LayoutManager {
         return scrolled;
     }
 
+    @Override
+    public PointF computeScrollVectorForPosition(int targetPosition) {
+        if (getChildCount() == 0) {
+            return null;
+        }
+        final int firstChildPos = getPosition(getChildAt(0));
+        final int direction = targetPosition < firstChildPos ? -1 : 1;
+        return new PointF(direction, 0);
+    }
+
     public void setPageTransformer(PageTransformer transformer) {
         mPageTransformer = transformer;
+    }
+
+    public int getSideOffset() {
+        return mSideOffset;
     }
 
     private int getAnchorPosition() {

@@ -2,7 +2,6 @@ package com.ramotion.garlandview.example.tail;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -105,8 +104,6 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
                 sign = -1;
             }
         }
-
-//        Log.d("D", "p: " + position + ", floorDiff: " + floorDiff + ", sign = " + sign);
 
         for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
