@@ -1,12 +1,12 @@
-package com.ramotion.garlandview.example.tail;
+package com.ramotion.garlandview.example;
 
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class Tailtem extends RecyclerView.ViewHolder {
+public class Outerltem extends RecyclerView.ViewHolder {
 
-    public Tailtem(View itemView) {
+    public Outerltem(View itemView) {
         super(itemView);
 
         /*

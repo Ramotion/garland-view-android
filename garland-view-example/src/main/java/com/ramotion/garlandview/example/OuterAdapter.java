@@ -1,27 +1,25 @@
-package com.ramotion.garlandview.example.tail;
+package com.ramotion.garlandview.example;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ramotion.garlandview.example.R;
-
-public class TailAdapter extends RecyclerView.Adapter<Tailtem> {
+public class OuterAdapter extends RecyclerView.Adapter<Outerltem> {
 
     private static final int COUNT = 6;
 
     @Override
-    public Tailtem onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Outerltem onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(viewType, parent, false);
 
-        return new Tailtem(view);
+        return new Outerltem(view);
     }
 
     @Override
-    public void onBindViewHolder(Tailtem holder, int position) {
+    public void onBindViewHolder(Outerltem holder, int position) {
 
     }
 
