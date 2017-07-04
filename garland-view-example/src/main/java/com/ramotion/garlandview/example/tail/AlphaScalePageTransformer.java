@@ -20,6 +20,11 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
     public void transformPage(@NonNull View page, float position) {
         final LinearLayout ll = (LinearLayout) page.findViewById(R.id.linear_layout);
 
+        applyScaleEffect(ll, position);
+        applyTailEffect(ll, position);
+    }
+
+    private void applyScaleEffect(@NonNull LinearLayout ll, float position) {
         final int childCount = ll.getChildCount();
         if (childCount == 0) {
             return;
@@ -46,7 +51,7 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             pivotRatio = 1;
         }
 
-        final float half = page.getWidth() / 2;
+        final float half = ((View)ll.getParent()).getWidth() / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
 
         final int childHeight = ll.getChildAt(0).getHeight();
@@ -68,8 +73,6 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
 
             ViewCompat.setPivotX(child, pivotX);
         }
-
-        applyTailEffect(ll, position);
     }
 
     private void applyTailEffect(@NonNull LinearLayout ll, float position) {
