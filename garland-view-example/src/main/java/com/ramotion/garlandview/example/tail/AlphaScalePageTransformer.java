@@ -13,8 +13,8 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_ALPHA = 0.5f;
     private static final float INACTIVE_ALPHA_CHILD = 0.0f;
-
-    private static final int OFFSET_MAX = 300;
+    private static final float PIVOT_X_SCALE = 0.8f;
+    private static final int OFFSET_MAX = 200;
 
     @Override
     public void transformPage(@NonNull View page, float position) {
@@ -46,8 +46,8 @@ public class AlphaScalePageTransformer implements TailLayoutManager.PageTransfor
             pivotRatio = 1;
         }
 
-        final int half = page.getWidth() / 2;
-        final float pivotX = half - pivotRatio * half;
+        final float half = page.getWidth() / 2;
+        final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
 
         final int childHeight = ll.getChildAt(0).getHeight();
         final float yOffset = (childHeight - childHeight * scale) / 2;

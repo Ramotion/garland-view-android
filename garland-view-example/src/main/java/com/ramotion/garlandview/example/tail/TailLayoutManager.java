@@ -174,7 +174,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             } else {
                 view = recycler.getViewForPosition(pos);
                 addView(view);
-                measureChildWithMargins(view, 0, 0);
+                measureChildWithMargins(view, mSideOffset * 2, 0);
                 layoutDecorated(view, viewLeft, 0, viewLeft + viewWidth, getDecoratedMeasuredHeight(view));
             }
 
