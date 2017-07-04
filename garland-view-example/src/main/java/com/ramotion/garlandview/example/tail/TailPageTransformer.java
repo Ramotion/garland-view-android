@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import com.ramotion.garlandview.example.R;
 
 
-public class AlphaScalePageTransformer implements TailLayoutManager.PageTransformer{
+public class TailPageTransformer implements TailLayoutManager.PageTransformer{
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_ALPHA = 0.5f;
