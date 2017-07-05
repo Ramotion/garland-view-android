@@ -3,7 +3,7 @@ package com.ramotion.garlandview.example.tail;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
 
 import com.ramotion.garlandview.example.R;
 
@@ -18,13 +18,13 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
 
     @Override
     public void transformPage(@NonNull View page, float position) {
-        final LinearLayout ll = (LinearLayout) page.findViewById(R.id.linear_layout);
+        final ViewGroup ll = (ViewGroup) page.findViewById(R.id.recycler_view);
 
         applyScaleEffect(ll, position);
         applyTailEffect(ll, position);
     }
 
-    private void applyScaleEffect(@NonNull LinearLayout ll, float position) {
+    private void applyScaleEffect(@NonNull ViewGroup ll, float position) {
         final int childCount = ll.getChildCount();
         if (childCount == 0) {
             return;
@@ -51,7 +51,7 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             pivotRatio = 1;
         }
 
-        final float half = ((View)ll.getParent()).getWidth() / 2;
+        final float half = ll.getWidth() / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
 
         final int childHeight = ll.getChildAt(0).getHeight();
@@ -59,6 +59,8 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
 
         for (int i = 0, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
+
+            ViewCompat.setPivotX(child, pivotX);
             ViewCompat.setScaleX(child, scale);
             ViewCompat.setScaleY(child, scale);
 
@@ -70,12 +72,10 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             } else {
                 ViewCompat.setAlpha(child, alpha);
             }
-
-            ViewCompat.setPivotX(child, pivotX);
         }
     }
 
-    private void applyTailEffect(@NonNull LinearLayout ll, float position) {
+    private void applyTailEffect(@NonNull ViewGroup ll, float position) {
         if (ll.getChildCount() < 2) {
             return;
         }
