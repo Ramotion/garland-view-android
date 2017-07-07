@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ramotion.garlandview.example.tail.TailLayoutManager;
 import com.ramotion.garlandview.example.tail.TailPageTransformer;
+import com.ramotion.garlandview.example.tail.TailSnapHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(lm);
         rv.setAdapter(new OuterAdapter());
 
-//        new TailSnapHelper().attachToRecyclerView(rv);
+        new TailSnapHelper().attachToRecyclerView(rv);
     }
 
 }

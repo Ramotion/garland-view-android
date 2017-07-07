@@ -12,7 +12,7 @@ import android.view.View;
 
 public class TailSnapHelper extends SnapHelper {
 
-    private static final int MAX_SCROLL_ON_FLING_DURATION = 100; // ms
+    private static final int MAX_SCROLL_ON_FLING_DURATION = 300; // ms
     private static final float MILLISECONDS_PER_INCH = 100f;
 
     private RecyclerView mRecyclerView;

@@ -4,6 +4,23 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/backgroundTop"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundBottom"/>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_marginTop="15dp"
@@ -16,6 +33,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="50dp"
+        android:visibility="invisible"
         android:background="@android:color/holo_red_light"/>
 
     <View
@@ -23,6 +41,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="50dp"
+        android:visibility="invisible"
         android:background="@android:color/holo_red_light"/>
 
 </FrameLayout>
