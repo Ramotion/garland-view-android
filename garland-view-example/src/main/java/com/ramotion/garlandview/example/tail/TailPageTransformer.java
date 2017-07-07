@@ -2,12 +2,14 @@ package com.ramotion.garlandview.example.tail;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.garlandview.example.R;
 
-
+// TODO: use viewHolders
 public class TailPageTransformer implements TailLayoutManager.PageTransformer{
 
     private static final float INACTIVE_SCALE = 0.7f;
@@ -16,20 +18,39 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
     private static final float PIVOT_X_SCALE = 0.8f;
     private static final int OFFSET_MAX = 200;
 
-    @Override
-    public void transformPage(@NonNull View page, float position) {
-        final ViewGroup ll = (ViewGroup) page.findViewById(R.id.recycler_view);
+    private static class AlphaScaleParams {
+        final float position;
+        final float scale;
+        final float alpha;
+        final float alphaChild;
+        final float pivotX;
+        final float offsetY;
 
-        applyScaleEffect(ll, position);
-        applyTailEffect(ll, position);
+        AlphaScaleParams(float position, float scale, float alpha, float alphaChild, float pivotX, float offsetY) {
+            this.position = position;
+            this.scale = scale;
+            this.alpha = alpha;
+            this.alphaChild = alphaChild;
+            this.pivotX = pivotX;
+            this.offsetY = offsetY;
+        }
     }
 
-    private void applyScaleEffect(@NonNull ViewGroup ll, float position) {
-        final int childCount = ll.getChildCount();
-        if (childCount == 0) {
-            return;
-        }
+    @Override
+    public void transformPage(@NonNull View page, float position) {
+        final View header = page.findViewById(R.id.header);
+        final AlphaScaleParams params = getParamsForPosition(header, position);
+        applyAlphaScaleEffectOnHeader(header, params);
 
+        final RecyclerView rv = (RecyclerView) page.findViewById(R.id.recycler_view);
+        applyAlphaScaleEffectOnRecyclerView(rv, params);
+        applyTailEffect(rv, position);
+
+        final View cutter = page.findViewById(R.id.cutter);
+        cutter.setBottom((int)Math.ceil(params.offsetY * 2));
+    }
+
+    private AlphaScaleParams getParamsForPosition(@NonNull View view, float position) {
         final float scale;
         final float alpha;
         final float alphaChild;
@@ -51,27 +72,41 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             pivotRatio = 1;
         }
 
-        final float half = ll.getWidth() / 2;
+        final float half = view.getWidth() / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
 
-        final int childHeight = ll.getChildAt(0).getHeight();
-        final float yOffset = (childHeight - childHeight * scale) / 2;
+        final int childHeight = view.getHeight();
+        final float offsetY = (childHeight - childHeight * scale) / 2;
 
-        for (int i = 0, cnt = ll.getChildCount(); i < cnt; i++) {
-            final View child = ll.getChildAt(i);
+        return new AlphaScaleParams(position, scale, alpha, alphaChild, pivotX, offsetY);
+    }
 
-            ViewCompat.setPivotX(child, pivotX);
-            ViewCompat.setScaleX(child, scale);
-            ViewCompat.setScaleY(child, scale);
+    private void applyAlphaScaleEffectOnHeader(@NonNull View view, @NonNull AlphaScaleParams params) {
+        ViewCompat.setPivotX(view, params.pivotX);
+        ViewCompat.setScaleX(view, params.scale);
+        ViewCompat.setScaleY(view, params.scale);
+        ViewCompat.setAlpha(view, params.alpha);
+        ViewCompat.setTranslationY(view, params.offsetY);
+
+        view.findViewById(R.id.header_alpha).setAlpha(1 - params.alphaChild);
+    }
+
+    private void applyAlphaScaleEffectOnRecyclerView(@NonNull RecyclerView rv, @NonNull AlphaScaleParams params) {
+        final int childCount = rv.getChildCount();
+        if (childCount == 0) {
+            return;
+        }
+
+        for (int i = 0, cnt = rv.getChildCount(); i < cnt; i++) {
+            final View view = rv.getChildAt(i);
+
+            ViewCompat.setPivotX(view, params.pivotX);
+            ViewCompat.setScaleX(view, params.scale);
+            ViewCompat.setScaleY(view, params.scale);
+            ViewCompat.setAlpha(view, params.alphaChild);
 
             final float j = Math.max(-2, 1 - i);
-            ViewCompat.setTranslationY(child, j * yOffset);
-
-            if (i > 0) {
-                ViewCompat.setAlpha(child, alphaChild);
-            } else {
-                ViewCompat.setAlpha(child, alpha);
-            }
+            ViewCompat.setTranslationY(view, j * params.offsetY);
         }
     }
 
@@ -92,8 +127,17 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             floorDiff = 1f;
         }
 
+        View fistOffsetChild = ll.getChildAt(1);
+        for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
+            final View child = ll.getChildAt(i);
+            if (child.getY() > child.getHeight()) {
+                fistOffsetChild = child;
+                break;
+            }
+        }
+
         float sign;
-        final float childX = ViewCompat.getX(ll.getChildAt(1));
+        final float childX = ViewCompat.getX(fistOffsetChild);
         if (floorDiff > 0.5f) {
             if (childX < -10){
                 sign = -1;
@@ -108,14 +152,21 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             }
         }
 
+        int j = 0;
         for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
             final View child = ll.getChildAt(i);
 
+            if (child.getY() <= child.getHeight()) {
+                continue;
+            } else {
+                j++;
+            }
+
             final float childOffset;
             if (floorDiff > 0.5f) {
-                childOffset = (1f - floorDiff) * OFFSET_MAX * i;
+                childOffset = (1f - floorDiff) * OFFSET_MAX * j;
             } else {
-                childOffset = floorDiff * OFFSET_MAX * i;
+                childOffset = floorDiff * OFFSET_MAX * j;
             }
 
             ViewCompat.setX(child, sign * childOffset);
