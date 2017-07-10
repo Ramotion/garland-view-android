@@ -4,4 +4,8 @@
     <dimen name="offset">10dp</dimen>
 
     <dimen name="tail_item_width">300dp</dimen>
+    <dimen name="header_top_height">100dp</dimen>
+    <dimen name="header_top_min_height">75dp</dimen>
+
+    <dimen name="inner_item_offset">15dp</dimen>
 </resources>

@@ -23,18 +23,20 @@
         android:layout_height="150dp">
 
         <View
+            android:id="@+id/header_background"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/header_top_height"
             android:background="@color/backgroundTop"/>
 
         <LinearLayout
+            android:id="@+id/header_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/header_top_height"
                 android:background="@drawable/green_top_corners"/>
 
             <View

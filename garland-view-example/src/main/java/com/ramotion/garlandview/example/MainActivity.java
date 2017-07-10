@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
+import com.ramotion.garlandview.example.outer.OuterAdapter;
 import com.ramotion.garlandview.example.tail.TailLayoutManager;
 import com.ramotion.garlandview.example.tail.TailPageTransformer;
 import com.ramotion.garlandview.example.tail.TailSnapHelper;

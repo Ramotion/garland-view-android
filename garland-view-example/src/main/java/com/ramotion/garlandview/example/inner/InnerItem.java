@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example;
+package com.ramotion.garlandview.example.inner;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
