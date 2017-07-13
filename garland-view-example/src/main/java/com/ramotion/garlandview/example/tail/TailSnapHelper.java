@@ -45,28 +45,7 @@ public class TailSnapHelper extends SnapHelper {
     @Nullable
     @Override
     public View findSnapView(RecyclerView.LayoutManager lm) {
-        final int childCount = lm.getChildCount();
-        if (childCount == 0) {
-            return null;
-        }
-
-        final int center = lm.getWidth() / 2;
-
-        int absClosest = Integer.MAX_VALUE;
-        View closestChild = null;
-
-        for (int i = 0; i < childCount; i++) {
-            final View child = lm.getChildAt(i);
-            final int childCenter = lm.getDecoratedLeft(child) + lm.getDecoratedMeasuredWidth(child) / 2;
-            int absDistance = Math.abs(childCenter - center);
-
-            if (absDistance < absClosest) {
-                absClosest = absDistance;
-                closestChild = child;
-            }
-        }
-
-        return closestChild;
+        return ((TailLayoutManager)lm).getCenterView();
     }
 
     @Override

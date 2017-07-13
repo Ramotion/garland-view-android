@@ -3,6 +3,7 @@ package com.ramotion.garlandview.example.tail;
 import android.content.Context;
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -56,14 +57,27 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             return;
         }
 
-        if (getChildCount() == 0 && state.isPreLayout()) {
+        final int childCount = getChildCount();
+        if (childCount == 0 && state.isPreLayout()) {
             return;
         }
 
         final int anchorPos = getAnchorPosition();
 
+        final int scrollOffset;
+        if (childCount == 0) {
+            scrollOffset = 0;
+        } else {
+            final View anchorView = findViewByPosition(anchorPos);
+            scrollOffset = mSideOffset - getDecoratedLeft(anchorView);
+        }
+
         detachAndScrapAttachedViews(recycler);
         layoutViews(anchorPos, recycler, state);
+
+        if (scrollOffset != 0) {
+            scrollHorizontallyBy(scrollOffset, recycler, state);
+        }
     }
 
     @Override
@@ -128,11 +142,37 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         return mSideOffset;
     }
 
+    @Nullable
+    public View getCenterView() {
+        final int center = getWidth() / 2;
+
+        int absClosest = Integer.MAX_VALUE;
+        View centerChild = null;
+
+        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+            final View child = getChildAt(i);
+            final int childCenter = getDecoratedLeft(child) + getDecoratedMeasuredWidth(child) / 2;
+            int absDistance = Math.abs(childCenter - center);
+
+            if (absDistance < absClosest) {
+                absClosest = absDistance;
+                centerChild = child;
+            }
+        }
+
+        return centerChild;
+    }
+
     private int getAnchorPosition() {
         if (getChildCount() == 0) {
             return 0;
         } else {
-            return getPosition(getChildAt(0));
+            final View centerView = getCenterView();
+            if (centerView == null) {
+                return 0;
+            }
+
+            return getPosition(centerView);
         }
     }
 
@@ -148,7 +188,8 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             detachView(mViewCache.valueAt(i));
         }
 
-        fill(anchorPos, recycler, state);
+        fillLeft(anchorPos, recycler, state);
+        fillRight(anchorPos, recycler, state);
 
         for (int i = 0, cnt = mViewCache.size(); i < cnt; i++) {
             recycler.recycleView(mViewCache.valueAt(i));
@@ -157,7 +198,38 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         applyTransformation();
     }
 
-    private void fill(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
+    private void fillLeft(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (anchorPos <= 0) {
+            return;
+        }
+
+        final int anchorViewLeft;
+        final View anchorView = mViewCache.get(anchorPos);
+        if (anchorView != null) {
+            anchorViewLeft = getDecoratedLeft(anchorView);
+        } else {
+            anchorViewLeft = mSideOffset - mViewDistance;
+        }
+
+        final int pos = anchorPos - 1;
+        final int width = getWidth();
+        final int viewWidth = width - mSideOffset * 2;
+
+        View view = mViewCache.get(pos);
+        if (view != null) {
+            attachView(view);
+            mViewCache.remove(pos);
+        } else {
+            view = recycler.getViewForPosition(pos);
+            addView(view);
+            measureChildWithMargins(view, mSideOffset * 2, 0);
+            final int viewRight = anchorViewLeft - mViewDistance;
+            final int viewLeft = viewRight - viewWidth;
+            layoutDecorated(view, viewLeft, 0, viewRight, getDecoratedMeasuredHeight(view));
+        }
+    }
+
+    private void fillRight(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final int itemCount = getItemCount();
         final int width = getWidth();
         final int viewWidth = width - mSideOffset * 2;
