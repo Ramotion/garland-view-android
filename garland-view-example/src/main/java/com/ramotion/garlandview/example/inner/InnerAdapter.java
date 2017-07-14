@@ -16,7 +16,7 @@ public class InnerAdapter extends RecyclerView.Adapter<InnerItem> {
     public InnerItem onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.inner_item, parent, false);
+                .inflate(viewType, parent, false);
 
         return new InnerItem(view);
     }
@@ -31,4 +31,12 @@ public class InnerAdapter extends RecyclerView.Adapter<InnerItem> {
         return COUNT;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return R.layout.inner_card_empty;
+        } else {
+            return R.layout.inner_card;
+        }
+    }
 }

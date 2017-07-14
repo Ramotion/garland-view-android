@@ -15,7 +15,7 @@ public class OuterAdapter extends RecyclerView.Adapter<OuterItem> {
     public OuterItem onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(viewType, parent, false);
+                .inflate(R.layout.outer_item, parent, false);
 
         return new OuterItem(view);
     }
@@ -30,8 +30,4 @@ public class OuterAdapter extends RecyclerView.Adapter<OuterItem> {
         return COUNT;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return R.layout.outer_item;
-    }
 }
