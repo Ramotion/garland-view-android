@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">garlandview-example</string>
+    <string name="title_activity_details">DetailsActivity</string>
 </resources>

@@ -16,4 +16,5 @@
 
     <dimen name="inner_item_offset">15dp</dimen>
     <dimen name="inner_item_height">150dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
