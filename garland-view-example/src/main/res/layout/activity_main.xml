@@ -12,7 +12,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="230dp"
-            android:background="@color/backgroundTop"/>
+            android:background="@color/backgroundTop"
+            android:transitionName="blackBackground"/>
 
         <View
             android:layout_width="match_parent"

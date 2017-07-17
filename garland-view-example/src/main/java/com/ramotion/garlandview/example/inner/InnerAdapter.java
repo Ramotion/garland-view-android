@@ -1,6 +1,7 @@
 package com.ramotion.garlandview.example.inner;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +13,20 @@ public class InnerAdapter extends RecyclerView.Adapter<InnerItem> {
 
     private static final int COUNT = 10;
 
+    private final InnerItem.OnClickListener mItemOnClickListener;
+
+    public InnerAdapter(@NonNull InnerItem.OnClickListener listener) {
+        super();
+        mItemOnClickListener = listener;
+    }
+
     @Override
     public InnerItem onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(viewType, parent, false);
 
-        return new InnerItem(view);
+        return new InnerItem(view, mItemOnClickListener);
     }
 
     @Override

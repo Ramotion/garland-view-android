@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/inner_item_height"
     android:layout_gravity="center"
+    android:clickable="true"
     app:cardCornerRadius="5dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,6 +78,14 @@
             android:id="@+id/header_footer"
             android:layout_width="match_parent"
             android:layout_height="50dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:alpha="0.3"
+                android:background="@android:color/black"/>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/header_footer_collapsible"

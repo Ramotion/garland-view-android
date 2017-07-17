@@ -1,6 +1,7 @@
 package com.ramotion.garlandview.example.outer;
 
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +12,16 @@ import android.view.ViewGroup;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerAdapter;
 import com.ramotion.garlandview.example.inner.InnerDecorator;
+import com.ramotion.garlandview.example.inner.InnerItem;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class OuterItem extends RecyclerView.ViewHolder {
+
+    public interface OnClickListener {
+        void onClick(@NonNull View itemView, int innerPosition, int outerPosition);
+    }
 
     private final RecyclerView mRecyclerView;
 
@@ -30,7 +36,7 @@ public class OuterItem extends RecyclerView.ViewHolder {
     private final int m10dp;
     private final int m60dp;
 
-    public OuterItem(View itemView) {
+    public OuterItem(@NonNull View itemView, @NonNull final OnClickListener listener) {
         super(itemView);
 
         m10dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp10);
@@ -49,7 +55,12 @@ public class OuterItem extends RecyclerView.ViewHolder {
 
         mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(lm);
-        mRecyclerView.setAdapter(new InnerAdapter());
+        mRecyclerView.setAdapter(new InnerAdapter(new InnerItem.OnClickListener() {
+            @Override
+            public void onClick(@NonNull View itemView, int position) {
+                listener.onClick(itemView, position, getAdapterPosition());
+            }
+        }));
 
         final int topOffset = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.inner_item_offset);
         mRecyclerView.addItemDecoration(new InnerDecorator(topOffset));
