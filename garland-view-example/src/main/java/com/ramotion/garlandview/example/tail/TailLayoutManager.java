@@ -5,8 +5,11 @@ import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+
+import com.ramotion.garlandview.example.outer.OuterItem;
 
 public class TailLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
@@ -24,6 +27,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     private final int mViewDistance;
 
     private PageTransformer mPageTransformer;
+    private RecyclerView mRecyclerView;
 
     public TailLayoutManager(@NonNull Context context) {
         super();
@@ -31,6 +35,18 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         final float density = context.getResources().getDisplayMetrics().density;
         mViewDistance = (int) (VIEW_DISTANCE * density);
         mSideOffset = (int) (SIDE_OFFSET * density);
+    }
+
+    @Override
+    public void onAttachedToWindow(RecyclerView view) {
+        super.onAttachedToWindow(view);
+        mRecyclerView = view;
+    }
+
+    @Override
+    public void onDetachedFromWindow(RecyclerView view, RecyclerView.Recycler recycler) {
+        super.onDetachedFromWindow(view, recycler);
+        mRecyclerView = null;
     }
 
     @Override
@@ -85,6 +101,15 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         final int childCount = getChildCount();
         if (childCount == 0) {
             return 0;
+        }
+
+        if (mRecyclerView != null) {
+            for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+                final TailItem vh = (TailItem) mRecyclerView.getChildViewHolder(getChildAt(i));
+                if (vh.isScrolling()) {
+                    return 0;
+                }
+            }
         }
 
         int scrolled;
@@ -208,7 +233,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         if (anchorView != null) {
             anchorViewLeft = getDecoratedLeft(anchorView);
         } else {
-            anchorViewLeft = mSideOffset - mViewDistance;
+            anchorViewLeft = mSideOffset;
         }
 
         final int pos = anchorPos - 1;

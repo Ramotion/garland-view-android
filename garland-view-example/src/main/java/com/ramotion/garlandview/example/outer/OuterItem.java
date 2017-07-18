@@ -13,11 +13,12 @@ import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerAdapter;
 import com.ramotion.garlandview.example.inner.InnerDecorator;
 import com.ramotion.garlandview.example.inner.InnerItem;
+import com.ramotion.garlandview.example.tail.TailItem;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class OuterItem extends RecyclerView.ViewHolder {
+public class OuterItem extends RecyclerView.ViewHolder implements TailItem {
 
     public interface OnClickListener {
         void onClick(@NonNull View itemView, int innerPosition, int outerPosition);
@@ -35,6 +36,8 @@ public class OuterItem extends RecyclerView.ViewHolder {
 
     private final int m10dp;
     private final int m60dp;
+
+    private boolean mIsScrolling = false;
 
     public OuterItem(@NonNull View itemView, @NonNull final OnClickListener listener) {
         super(itemView);
@@ -66,6 +69,11 @@ public class OuterItem extends RecyclerView.ViewHolder {
         mRecyclerView.addItemDecoration(new InnerDecorator(topOffset));
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                mIsScrolling = newState != RecyclerView.SCROLL_STATE_IDLE;
+            }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 final float scrollRatio;
@@ -129,6 +137,11 @@ public class OuterItem extends RecyclerView.ViewHolder {
         final ViewGroup.LayoutParams lp = mHeaderMiddle.getLayoutParams();
         lp.height = m60dp - (int)(m10dp * (1f - middleRatio));
         mHeaderMiddle.setLayoutParams(lp);
+    }
+
+    @Override
+    public boolean isScrolling() {
+        return mIsScrolling;
     }
 
 }
