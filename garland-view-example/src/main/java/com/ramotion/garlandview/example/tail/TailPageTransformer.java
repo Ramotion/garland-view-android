@@ -3,7 +3,6 @@ package com.ramotion.garlandview.example.tail;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,10 +12,11 @@ import com.ramotion.garlandview.example.R;
 public class TailPageTransformer implements TailLayoutManager.PageTransformer{
 
     private static final float INACTIVE_SCALE = 0.7f;
+    private static final float INACTIVE_SCALE_CHILD = 0.3f;
     private static final float INACTIVE_ALPHA = 0.5f;
     private static final float INACTIVE_ALPHA_CHILD = 0.0f;
     private static final float PIVOT_X_SCALE = 0.8f;
-    private static final int OFFSET_MAX = 200;
+    private static final int OFFSET_MAX = 150;
 
     private static class AlphaScaleParams {
         final float position;
@@ -50,31 +50,21 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         cutter.setBottom((int)Math.ceil(params.offsetY * 2));
     }
 
-    private AlphaScaleParams getParamsForPosition(@NonNull View view, float position) {
-        final float scale;
-        final float alpha;
-        final float alphaChild;
-        final float pivotRatio;
-        if (position < -1) {
-            scale = INACTIVE_SCALE;
-            alpha = INACTIVE_ALPHA;
-            alphaChild = INACTIVE_ALPHA_CHILD;
-            pivotRatio = -1;
-        } else if (position <= 1) {
-            scale = INACTIVE_SCALE + (1 - INACTIVE_SCALE) * (1 - Math.abs(position));
-            alpha = INACTIVE_ALPHA + (1 - INACTIVE_ALPHA) * (1 - Math.abs(position));
-            alphaChild = INACTIVE_ALPHA_CHILD + (1 - INACTIVE_ALPHA_CHILD) * (1 - Math.abs(position));
-            pivotRatio = position;
-        } else {
-            scale = INACTIVE_SCALE;
-            alpha = INACTIVE_ALPHA;
-            alphaChild = INACTIVE_ALPHA_CHILD;
-            pivotRatio = 1;
+    private float computeRatio(float minValue, float maxValue, float position) {
+        if (position < -1 || position > 1) {
+            return minValue;
         }
 
+        return minValue + (maxValue - minValue) * (1 - Math.abs(position));
+    }
+
+    private AlphaScaleParams getParamsForPosition(@NonNull View view, float position) {
+        final float scale = computeRatio(INACTIVE_SCALE, 1, position);
+        final float alpha = computeRatio(INACTIVE_ALPHA, 1, position);
+        final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
+        final float pivotRatio = Math.max(-1, Math.min(1, position));
         final float half = view.getWidth() / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
-
         final int childHeight = view.getHeight();
         final float offsetY = (childHeight - childHeight * scale) / 2;
 
@@ -97,13 +87,25 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             return;
         }
 
+        final float scaleStep = (INACTIVE_SCALE - INACTIVE_SCALE_CHILD) / 3; // Divide on visible children count
+        float scaleMin = INACTIVE_SCALE_CHILD;
+
         for (int i = 0, cnt = rv.getChildCount(); i < cnt; i++) {
             final View view = rv.getChildAt(i);
 
             ViewCompat.setPivotX(view, params.pivotX);
-            ViewCompat.setScaleX(view, params.scale);
-            ViewCompat.setScaleY(view, params.scale);
             ViewCompat.setAlpha(view, params.alphaChild);
+
+            final float scale;
+            if (i == 0) {
+                scale = params.scale;
+            } else {
+                scale = computeRatio(scaleMin, 1, params.position);
+                scaleMin += scaleStep;
+            }
+
+            ViewCompat.setScaleX(view, scale);
+            ViewCompat.setScaleY(view, scale);
 
             final float j = Math.max(-2, 1 - i);
             ViewCompat.setTranslationY(view, j * params.offsetY);
