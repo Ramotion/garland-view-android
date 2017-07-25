@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.outer;
+package com.ramotion.garlandview.example.old.outer;
 
 
 import android.support.annotation.NonNull;
@@ -9,16 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ramotion.garlandview.TailItem;
 import com.ramotion.garlandview.example.R;
-import com.ramotion.garlandview.example.inner.InnerAdapter;
-import com.ramotion.garlandview.example.inner.InnerDecorator;
-import com.ramotion.garlandview.example.inner.InnerItem;
-import com.ramotion.garlandview.example.tail.TailItem;
+import com.ramotion.garlandview.example.old.inner.InnerAdapter;
+import com.ramotion.garlandview.example.old.inner.InnerDecorator;
+import com.ramotion.garlandview.example.old.inner.InnerItem;
+//import com.ramotion.garlandview.example.old.tail.TailItemOld;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class OuterItem extends RecyclerView.ViewHolder implements TailItem {
+//public class OuterItem extends RecyclerView.ViewHolder implements TailItemOld {
+public class OuterItem extends TailItem {
 
     public interface OnClickListener {
         void onClick(@NonNull View itemView, int innerPosition, int outerPosition);
@@ -111,10 +113,15 @@ public class OuterItem extends RecyclerView.ViewHolder implements TailItem {
         final float middleRatioMax = 0.1f;
         final float middleRatioDiff = middleRatioStart - middleRatioMax;
 
+        final float headerCaptionRatioStart = 0.5f;
+        final float headerCaptionRatioMax = 0.5f;
+        final float headerCaptionRatioDiff = headerCaptionRatioStart - headerCaptionRatioMax;
+
         final float footerRatio = max(0, scrollRatio - footerRatioDiff) / footerRatioMax;
         final float avatarRatio = max(0, scrollRatio - avatarRatioDiff) / avatarRatioMax;
         final float middleAnswerRatio = max(0, min(middleAnswerRatioStart, scrollRatio) - middleAnswerRatioDiff) / middleAnswerRatioMax;
         final float middleRatio = max(0, min(middleRatioStart, scrollRatio) - middleRatioDiff) / middleRatioMax;
+        final float headerRatio = max(0, min(headerCaptionRatioStart, scrollRatio) - headerCaptionRatioDiff) / headerCaptionRatioMax;
         Log.d("D", String.format("onHeaderScrolled| scroll: %f", scrollRatio));
 
         ViewCompat.setAlpha(mHeaderFooterCollapsible, footerRatio);
@@ -131,8 +138,8 @@ public class OuterItem extends RecyclerView.ViewHolder implements TailItem {
         ViewCompat.setPivotY(mHeaderMiddleAnswer, mHeaderMiddleAnswer.getHeight());
         ViewCompat.setScaleY(mHeaderMiddleAnswer, 1f - middleAnswerRatio);
 
-        ViewCompat.setAlpha(mHeaderCaption1, middleAnswerRatio);
-        ViewCompat.setAlpha(mHeaderCaption2, 1f - middleAnswerRatio);
+        ViewCompat.setAlpha(mHeaderCaption1, headerRatio);
+        ViewCompat.setAlpha(mHeaderCaption2, 1f - headerRatio);
 
         final ViewGroup.LayoutParams lp = mHeaderMiddle.getLayoutParams();
         lp.height = m60dp - (int)(m10dp * (1f - middleRatio));
@@ -144,4 +151,8 @@ public class OuterItem extends RecyclerView.ViewHolder implements TailItem {
         return mIsScrolling;
     }
 
+    @Override
+    public ViewGroup getViewGroup() {
+        return mRecyclerView;
+    }
 }

@@ -5,18 +5,20 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 
-import com.ramotion.garlandview.example.outer.OuterAdapter;
-import com.ramotion.garlandview.example.outer.OuterItem;
-import com.ramotion.garlandview.example.tail.TailLayoutManager;
-import com.ramotion.garlandview.example.tail.TailPageTransformer;
-import com.ramotion.garlandview.example.tail.TailSnapHelper;
+import com.ramotion.garlandview.header.HeaderTransformer;
+import com.ramotion.garlandview.TailLayoutManager;
+import com.ramotion.garlandview.TailRecyclerView;
+import com.ramotion.garlandview.TailSnapHelper;
+import com.ramotion.garlandview.example.old.outer.OuterAdapter;
+import com.ramotion.garlandview.example.old.outer.OuterItem;
+import com.ramotion.garlandview.example.old.tail.TailLayoutManagerOld;
+import com.ramotion.garlandview.example.old.tail.TailPageTransformerOld;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        initRecyclerViewOld();
         initRecyclerView();
     }
 
-    private void initRecyclerView() {
+    private void initRecyclerViewOld() {
         final RecyclerView rv = (RecyclerView) findViewById(R.id.recycler_view);
 
-        final TailLayoutManager lm = new TailLayoutManager(this);
-        lm.setPageTransformer(new TailPageTransformer());
+        final TailLayoutManagerOld lm = new TailLayoutManagerOld(this);
+        lm.setPageTransformer(new TailPageTransformerOld());
 
         rv.setLayoutManager(lm);
         rv.setAdapter(new OuterAdapter(new OuterItem.OnClickListener() {
@@ -53,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }));
+
+        new TailSnapHelper().attachToRecyclerView(rv);
+    }
+
+    private void initRecyclerView() {
+        final TailRecyclerView rv = (TailRecyclerView) findViewById(R.id.recycler_view);
+
+        final TailLayoutManager lm = new TailLayoutManager(this);
+        lm.setPageTransformer(new HeaderTransformer());
 
         new TailSnapHelper().attachToRecyclerView(rv);
     }

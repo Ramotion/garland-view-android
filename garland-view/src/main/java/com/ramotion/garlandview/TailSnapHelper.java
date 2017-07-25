@@ -1,13 +1,11 @@
-package com.ramotion.garlandview.example.tail;
+package com.ramotion.garlandview;
 
-import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 
 public class TailSnapHelper extends SnapHelper {
@@ -29,14 +27,8 @@ public class TailSnapHelper extends SnapHelper {
         final int[] out = new int[] {0 ,0};
 
         if (lm.canScrollHorizontally()) {
-            // TODO: user with lm without sideOffset
-            /*
-            final int targetCenter = lm.getDecoratedLeft(targetView) + lm.getDecoratedMeasuredWidth(targetView) / 2;
-            final int center = lm.getWidth() / 2;
-            out[0] = targetCenter - center;
-            */
             final int targetStart = lm.getDecoratedLeft(targetView);
-            out[0] = targetStart - ((TailLayoutManager)lm).getSideOffset();
+            out[0] = targetStart - ((TailLayoutManager)lm).getItemStart();
         }
 
         return out;
@@ -60,7 +52,7 @@ public class TailSnapHelper extends SnapHelper {
             return RecyclerView.NO_POSITION;
         }
 
-        final int start = ((TailLayoutManager)lm).getSideOffset();
+        final int start = ((TailLayoutManager)lm).getItemStart();
 
         int absClosest = Integer.MAX_VALUE;
         View closestChild = null;

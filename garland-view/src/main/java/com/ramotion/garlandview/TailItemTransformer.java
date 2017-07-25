@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.tail;
+package com.ramotion.garlandview;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ramotion.garlandview.example.R;
-
-// TODO: use viewHolders
-public class TailPageTransformer implements TailLayoutManager.PageTransformer{
+public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_SCALE_CHILD = 0.3f;
@@ -18,15 +15,15 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
     private static final float PIVOT_X_SCALE = 0.8f;
     private static final int OFFSET_MAX = 150;
 
-    private static class AlphaScaleParams {
-        final float position;
-        final float scale;
-        final float alpha;
-        final float alphaChild;
-        final float pivotX;
-        final float offsetY;
+    public static class TransformParams {
+        public final float position;
+        public final float scale;
+        public final float alpha;
+        public final float alphaChild;
+        public final float pivotX;
+        public final float offsetY;
 
-        AlphaScaleParams(float position, float scale, float alpha, float alphaChild, float pivotX, float offsetY) {
+        TransformParams(float position, float scale, float alpha, float alphaChild, float pivotX, float offsetY) {
             this.position = position;
             this.scale = scale;
             this.alpha = alpha;
@@ -36,18 +33,38 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         }
     }
 
+    private float mParamsPosition;
+    private TransformParams mParams;
+
     @Override
-    public void transformPage(@NonNull View page, float position) {
-        final View header = page.findViewById(R.id.header);
-        final AlphaScaleParams params = getParamsForPosition(header, position);
-        applyAlphaScaleEffectOnHeader(header, params);
+    public void transformPage(@NonNull TailItem item, float scrollPosition) {
+        if (item.getViewGroup().getChildCount() == 0) {
+            return;
+        }
 
-        final RecyclerView rv = (RecyclerView) page.findViewById(R.id.recycler_view);
-        applyAlphaScaleEffectOnRecyclerView(rv, params);
-        applyTailEffect(rv, position);
+        final TransformParams params = getParamsForPosition(item.itemView, scrollPosition);
+        applyAlphaScaleEffect(item.getViewGroup(), params);
+        applyTailEffect(item.getViewGroup(), scrollPosition);
+    }
 
-        final View cutter = page.findViewById(R.id.cutter);
-        cutter.setBottom((int)Math.ceil(params.offsetY * 2));
+    public TransformParams getParamsForPosition(@NonNull View view, float position) {
+        if (position == mParamsPosition && mParams != null) {
+            return mParams;
+        }
+
+        final float scale = computeRatio(INACTIVE_SCALE, 1, position);
+        final float alpha = computeRatio(INACTIVE_ALPHA, 1, position);
+        final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
+        final float pivotRatio = Math.max(-1, Math.min(1, position));
+        final float half = view.getWidth() / 2;
+        final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
+        final int childHeight = view.getHeight();
+        final float offsetY = (childHeight - childHeight * scale) / 2;
+
+        mParams = new TransformParams(position, scale, alpha, alphaChild, pivotX, offsetY);
+        mParamsPosition = position;
+
+        return mParams;
     }
 
     private float computeRatio(float minValue, float maxValue, float position) {
@@ -58,31 +75,8 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         return minValue + (maxValue - minValue) * (1 - Math.abs(position));
     }
 
-    private AlphaScaleParams getParamsForPosition(@NonNull View view, float position) {
-        final float scale = computeRatio(INACTIVE_SCALE, 1, position);
-        final float alpha = computeRatio(INACTIVE_ALPHA, 1, position);
-        final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
-        final float pivotRatio = Math.max(-1, Math.min(1, position));
-        final float half = view.getWidth() / 2;
-        final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
-        final int childHeight = view.getHeight();
-        final float offsetY = (childHeight - childHeight * scale) / 2;
-
-        return new AlphaScaleParams(position, scale, alpha, alphaChild, pivotX, offsetY);
-    }
-
-    private void applyAlphaScaleEffectOnHeader(@NonNull View view, @NonNull AlphaScaleParams params) {
-        ViewCompat.setPivotX(view, params.pivotX);
-        ViewCompat.setScaleX(view, params.scale);
-        ViewCompat.setScaleY(view, params.scale);
-        ViewCompat.setAlpha(view, params.alpha);
-        ViewCompat.setTranslationY(view, params.offsetY);
-
-        view.findViewById(R.id.header_alpha).setAlpha(1 - params.alphaChild);
-    }
-
-    private void applyAlphaScaleEffectOnRecyclerView(@NonNull RecyclerView rv, @NonNull AlphaScaleParams params) {
-        final int childCount = rv.getChildCount();
+    private void applyAlphaScaleEffect(@NonNull ViewGroup vg, @NonNull TransformParams params) {
+        final int childCount = vg.getChildCount();
         if (childCount == 0) {
             return;
         }
@@ -90,8 +84,8 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         final float scaleStep = (INACTIVE_SCALE - INACTIVE_SCALE_CHILD) / 3; // Divide on visible children count
         float scaleMin = INACTIVE_SCALE_CHILD;
 
-        for (int i = 0, cnt = rv.getChildCount(); i < cnt; i++) {
-            final View view = rv.getChildAt(i);
+        for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
+            final View view = vg.getChildAt(i);
 
             ViewCompat.setPivotX(view, params.pivotX);
             ViewCompat.setAlpha(view, params.alphaChild);
@@ -112,14 +106,14 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         }
     }
 
-    private void applyTailEffect(@NonNull ViewGroup ll, float position) {
-        if (ll.getChildCount() < 2) {
+    private void applyTailEffect(@NonNull ViewGroup vg, float position) {
+        if (vg.getChildCount() < 2) {
             return;
         }
 
         if (position < -1 || position > 1) {
-            for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
-                ViewCompat.setX(ll.getChildAt(i), 0);
+            for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
+                ViewCompat.setX(vg.getChildAt(i), 0);
             }
             return;
         }
@@ -129,9 +123,9 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
             floorDiff = 1f;
         }
 
-        View fistOffsetChild = ll.getChildAt(1);
-        for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
-            final View child = ll.getChildAt(i);
+        View fistOffsetChild = vg.getChildAt(1);
+        for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
+            final View child = vg.getChildAt(i);
             if (child.getY() > child.getHeight()) {
                 fistOffsetChild = child;
                 break;
@@ -155,8 +149,8 @@ public class TailPageTransformer implements TailLayoutManager.PageTransformer{
         }
 
         int j = 0;
-        for (int i = 1, cnt = ll.getChildCount(); i < cnt; i++) {
-            final View child = ll.getChildAt(i);
+        for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
+            final View child = vg.getChildAt(i);
 
             if (child.getY() <= child.getHeight()) {
                 continue;

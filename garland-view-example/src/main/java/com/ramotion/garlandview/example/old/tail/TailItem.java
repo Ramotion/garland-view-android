@@ -1,5 +1,4 @@
-package com.ramotion.garlandview.example.tail;
-
+package com.ramotion.garlandview.example.old.tail;
 
 public interface TailItem {
     boolean isScrolling();

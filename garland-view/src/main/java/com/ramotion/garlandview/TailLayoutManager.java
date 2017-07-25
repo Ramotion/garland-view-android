@@ -1,40 +1,62 @@
-package com.ramotion.garlandview.example.tail;
+package com.ramotion.garlandview;
+
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.ramotion.garlandview.example.outer.OuterItem;
+import com.ramotion.R;
 
 public class TailLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
-    public interface PageTransformer {
-        void transformPage(@NonNull View page, float position);
+    public interface PageTransformer<T extends TailItem> {
+        void transformPage(@NonNull T item, float scrollPosition);
     }
 
-    private static final int SIDE_OFFSET = 50;
-    private static final int VIEW_DISTANCE = 0;
+    private final static int DEFAULT_ITEM_START = 50;
+    private final static int DEFAULT_ITEM_GAP = 0;
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
-    private final int mSideOffset; // TODO: remove - center first view
-    private final int mViewDistance;
+    private final int mItemStart;
+    private final int mItemGap;
 
-    private PageTransformer mPageTransformer;
     private RecyclerView mRecyclerView;
+    private PageTransformer mPageTransformer;
 
     public TailLayoutManager(@NonNull Context context) {
-        super();
+        this(context, null, 0, 0);
+    }
 
+    public TailLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final float density = context.getResources().getDisplayMetrics().density;
-        mViewDistance = (int) (VIEW_DISTANCE * density);
-        mSideOffset = (int) (SIDE_OFFSET * density);
+        final int defaultItemStart = (int) (density * DEFAULT_ITEM_START);
+        final int defaultItemGap = (int) (density * DEFAULT_ITEM_GAP);
+
+        if (attrs == null) {
+            mItemStart = defaultItemStart;
+            mItemGap = defaultItemGap;
+        } else {
+            final TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.GarlandView, 0, 0);
+            try {
+                mItemStart = a.getDimensionPixelSize(R.styleable.GarlandView_itemStart, defaultItemStart);
+                mItemGap = a.getDimensionPixelSize(R.styleable.GarlandView_itemGap, defaultItemStart);
+            } finally {
+                a.recycle();
+            }
+        }
+    }
+
+    public TailLayoutManager(int itemStart, int itemGap) {
+        mItemStart = itemStart;
+        mItemGap = itemGap;
     }
 
     @Override
@@ -67,6 +89,16 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     }
 
     @Override
+    public PointF computeScrollVectorForPosition(int targetPosition) {
+        if (getChildCount() == 0) {
+            return null;
+        }
+        final int firstChildPos = getPosition(getChildAt(0));
+        final int direction = targetPosition < firstChildPos ? -1 : 1;
+        return new PointF(direction, 0);
+    }
+
+    @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
         if (getItemCount() == 0) {
             removeAndRecycleAllViews(recycler);
@@ -85,7 +117,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             scrollOffset = 0;
         } else {
             final View anchorView = findViewByPosition(anchorPos);
-            scrollOffset = mSideOffset - getDecoratedLeft(anchorView);
+            scrollOffset = mItemStart - getDecoratedLeft(anchorView);
         }
 
         detachAndScrapAttachedViews(recycler);
@@ -103,12 +135,10 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             return 0;
         }
 
-        if (mRecyclerView != null) {
-            for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
-                final TailItem vh = (TailItem) mRecyclerView.getChildViewHolder(getChildAt(i));
-                if (vh.isScrolling()) {
-                    return 0;
-                }
+        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+            final TailItem vh = (TailItem) mRecyclerView.getChildViewHolder(getChildAt(i));
+            if (vh.isScrolling()) {
+                return 0;
             }
         }
 
@@ -121,7 +151,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             final int view0Left = viewLeft - viewPos * getDecoratedMeasuredWidth(view);
             final int view0LeftScrolled = view0Left - dx;
 
-            final int border = mSideOffset;
+            final int border = mItemStart;
             if (view0LeftScrolled <= border) {
                 scrolled = dx;
             } else {
@@ -134,7 +164,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             final int viewNLeft = viewLeft + (getItemCount() - 1 - viewPos) * getDecoratedMeasuredWidth(view);
             final int viewNLeftScrolled = viewNLeft - dx;
 
-            final int border = mSideOffset;
+            final int border = mItemStart;
             if (viewNLeftScrolled >= border) {
                 scrolled = dx;
             } else {
@@ -149,22 +179,8 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         return scrolled;
     }
 
-    @Override
-    public PointF computeScrollVectorForPosition(int targetPosition) {
-        if (getChildCount() == 0) {
-            return null;
-        }
-        final int firstChildPos = getPosition(getChildAt(0));
-        final int direction = targetPosition < firstChildPos ? -1 : 1;
-        return new PointF(direction, 0);
-    }
-
     public void setPageTransformer(PageTransformer transformer) {
         mPageTransformer = transformer;
-    }
-
-    public int getSideOffset() {
-        return mSideOffset;
     }
 
     @Nullable
@@ -186,6 +202,10 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         }
 
         return centerChild;
+    }
+
+    public int getItemStart() {
+        return mItemStart;
     }
 
     private int getAnchorPosition() {
@@ -220,7 +240,18 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             recycler.recycleView(mViewCache.valueAt(i));
         }
 
-        applyTransformation();
+        if (mPageTransformer == null) {
+            return;
+        }
+
+        final int viewWidth = getWidth() - mItemStart * 2;
+        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+            final View view = getChildAt(i);
+            final int viewLeft = getDecoratedLeft(view);
+            final float position = ((float) (viewLeft - mItemStart)) / viewWidth;
+
+            mPageTransformer.transformPage((TailItem) mRecyclerView.getChildViewHolder(view), position);
+        }
     }
 
     private void fillLeft(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
@@ -233,12 +264,12 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         if (anchorView != null) {
             anchorViewLeft = getDecoratedLeft(anchorView);
         } else {
-            anchorViewLeft = mSideOffset;
+            anchorViewLeft = mItemStart;
         }
 
         final int pos = anchorPos - 1;
         final int width = getWidth();
-        final int viewWidth = width - mSideOffset * 2;
+        final int viewWidth = width - mItemStart * 2;
 
         View view = mViewCache.get(pos);
         if (view != null) {
@@ -247,8 +278,8 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         } else {
             view = recycler.getViewForPosition(pos);
             addView(view);
-            measureChildWithMargins(view, mSideOffset * 2, 0);
-            final int viewRight = anchorViewLeft - mViewDistance;
+            measureChildWithMargins(view, mItemStart * 2, 0);
+            final int viewRight = anchorViewLeft - mItemGap;
             final int viewLeft = viewRight - viewWidth;
             layoutDecorated(view, viewLeft, 0, viewRight, getDecoratedMeasuredHeight(view));
         }
@@ -257,9 +288,9 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     private void fillRight(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
         final int itemCount = getItemCount();
         final int width = getWidth();
-        final int viewWidth = width - mSideOffset * 2;
+        final int viewWidth = width - mItemStart * 2;
 
-        int viewLeft = mSideOffset;
+        int viewLeft = mItemStart;
         int pos = anchorPos;
 
         boolean fillRight = true;
@@ -271,28 +302,13 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             } else {
                 view = recycler.getViewForPosition(pos);
                 addView(view);
-                measureChildWithMargins(view, mSideOffset * 2, 0);
+                measureChildWithMargins(view, mItemStart * 2, 0);
                 layoutDecorated(view, viewLeft, 0, viewLeft + viewWidth, getDecoratedMeasuredHeight(view));
             }
 
-            viewLeft = getDecoratedRight(view) + mViewDistance;
+            viewLeft = getDecoratedRight(view) + mItemGap;
             fillRight = viewLeft < width;
             pos++;
-        }
-    }
-
-    private void applyTransformation() {
-        if (mPageTransformer == null) {
-            return;
-        }
-
-        final int viewWidth = getWidth() - mSideOffset * 2;
-        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
-            final View view = getChildAt(i);
-            final int viewLeft = getDecoratedLeft(view);
-            final float position = ((float) (viewLeft - mSideOffset)) / viewWidth;
-
-            mPageTransformer.transformPage(view, position);
         }
     }
 

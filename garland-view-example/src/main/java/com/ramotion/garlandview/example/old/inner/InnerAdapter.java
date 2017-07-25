@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.inner;
+package com.ramotion.garlandview.example.old.inner;
 
 
 import android.support.annotation.NonNull;
