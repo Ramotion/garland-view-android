@@ -15,8 +15,13 @@ public class HeaderTransformer implements TailLayoutManager.PageTransformer<Head
     public void transformPage(@NonNull HeaderItem item, float scrollPosition) {
         mTransformer.transformPage(item, scrollPosition);
 
+        if (item.getViewGroup().getChildCount() == 0) {
+            return;
+        }
+
+        final View child = item.getViewGroup().getChildAt(0);
         final TailItemTransformer.TransformParams params =
-                mTransformer.getParamsForPosition(item.itemView, scrollPosition);
+                mTransformer.getParamsForPosition(scrollPosition, child.getWidth(), child.getHeight());
 
         final View header = item.getHeader();
         ViewCompat.setPivotX(header, params.pivotX);

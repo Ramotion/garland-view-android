@@ -42,12 +42,13 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             return;
         }
 
-        final TransformParams params = getParamsForPosition(item.itemView, scrollPosition);
+        final View child = item.getViewGroup().getChildAt(0);
+        final TransformParams params = getParamsForPosition(scrollPosition, child.getWidth(), child.getHeight());
         applyAlphaScaleEffect(item.getViewGroup(), params);
         applyTailEffect(item.getViewGroup(), scrollPosition);
     }
 
-    public TransformParams getParamsForPosition(@NonNull View view, float position) {
+    public TransformParams getParamsForPosition(float position, int childWidth, int childHeight) {
         if (position == mParamsPosition && mParams != null) {
             return mParams;
         }
@@ -56,9 +57,8 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         final float alpha = computeRatio(INACTIVE_ALPHA, 1, position);
         final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
         final float pivotRatio = Math.max(-1, Math.min(1, position));
-        final float half = view.getWidth() / 2;
+        final float half = childWidth / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
-        final int childHeight = view.getHeight();
         final float offsetY = (childHeight - childHeight * scale) / 2;
 
         mParams = new TransformParams(position, scale, alpha, alphaChild, pivotX, offsetY);

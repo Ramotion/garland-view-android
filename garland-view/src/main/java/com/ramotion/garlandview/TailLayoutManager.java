@@ -179,8 +179,9 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         return scrolled;
     }
 
-    public void setPageTransformer(PageTransformer transformer) {
+    public TailLayoutManager setPageTransformer(PageTransformer transformer) {
         mPageTransformer = transformer;
+        return this;
     }
 
     @Nullable
