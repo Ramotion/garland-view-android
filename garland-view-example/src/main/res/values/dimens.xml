@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_v_offset">10dp</dimen>
-    <dimen name="offset">10dp</dimen>
-
-    <dimen name="tail_item_width">300dp</dimen>
-
-    <!--<dimen name="header_section_height">50dp</dimen>-->
-    <!--<dimen name="header_2_sections_height">100dp</dimen>-->
-
-    <dimen name="dp10">10dp</dimen>
-    <dimen name="dp40">40dp</dimen>
-    <dimen name="dp50">50dp</dimen>
-    <dimen name="dp60">60dp</dimen>
-    <dimen name="dp100">100dp</dimen>
-
     <dimen name="inner_item_offset">15dp</dimen>
     <dimen name="inner_item_height">150dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
 </resources>

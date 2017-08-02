@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ramotion.garlandview.InnerDecorator;
 import com.ramotion.garlandview.TailItem;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerAdapter;
@@ -27,6 +28,9 @@ public class OuterItem extends TailItem {
                 mIsScrolling = newState != RecyclerView.SCROLL_STATE_IDLE;
             }
         });
+
+        final int offset = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.inner_item_offset);
+        mRecyclerView.addItemDecoration(new InnerDecorator(offset));
     }
 
     @Override
