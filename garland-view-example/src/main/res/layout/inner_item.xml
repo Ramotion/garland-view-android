@@ -5,4 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/inner_item_height"
     android:layout_gravity="center"
+    android:clickable="true"
     app:cardCornerRadius="5dp"/>
