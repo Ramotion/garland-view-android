@@ -6,16 +6,16 @@ import android.view.View;
 
 public class InnerDecorator extends RecyclerView.ItemDecoration {
 
-    private final int mTopOffset;
+    private final int mOffset;
 
     public InnerDecorator(int offset) {
-        mTopOffset = offset;
+        mOffset = offset;
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         if (parent.getChildAdapterPosition(view) != 0) {
-            outRect.set(0, mTopOffset, 0, 0);
+            outRect.set(0, mOffset, 0, 0);
         }
     }
 

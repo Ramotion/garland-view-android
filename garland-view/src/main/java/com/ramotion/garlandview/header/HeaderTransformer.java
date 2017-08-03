@@ -13,17 +13,10 @@ public class HeaderTransformer implements TailLayoutManager.PageTransformer<Head
 
     @Override
     public void transformPage(@NonNull HeaderItem item, float scrollPosition) {
-        mTransformer.transformPage(item, scrollPosition);
-
-        if (item.getViewGroup().getChildCount() == 0) {
-            return;
-        }
-
-        final View child = item.getViewGroup().getChildAt(0);
-        final TailItemTransformer.TransformParams params =
-                mTransformer.getParamsForPosition(scrollPosition, child.getWidth(), child.getHeight());
-
         final View header = item.getHeader();
+        final TailItemTransformer.TransformParams params = mTransformer.getParamsForPosition(
+                scrollPosition, header.getWidth(), header.getHeight());
+
         ViewCompat.setPivotX(header, params.pivotX);
         ViewCompat.setScaleX(header, params.scale);
         ViewCompat.setScaleY(header, params.scale);
@@ -32,7 +25,7 @@ public class HeaderTransformer implements TailLayoutManager.PageTransformer<Head
 
         ViewCompat.setAlpha(item.getHeaderAlphaView(), 1 - params.alphaChild);
 
-        // TODO: transform item's children below header
+        mTransformer.transformPage(item, scrollPosition);
     }
 
 }

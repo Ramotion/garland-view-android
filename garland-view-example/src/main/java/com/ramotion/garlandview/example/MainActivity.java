@@ -8,6 +8,7 @@ import com.ramotion.garlandview.TailLayoutManager;
 import com.ramotion.garlandview.TailRecyclerView;
 import com.ramotion.garlandview.TailSnapHelper;
 import com.ramotion.garlandview.example.outer.OuterAdapter;
+import com.ramotion.garlandview.header.HeaderTransformer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         final TailRecyclerView rv = (TailRecyclerView) findViewById(R.id.recycler_view);
-        rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new TailItemTransformer()));
+        rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new HeaderTransformer()));
         rv.setAdapter(new OuterAdapter());
 
         new TailSnapHelper().attachToRecyclerView(rv);

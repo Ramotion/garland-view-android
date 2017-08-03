@@ -1,15 +1,12 @@
 package com.ramotion.garlandview.example.outer;
 
 
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.garlandview.TailAdapter;
 import com.ramotion.garlandview.example.R;
-import com.ramotion.garlandview.example.outer.OuterItem;
-import com.ramotion.garlandview.header.HeaderAdapter;
 
 public class OuterAdapter extends TailAdapter<OuterItem> {
 
