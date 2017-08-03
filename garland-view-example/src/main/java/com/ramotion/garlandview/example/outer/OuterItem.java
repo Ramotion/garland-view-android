@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.garlandview.InnerDecorator;
+import com.ramotion.garlandview.InnerLayoutManager;
 import com.ramotion.garlandview.TailItem;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerAdapter;
@@ -21,7 +22,8 @@ public class OuterItem extends TailItem {
 
         mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(new InnerAdapter());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+        mRecyclerView.setLayoutManager(new InnerLayoutManager());
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

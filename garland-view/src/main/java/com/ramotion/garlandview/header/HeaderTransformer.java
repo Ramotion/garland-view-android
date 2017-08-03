@@ -31,6 +31,8 @@ public class HeaderTransformer implements TailLayoutManager.PageTransformer<Head
         ViewCompat.setTranslationY(header, params.offsetY);
 
         ViewCompat.setAlpha(item.getHeaderAlphaView(), 1 - params.alphaChild);
+
+        // TODO: transform item's children below header
     }
 
 }
