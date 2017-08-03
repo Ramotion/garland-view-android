@@ -2,4 +2,8 @@
 <resources>
     <dimen name="inner_item_offset">15dp</dimen>
     <dimen name="inner_item_height">150dp</dimen>
+
+    <dimen name="outer_header_middle_height">60dp</dimen>
+
+    <dimen name="dp10">10dp</dimen>
 </resources>
