@@ -2,7 +2,6 @@ package com.ramotion.garlandview;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -76,11 +75,6 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
     }
 
     private void applyAlphaScaleEffect(@NonNull ViewGroup vg, @NonNull TransformParams params) {
-        final int childCount = vg.getChildCount();
-        if (childCount == 0) {
-            return;
-        }
-
         final float scaleStep = (INACTIVE_SCALE - INACTIVE_SCALE_CHILD) / 3; // Divide on visible children count
         float scaleMin = INACTIVE_SCALE_CHILD;
 
@@ -91,7 +85,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             ViewCompat.setAlpha(view, params.alphaChild);
 
             final float scale;
-            if (i == 0) {
+            if (view.getY() < view.getHeight()) {
                 scale = params.scale;
             } else {
                 scale = computeRatio(scaleMin, 1, params.position);
@@ -107,12 +101,8 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
     }
 
     private void applyTailEffect(@NonNull ViewGroup vg, float position) {
-        if (vg.getChildCount() < 2) {
-            return;
-        }
-
         if (position < -1 || position > 1) {
-            for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
+            for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
                 ViewCompat.setX(vg.getChildAt(i), 0);
             }
             return;
@@ -123,7 +113,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             floorDiff = 1f;
         }
 
-        View fistOffsetChild = vg.getChildAt(1);
+        View fistOffsetChild = vg.getChildAt(0);
         for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
             final View child = vg.getChildAt(i);
             if (child.getY() > child.getHeight()) {
@@ -148,14 +138,11 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             }
         }
 
-        int j = 0;
-        for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
+        for (int i = 0, j = 1, cnt = vg.getChildCount(); i < cnt; i++, j++) {
             final View child = vg.getChildAt(i);
 
-            if (child.getY() <= child.getHeight()) {
+            if (child.getY() < child.getHeight()) {
                 continue;
-            } else {
-                j++;
             }
 
             final float childOffset;
