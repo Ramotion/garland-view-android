@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ramotion.garlandview.InnerLayoutManager;
+import com.ramotion.garlandview.inner.InnerLayoutManager;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerAdapter;
 import com.ramotion.garlandview.header.HeaderDecorator;
@@ -49,7 +49,7 @@ public class OuterItem extends HeaderItem {
     public OuterItem(View itemView) {
         super(itemView);
 
-        mHeaderMiddleHeight = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.outer_header_middle_height);
+        mHeaderMiddleHeight = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_middle_height);
         m10dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp10);
 
         mHeader = itemView.findViewById(R.id.header);
@@ -59,8 +59,8 @@ public class OuterItem extends HeaderItem {
         mHeaderMiddleCollapsible = mHeaderMiddle.findViewById(R.id.header_middle_collapsible);
         mHeaderMiddleAnswer= mHeaderMiddle.findViewById(R.id.header_middle_answer);
         mHeaderFooterCollapsible = itemView.findViewById(R.id.header_footer);
-        mHeaderCaption1 = itemView.findViewById(R.id.header_caption_1);
-        mHeaderCaption2 = itemView.findViewById(R.id.header_caption_2);
+        mHeaderCaption1 = itemView.findViewById(R.id.header_text_1);
+        mHeaderCaption2 = itemView.findViewById(R.id.header_text_2);
 
         // Init RecyclerView
         mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);

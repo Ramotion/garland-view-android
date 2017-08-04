@@ -1,6 +1,5 @@
 package com.ramotion.garlandview.example.inner;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,7 @@ import android.view.ViewGroup;
 import com.ramotion.garlandview.example.R;
 
 
-public class InnerAdapter extends RecyclerView.Adapter<InnerItem> {
+public class InnerAdapter extends com.ramotion.garlandview.inner.InnerAdapter<InnerItem> {
 
     private static final int COUNT = 10;
 
