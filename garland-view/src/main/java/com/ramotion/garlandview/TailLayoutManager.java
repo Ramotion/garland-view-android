@@ -61,6 +61,9 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
 
     @Override
     public void onAttachedToWindow(RecyclerView view) {
+        if (!(view instanceof TailRecyclerView)) {
+            throw new IllegalArgumentException("RecyclerView must be instance of TailRecyclerView class");
+        }
         super.onAttachedToWindow(view);
         mRecyclerView = view;
     }

@@ -1,25 +1,33 @@
-package com.ramotion.garlandview;
+package com.ramotion.garlandview.inner;
 
 
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
-// TODO: make abstract
 public class InnerLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
-    public interface PageTransformer {
-        void transformPage(@NonNull View page, float position);
-    }
-
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
-    private PageTransformer mPageTransformer;
+    private RecyclerView mRecyclerView;
+
+    @Override
+    public void onAttachedToWindow(RecyclerView view) {
+        if (!(view instanceof InnerRecyclerView)) {
+            throw new IllegalArgumentException("RecyclerView must be instance of InnerRecyclerView class");
+        }
+        super.onAttachedToWindow(view);
+        mRecyclerView = view;
+    }
+
+    @Override
+    public void onDetachedFromWindow(RecyclerView view, RecyclerView.Recycler recycler) {
+        super.onDetachedFromWindow(view, recycler);
+        mRecyclerView = null;
+    }
 
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
@@ -236,28 +244,25 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
     }
 
     private void applyTransformation() {
-        if (mPageTransformer == null) {
-//            return;
-        }
-
-        // TODO: use transformer
         for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
             final View view = getChildAt(i);
 
             if (view.getBottom() > 0) {
-                if (view.getBottom() - view.getMeasuredHeight() < 0) {
+                final int viewHeight = view.getMeasuredHeight();
+                final int viewBottom = view.getBottom();
+                if (viewBottom - viewHeight < 0) {
                     view.setTop(0);
                 } else {
-                    view.setTop(view.getBottom() - view.getMeasuredHeight());
+                    view.setTop(viewBottom - viewHeight);
                 }
+
+                final int viewNewHeight = viewBottom - view.getTop();
+                ((InnerItem) mRecyclerView.getChildViewHolder(view)).onItemViewHeightChanged(viewNewHeight);
             }
 
             if (view.getTop() > 0) {
                 break;
             }
-
-            Log.d("D", String.format("top: %d, bottom: %d, h: %d, mh: %d",
-                    view.getTop(), view.getBottom(), view.getHeight(), view.getMeasuredHeight()));
         }
     }
 

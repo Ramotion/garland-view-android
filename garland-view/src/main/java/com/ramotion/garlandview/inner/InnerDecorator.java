@@ -1,4 +1,4 @@
-package com.ramotion.garlandview;
+package com.ramotion.garlandview.inner;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
