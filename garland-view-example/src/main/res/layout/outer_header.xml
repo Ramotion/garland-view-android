@@ -17,17 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="What are you singing in shower?"
-            android:textSize="20sp"
+            android:textSize="@dimen/header_title_text_size"
             android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/header_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:alpha="0"
-            android:text="What are you singing in shower? - Gloria Perelman asked"
             android:textColor="@android:color/white"/>
 
     </FrameLayout>
@@ -45,28 +42,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
+            <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/fake_avatar"
                 android:layout_centerVertical="true"/>
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gloria Perelman asked"
-                android:textSize="16sp"
+                android:textSize="@dimen/item_name_text_size"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/avatar"
                 android:layout_alignTop="@+id/avatar"/>
 
             <TextView
+                android:id="@+id/tv_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="24 years * San Francisco"
-                android:textSize="12sp"
+                android:textSize="@dimen/item_info_text_size"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/avatar"
@@ -78,7 +74,7 @@
             android:id="@+id/header_middle_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ANSWER"
+            android:text="@string/answer"
             android:textColor="@android:color/white"
             android:layout_gravity="bottom"
             android:layout_marginStart="8dp"
@@ -97,8 +93,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ANSWER"
+            android:text="@string/answer"
             android:textColor="@color/header_green"
+            android:textSize="@dimen/item_footer_text_size"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">garlandview-example</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="answer">ANSWER</string>
+    <string name="answer_low">answer</string>
     <string name="connect">CONNECT</string>
+    <string name="years">years</string>
+    <string name="asked">asked</string>
 </resources>

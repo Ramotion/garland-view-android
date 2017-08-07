@@ -129,6 +129,11 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
         return scrolled;
     }
 
+    @Override
+    public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapter newAdapter) {
+        removeAllViews();
+    }
+
     public int findFirstVisibleItemPosition() {
         return getChildCount() != 0 ? getPosition(getChildAt(0)) : RecyclerView.NO_POSITION;
     }

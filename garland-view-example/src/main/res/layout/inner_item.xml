@@ -33,11 +33,10 @@
             app:layout_constraintBottom_toTopOf="@+id/avatar"
             app:layout_constraintVertical_bias="0.0" />
 
-        <View
+        <ImageView
             android:id="@+id/avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/fake_avatar"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,7 +59,7 @@
             android:layout_marginTop="0dp" />
 
         <TextView
-            android:id="@+id/tv_info"
+            android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.3"

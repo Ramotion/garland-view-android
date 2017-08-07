@@ -7,10 +7,18 @@ import android.view.ViewGroup;
 
 import com.ramotion.garlandview.TailAdapter;
 import com.ramotion.garlandview.example.R;
+import com.ramotion.garlandview.example.inner.InnerData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OuterAdapter extends TailAdapter<OuterItem> {
 
-    private static int COUNT = 10;
+    private final List<List<InnerData>> mData;
+
+    public OuterAdapter(List<List<InnerData>> data) {
+        this.mData = data;
+    }
 
     @Override
     public OuterItem onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -20,16 +28,17 @@ public class OuterAdapter extends TailAdapter<OuterItem> {
 
     @Override
     public void onBindViewHolder(OuterItem holder, int position) {
-
+        holder.setContent(mData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return COUNT;
+        return mData.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         return R.layout.outer_item;
     }
+
 }
