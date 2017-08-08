@@ -75,16 +75,15 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
             scrollOffset = 0;
         } else {
             final View anchorView = findViewByPosition(anchorPos);
-            scrollOffset = -getDecoratedBottom(anchorView);
+            scrollOffset = getDecoratedBottom(anchorView) - getDecoratedMeasuredHeight(anchorView);
         }
 
         detachAndScrapAttachedViews(recycler);
         layoutViews(anchorPos, recycler, state);
 
         if (scrollOffset != 0) {
-            scrollVerticallyBy(scrollOffset, recycler, state);
+            scrollVerticallyBy(-scrollOffset, recycler, state);
         }
-
     }
 
     @Override
@@ -251,9 +250,9 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
     private void applyTransformation() {
         for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
             final View view = getChildAt(i);
+            final int viewHeight = view.getMeasuredHeight();
 
             if (view.getBottom() > 0) {
-                final int viewHeight = view.getMeasuredHeight();
                 final int viewBottom = view.getBottom();
                 if (viewBottom - viewHeight < 0) {
                     view.setTop(0);
@@ -266,7 +265,7 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
             }
 
             if (view.getTop() > 0) {
-                break;
+                ((InnerItem) mRecyclerView.getChildViewHolder(view)).onItemViewHeightChanged(viewHeight);
             }
         }
     }

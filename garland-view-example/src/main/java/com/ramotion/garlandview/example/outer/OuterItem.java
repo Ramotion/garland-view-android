@@ -156,7 +156,7 @@ public class OuterItem extends HeaderItem {
     }
 
     void clearContent() {
-        mAvatar.setImageBitmap(null);
+        Glide.clear(mAvatar);
         ((InnerAdapter)mRecyclerView.getAdapter()).clearData();
     }
 

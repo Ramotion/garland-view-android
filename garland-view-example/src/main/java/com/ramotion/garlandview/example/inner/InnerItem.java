@@ -35,6 +35,10 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
         return mInnerLayout;
     }
 
+    public void clearContent() {
+        Glide.clear(mAvatar);
+    }
+
     void setContent(InnerData data) {
         mHeader.setText(data.title);
         mName.setText(data.name);
@@ -44,10 +48,6 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
                 .load(data.avatarUrl)
                 .bitmapTransform(new CropCircleTransformation(itemView.getContext()))
                 .into(mAvatar);
-    }
-
-    void clearContent() {
-        mAvatar.setImageBitmap(null);
     }
 
 }
