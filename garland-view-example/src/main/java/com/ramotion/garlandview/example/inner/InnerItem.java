@@ -46,4 +46,8 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
                 .into(mAvatar);
     }
 
+    void clearContent() {
+        mAvatar.setImageBitmap(null);
+    }
+
 }

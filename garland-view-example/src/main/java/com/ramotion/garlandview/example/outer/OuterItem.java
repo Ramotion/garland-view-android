@@ -155,6 +155,11 @@ public class OuterItem extends HeaderItem {
         mInfo.setText(String.format("%s %s · %s", header.age, context.getString(R.string.years), header.address));
     }
 
+    void clearContent() {
+        mAvatar.setImageBitmap(null);
+        ((InnerAdapter)mRecyclerView.getAdapter()).clearData();
+    }
+
     private float computeRatio(RecyclerView recyclerView) {
         final View child0 = recyclerView.getChildAt(0);
         final int pos = recyclerView.getChildAdapterPosition(child0);

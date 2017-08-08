@@ -32,6 +32,11 @@ public class OuterAdapter extends TailAdapter<OuterItem> {
     }
 
     @Override
+    public void onViewRecycled(OuterItem holder) {
+        holder.clearContent();
+    }
+
+    @Override
     public int getItemCount() {
         return mData.size();
     }
