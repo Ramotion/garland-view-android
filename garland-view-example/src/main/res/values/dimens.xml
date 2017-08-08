@@ -15,6 +15,9 @@
     <dimen name="item_info_text_size">12sp</dimen>
     <dimen name="item_footer_text_size">14sp</dimen>
 
+    <dimen name="item_avatar_size">45dp</dimen>
+    <dimen name="item_icon_size">20dp</dimen>
+
     <item name="gray_alpha" type="dimen" format="float">0.3</item>
 
 </resources>

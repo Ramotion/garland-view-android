@@ -41,7 +41,7 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
 
     void setContent(InnerData data) {
         mHeader.setText(data.title);
-        mName.setText(data.name);
+        mName.setText(String.format("%s %s", data.name, itemView.getContext().getString(R.string.answer_low)));
         mAddress.setText(data.address);
 
         Glide.with(itemView.getContext())

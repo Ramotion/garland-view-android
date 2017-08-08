@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < COUNT && !e.isDisposed(); i++) {
 //                    final int innerCount = faker.number.between(3, 10);
-                    final int innerCount = 6;
+                    final int innerCount = 20;
                     final List<InnerData> innDataList = new ArrayList<InnerData>();
                     for (int j = 0; j < innerCount && !e.isDisposed(); j++) {
                         innDataList.add(createInnerData(faker));
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new HeaderTransformer()));
         rv.setAdapter(new OuterAdapter(data));
 
+        // TODO: save / restore inner items offset
         new TailSnapHelper().attachToRecyclerView(rv);
     }
 

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:layout_margin="8dp"
             android:text="Item text here"
-            android:textSize="16sp"
+            android:textSize="@dimen/item_title_text_size"
             android:textColor="@android:color/black"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/item_avatar_size"
+            android:layout_height="@dimen/item_avatar_size"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -51,8 +51,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.4"
             android:textColor="@android:color/black"
-            android:text="Gloria Perelman asked"
-            android:textSize="16sp"
+            android:textSize="@dimen/item_name_text_size"
             app:layout_constraintLeft_toRightOf="@+id/avatar"
             android:layout_marginLeft="8dp"
             app:layout_constraintTop_toTopOf="@+id/avatar"
@@ -64,8 +63,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.3"
             android:textColor="@android:color/black"
-            android:text="24 years * San Francisco"
-            android:textSize="15sp"
+            android:textSize="@dimen/item_info_text_size"
             app:layout_constraintLeft_toRightOf="@+id/avatar"
             android:layout_marginLeft="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/avatar"
@@ -93,6 +91,7 @@
             android:layout_height="wrap_content"
             android:text="@string/connect"
             android:textColor="@color/header_green"
+            android:textSize="@dimen/item_footer_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
@@ -102,28 +101,31 @@
 
         <ImageView
             android:id="@+id/view2"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/item_icon_size"
+            android:layout_height="@dimen/item_icon_size"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_favorite_black_24dp"
             android:alpha="@dimen/gray_alpha"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="0dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp" />
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            android:layout_marginBottom="0dp" />
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/item_icon_size"
+            android:layout_height="@dimen/item_icon_size"
             android:layout_marginRight="8dp"
             android:src="@drawable/ic_comment_black_24dp"
             android:alpha="@dimen/gray_alpha"
             app:layout_constraintRight_toLeftOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintVertical_bias="0.0"
             android:layout_marginEnd="8dp"
-            android:id="@+id/imageView" />
+            android:id="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/textView7"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            android:layout_marginBottom="0dp" />
 
     </android.support.constraint.ConstraintLayout>
 

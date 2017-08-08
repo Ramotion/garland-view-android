@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/avatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/item_avatar_size"
+                android:layout_height="@dimen/item_avatar_size"
                 android:layout_centerVertical="true"/>
 
             <TextView
@@ -84,7 +84,7 @@
 
     </FrameLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/header_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_footer_height"
@@ -93,40 +93,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
             android:text="@string/answer"
             android:textColor="@color/header_green"
-            android:textSize="@dimen/item_footer_text_size"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:textSize="@dimen/item_footer_text_size"/>
+
+        <ImageView
+            android:layout_width="@dimen/item_icon_size"
+            android:layout_height="@dimen/item_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/view2"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_comment_black_24dp"
+            android:alpha="@dimen/gray_alpha"/>
 
         <ImageView
             android:id="@+id/view2"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/item_icon_size"
+            android:layout_height="@dimen/item_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_favorite_black_24dp"
-            android:alpha="@dimen/gray_alpha"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:alpha="@dimen/gray_alpha"/>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/ic_comment_black_24dp"
-            android:alpha="@dimen/gray_alpha"
-            app:layout_constraintRight_toLeftOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
 </LinearLayout>
