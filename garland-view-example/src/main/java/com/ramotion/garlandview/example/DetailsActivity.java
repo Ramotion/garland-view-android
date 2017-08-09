@@ -57,4 +57,8 @@ public class DetailsActivity extends AppCompatActivity {
                 .into(avatar);
     }
 
+    public void onCardClick(View v) {
+        super.onBackPressed();
+    }
+
 }

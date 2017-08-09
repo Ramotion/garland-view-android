@@ -24,7 +24,8 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintVertical_bias="0.982"
         android:transitionName="@string/transition_card"
-        android:id="@+id/constraintLayout"
+        android:id="@+id/card"
+        android:onClick="onCardClick"
         app:layout_constraintHorizontal_bias="0.5">
 
         <View
@@ -144,10 +145,10 @@
         android:layout_height="100dp"
         android:background="@drawable/avatar_border"
         android:layout_centerVertical="true"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-        app:layout_constraintRight_toRightOf="@+id/constraintLayout">
+        app:layout_constraintTop_toTopOf="@+id/card"
+        app:layout_constraintBottom_toTopOf="@+id/card"
+        app:layout_constraintLeft_toLeftOf="@+id/card"
+        app:layout_constraintRight_toRightOf="@+id/card">
 
         <ImageView
             android:id="@+id/avatar"
