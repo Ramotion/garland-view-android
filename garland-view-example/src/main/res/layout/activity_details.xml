@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
         app:layout_constraintVertical_bias="0.982"
-        android:transitionName="card"
+        android:transitionName="@string/transition_card"
         android:id="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.5">
 
@@ -139,27 +139,23 @@
     </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
+        android:transitionName="@string/transition_avatar_border"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/green_rounded"
+        android:background="@drawable/avatar_border"
         android:layout_centerVertical="true"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
         app:layout_constraintRight_toRightOf="@+id/constraintLayout">
 
-        <View
-            android:layout_width="95dp"
-            android:layout_height="95dp"
-            android:layout_gravity="center"
-            android:background="@drawable/white_rounded"/>
-
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="95dp"
-            android:layout_height="95dp"
-            android:layout_gravity="center"
-            android:transitionName="avatar"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 

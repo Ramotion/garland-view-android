@@ -21,6 +21,7 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
     public final TextView mName;
     public final TextView mAddress;
     public final ImageView mAvatar;
+    public final View mAvatarBorder;
 
     private InnerData mInnerData;
 
@@ -32,6 +33,7 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
         mName = (TextView) itemView.findViewById(R.id.tv_name);
         mAddress = (TextView) itemView.findViewById(R.id.tv_address);
         mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
+        mAvatarBorder = itemView.findViewById(R.id.avatar_border);
 
         mInnerLayout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,4 +6,7 @@
     <string name="connect">CONNECT</string>
     <string name="years">years</string>
     <string name="asked">asked</string>
+
+    <string name="transition_avatar_border" translatable="false">avatar_border</string>
+    <string name="transition_card" translatable="false">card</string>
 </resources>

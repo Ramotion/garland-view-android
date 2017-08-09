@@ -31,8 +31,8 @@ public class DetailsActivity extends AppCompatActivity {
         starter.putExtra(BUNDLE_AVATAR_URL, item.getItemData().avatarUrl);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Pair<View, String> p1 = Pair.create(item.itemView, "card");
-            final Pair<View, String> p2 = Pair.create((View)item.mAvatar, "avatar");
+            final Pair<View, String> p1 = Pair.create(item.itemView, activity.getString(R.string.transition_card));
+            final Pair<View, String> p2 = Pair.create(item.mAvatarBorder, activity.getString(R.string.transition_avatar_border));
 
             final ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(activity, p1, p2);
