@@ -7,8 +7,13 @@ import com.ramotion.garlandview.TailLayoutManager;
 import com.ramotion.garlandview.TailRecyclerView;
 import com.ramotion.garlandview.TailSnapHelper;
 import com.ramotion.garlandview.example.inner.InnerData;
+import com.ramotion.garlandview.example.inner.InnerItem;
 import com.ramotion.garlandview.example.outer.OuterAdapter;
 import com.ramotion.garlandview.header.HeaderTransformer;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initFaker();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initFaker() {
@@ -87,6 +104,16 @@ public class MainActivity extends AppCompatActivity {
                 faker.avatar.image(faker.internet.email()),
                 faker.number.between(20, 50)
         );
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnInnerItemClick(InnerItem item) {
+        final InnerData itemData = item.getItemData();
+        if (itemData == null) {
+            return;
+        }
+
+        DetailsActivity.start(this, item);
     }
 
 }

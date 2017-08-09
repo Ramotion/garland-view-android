@@ -9,16 +9,20 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
 
     private final View mInnerLayout;
 
-    private final TextView mHeader;
-    private final TextView mName;
-    private final TextView mAddress;
-    private final ImageView mAvatar;
+    public final TextView mHeader;
+    public final TextView mName;
+    public final TextView mAddress;
+    public final ImageView mAvatar;
+
+    private InnerData mInnerData;
 
     public InnerItem(View itemView) {
         super(itemView);
@@ -28,6 +32,13 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
         mName = (TextView) itemView.findViewById(R.id.tv_name);
         mAddress = (TextView) itemView.findViewById(R.id.tv_address);
         mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
+
+        mInnerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(InnerItem.this);
+            }
+        });
     }
 
     @Override
@@ -35,11 +46,18 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
         return mInnerLayout;
     }
 
+    public InnerData getItemData() {
+        return mInnerData;
+    }
+
     public void clearContent() {
         Glide.clear(mAvatar);
+        mInnerData = null;
     }
 
     void setContent(InnerData data) {
+        mInnerData = data;
+
         mHeader.setText(data.title);
         mName.setText(String.format("%s %s", data.name, itemView.getContext().getString(R.string.answer_low)));
         mAddress.setText(data.address);
