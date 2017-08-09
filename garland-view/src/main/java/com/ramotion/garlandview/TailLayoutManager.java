@@ -126,7 +126,9 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         detachAndScrapAttachedViews(recycler);
         layoutViews(anchorPos, recycler, state);
 
-        if (scrollOffset != 0) {
+        if (scrollOffset == 0) {
+            applyTransformation();
+        } else {
             scrollHorizontallyBy(scrollOffset, recycler, state);
         }
     }
@@ -178,6 +180,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         offsetChildrenHorizontal(-scrolled);
 
         layoutViews(getAnchorPosition(), recycler, state);
+        applyTransformation();
 
         return scrolled;
     }
@@ -243,19 +246,6 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         for (int i = 0, cnt = mViewCache.size(); i < cnt; i++) {
             recycler.recycleView(mViewCache.valueAt(i));
         }
-
-        if (mPageTransformer == null) {
-            return;
-        }
-
-        final int viewWidth = getWidth() - mItemStart * 2;
-        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
-            final View view = getChildAt(i);
-            final int viewLeft = getDecoratedLeft(view);
-            final float position = ((float) (viewLeft - mItemStart)) / viewWidth;
-
-            mPageTransformer.transformPage((TailItem) mRecyclerView.getChildViewHolder(view), position);
-        }
     }
 
     private void fillLeft(int anchorPos, RecyclerView.Recycler recycler, RecyclerView.State state) {
@@ -313,6 +303,21 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             viewLeft = getDecoratedRight(view) + mItemGap;
             fillRight = viewLeft < width;
             pos++;
+        }
+    }
+
+    private void applyTransformation() {
+        if (mPageTransformer == null) {
+            return;
+        }
+
+        final int viewWidth = getWidth() - mItemStart * 2;
+        for (int i = 0, cnt = getChildCount(); i < cnt; i++) {
+            final View view = getChildAt(i);
+            final int viewLeft = getDecoratedLeft(view);
+            final float position = ((float) (viewLeft - mItemStart)) / viewWidth;
+
+            mPageTransformer.transformPage((TailItem) mRecyclerView.getChildViewHolder(view), position);
         }
     }
 

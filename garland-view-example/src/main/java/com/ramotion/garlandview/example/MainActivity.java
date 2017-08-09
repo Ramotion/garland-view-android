@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new HeaderTransformer()));
         rv.setAdapter(new OuterAdapter(data));
 
-        // TODO: save / restore inner items offset
         new TailSnapHelper().attachToRecyclerView(rv);
     }
 

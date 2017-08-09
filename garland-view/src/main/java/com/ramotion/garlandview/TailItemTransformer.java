@@ -113,17 +113,17 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             floorDiff = 1f;
         }
 
-        View fistOffsetChild = vg.getChildAt(0);
+        View firstOffsetChild = vg.getChildAt(0);
         for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
             final View child = vg.getChildAt(i);
             if (child.getY() > child.getHeight()) {
-                fistOffsetChild = child;
+                firstOffsetChild = child;
                 break;
             }
         }
 
         float sign;
-        final float childX = ViewCompat.getX(fistOffsetChild);
+        final float childX = ViewCompat.getX(firstOffsetChild);
         if (floorDiff > 0.5f) {
             if (childX < -10){
                 sign = -1;
