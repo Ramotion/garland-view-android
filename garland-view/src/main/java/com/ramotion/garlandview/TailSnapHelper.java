@@ -52,36 +52,16 @@ public class TailSnapHelper extends SnapHelper {
             return RecyclerView.NO_POSITION;
         }
 
-        final int start = ((TailLayoutManager)lm).getItemStart();
-
-        int absClosest = Integer.MAX_VALUE;
-        View closestChild = null;
-        for (int i = 0; i < childCount; i++) {
-            final View child = lm.getChildAt(i);
-            final int childStart = lm.getDecoratedLeft(child);
-            int absDistance = Math.abs(childStart - start);
-
-            if (absDistance < absClosest) {
-                absClosest = absDistance;
-                closestChild = child;
-            }
-        }
-
-        if (closestChild == null) {
-            return RecyclerView.NO_POSITION;
-        }
-
-        final int currentPosition = lm.getPosition(closestChild);
-        if (currentPosition == RecyclerView.NO_POSITION) {
-            return RecyclerView.NO_POSITION;
-        }
-
         final boolean leftDirection = velocityX > 0;
-
         if (leftDirection) {
-            return Math.min(itemCount - 1, currentPosition + 1);
+            final View leftChild = lm.getChildAt(0);
+            final int leftChildPos = lm.getPosition(leftChild);
+            final int leftChildRight = lm.getDecoratedRight(leftChild);
+            return Math.min(itemCount - 1, leftChildPos + (leftChildRight > 0 ? 1 : 2));
         } else {
-            return Math.max(0, currentPosition - 1);
+            final View rightChild = lm.getChildAt(childCount - 1);
+            final int rightChildPos = lm.getPosition(rightChild);
+            return Math.max(0, rightChildPos - 1);
         }
     }
 
