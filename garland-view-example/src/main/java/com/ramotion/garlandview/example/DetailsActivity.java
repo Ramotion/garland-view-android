@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.inner.InnerItem;
@@ -30,17 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
         starter.putExtra(BUNDLE_TITLE, item.getItemData().title);
         starter.putExtra(BUNDLE_AVATAR_URL, item.getItemData().avatarUrl);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Pair<View, String> p1 = Pair.create(item.itemView, activity.getString(R.string.transition_card));
-            final Pair<View, String> p2 = Pair.create(item.mAvatarBorder, activity.getString(R.string.transition_avatar_border));
-
-            final ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(activity, p1, p2);
-
-            activity.startActivity(starter, options.toBundle());
-        } else {
-            activity.startActivity(starter);
-        }
+        activity.startActivity(starter);
     }
 
     @Override
@@ -48,13 +39,14 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        final String avatarUrl = getIntent().getStringExtra(BUNDLE_AVATAR_URL);
-        final ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
+        ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
+        ((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra(BUNDLE_TITLE));
 
         Glide.with(this)
-                .load(avatarUrl)
+                .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
                 .bitmapTransform(new CropCircleTransformation(this))
-                .into(avatar);
+                .into((ImageView) findViewById(R.id.avatar));
     }
 
     public void onCardClick(View v) {
