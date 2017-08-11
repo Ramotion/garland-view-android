@@ -129,6 +129,12 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
     }
 
     @Override
+    public void scrollToPosition(int position) {
+        // TODO: implement
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @Override
     public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapter newAdapter) {
         removeAllViews();
     }

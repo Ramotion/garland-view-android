@@ -185,6 +185,12 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         return scrolled;
     }
 
+    @Override
+    public void scrollToPosition(int position) {
+        // TODO: implement
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
     public TailLayoutManager setPageTransformer(PageTransformer transformer) {
         mPageTransformer = transformer;
         return this;

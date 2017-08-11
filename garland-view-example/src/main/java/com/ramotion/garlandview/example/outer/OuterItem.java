@@ -158,7 +158,11 @@ public class OuterItem extends HeaderItem {
 
     void clearContent() {
         Glide.clear(mAvatar);
+
         ((InnerAdapter)mRecyclerView.getAdapter()).clearData();
+
+        // FIXME: temporary fix
+        mRecyclerView.setLayoutManager(new InnerLayoutManager());
     }
 
     private float computeRatio(RecyclerView recyclerView) {
