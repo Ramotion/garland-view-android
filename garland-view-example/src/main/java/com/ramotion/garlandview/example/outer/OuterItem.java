@@ -66,7 +66,7 @@ public class OuterItem extends HeaderItem {
 
     private boolean mIsScrolling;
 
-    public OuterItem(View itemView) {
+    public OuterItem(View itemView, RecyclerView.RecycledViewPool pool) {
         super(itemView);
 
         // Init header
@@ -89,6 +89,7 @@ public class OuterItem extends HeaderItem {
 
         // Init RecyclerView
         mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+        mRecyclerView.setRecycledViewPool(pool);
         mRecyclerView.setAdapter(new InnerAdapter());
         mRecyclerView.setLayoutManager(new InnerLayoutManager());
 
