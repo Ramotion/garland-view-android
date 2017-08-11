@@ -35,57 +35,52 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_middle_height">
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/header_middle_collapsible"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
+            <View
                 android:id="@+id/avatar_border"
                 android:layout_width="@dimen/item_avatar_size"
                 android:layout_height="@dimen/item_avatar_size"
                 android:background="@drawable/avatar_border"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="0dp" >
+                android:layout_gravity="center_vertical"/>
 
-                <ImageView
-                    android:id="@+id/avatar"
-                    android:scaleType="centerCrop"
-                    android:layout_margin="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/avatar"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="2dp"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center_vertical"/>
 
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_name"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="60dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/item_name_text_size"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/avatar_border"
-                android:layout_alignTop="@+id/avatar_border"/>
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/item_info_text_size"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/avatar_border"
-                android:layout_alignBottom="@+id/avatar_border"/>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/item_name_text_size"
+                    android:textColor="@android:color/white"/>
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/item_info_text_size"
+                    android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/header_middle_answer"
@@ -101,7 +96,7 @@
 
     </FrameLayout>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/header_footer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_footer_height"
@@ -110,7 +105,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:text="@string/answer"
             android:textColor="@color/header_green"
@@ -119,9 +114,8 @@
         <ImageView
             android:layout_width="@dimen/item_icon_size"
             android:layout_height="@dimen/item_icon_size"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/view2"
-            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="36dp"
             android:src="@drawable/ic_comment_black_24dp"
             android:alpha="@dimen/gray_alpha"/>
 
@@ -129,12 +123,11 @@
             android:id="@+id/view2"
             android:layout_width="@dimen/item_icon_size"
             android:layout_height="@dimen/item_icon_size"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_favorite_black_24dp"
             android:alpha="@dimen/gray_alpha"/>
 
-    </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>
