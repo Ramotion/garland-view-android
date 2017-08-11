@@ -42,9 +42,10 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         }
 
         final View child = item.getViewGroup().getChildAt(0);
-        final TransformParams params = getParamsForPosition(scrollPosition, child.getWidth(), child.getHeight());
-        applyAlphaScaleEffect(item.getViewGroup(), params);
-        applyTailEffect(item.getViewGroup(), scrollPosition);
+        final int viewHeight = child.getMeasuredHeight();
+        final TransformParams params = getParamsForPosition(scrollPosition, child.getWidth(), viewHeight);
+        applyAlphaScaleEffect(item.getViewGroup(), params, viewHeight);
+        applyTailEffect(item.getViewGroup(), scrollPosition, viewHeight);
     }
 
     public TransformParams getParamsForPosition(float position, int childWidth, int childHeight) {
@@ -74,10 +75,11 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         return minValue + (maxValue - minValue) * (1 - Math.abs(position));
     }
 
-    private void applyAlphaScaleEffect(@NonNull ViewGroup vg, @NonNull TransformParams params) {
+    private void applyAlphaScaleEffect(@NonNull ViewGroup vg, @NonNull TransformParams params, int viewHeight) {
         final float scaleStep = (INACTIVE_SCALE - INACTIVE_SCALE_CHILD) / 3; // Divide on visible children count
         float scaleMin = INACTIVE_SCALE_CHILD;
 
+        int j = 0;
         for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
             final View view = vg.getChildAt(i);
 
@@ -85,7 +87,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             ViewCompat.setAlpha(view, params.alphaChild);
 
             final float scale;
-            if (view.getY() < view.getHeight()) {
+            if (view.getY() < viewHeight) {
                 scale = params.scale;
             } else {
                 scale = computeRatio(scaleMin, 1, params.position);
@@ -95,12 +97,16 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             ViewCompat.setScaleX(view, scale);
             ViewCompat.setScaleY(view, scale);
 
-            final float j = Math.max(-2, 1 - i);
-            ViewCompat.setTranslationY(view, j * params.offsetY);
+            if (view.getY() < viewHeight) {
+                ViewCompat.setTranslationY(view, params.offsetY);
+            } else {
+                ViewCompat.setTranslationY(view, j * params.offsetY);
+                j--;
+            }
         }
     }
 
-    private void applyTailEffect(@NonNull ViewGroup vg, float position) {
+    private void applyTailEffect(@NonNull ViewGroup vg, float position, int viewHeight) {
         if (position < -1 || position > 1) {
             for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
                 ViewCompat.setX(vg.getChildAt(i), 0);
@@ -116,7 +122,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         View firstOffsetChild = vg.getChildAt(0);
         for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
             final View child = vg.getChildAt(i);
-            if (child.getY() > child.getHeight()) {
+            if (child.getY() > viewHeight) {
                 firstOffsetChild = child;
                 break;
             }
@@ -138,10 +144,10 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             }
         }
 
-        for (int i = 0, j = 1, cnt = vg.getChildCount(); i < cnt; i++, j++) {
+        for (int i = 0, j = 1, cnt = vg.getChildCount(); i < cnt; i++) {
             final View child = vg.getChildAt(i);
 
-            if (child.getY() < child.getHeight()) {
+            if (child.getY() < viewHeight) {
                 continue;
             }
 
@@ -153,6 +159,8 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             }
 
             ViewCompat.setX(child, sign * childOffset);
+
+            j++;
         }
     }
 
