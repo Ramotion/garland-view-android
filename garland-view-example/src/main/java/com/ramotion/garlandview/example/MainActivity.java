@@ -2,6 +2,7 @@ package com.ramotion.garlandview.example;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ramotion.garlandview.TailLayoutManager;
 import com.ramotion.garlandview.TailRecyclerView;
@@ -57,12 +58,10 @@ public class MainActivity extends AppCompatActivity {
         Single.create(new SingleOnSubscribe<List<List<InnerData>>>() {
             @Override
             public void subscribe(@NonNull SingleEmitter<List<List<InnerData>>> e) throws Exception {
-                final Random random = new Random();
                 final Faker faker = new Faker();
                 final List<List<InnerData>> data = new ArrayList<>();
 
                 for (int i = 0; i < COUNT && !e.isDisposed(); i++) {
-//                    final int innerCount = faker.number.between(3, 10);
                     final int innerCount = 20;
                     final List<InnerData> innDataList = new ArrayList<InnerData>();
                     for (int j = 0; j < innerCount && !e.isDisposed(); j++) {
@@ -88,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(List<List<InnerData>> data) {
-        // TODO: remove progressbar here
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
+
         final TailRecyclerView rv = (TailRecyclerView) findViewById(R.id.recycler_view);
         rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new HeaderTransformer()));
         rv.setAdapter(new OuterAdapter(data));

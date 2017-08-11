@@ -29,20 +29,28 @@
         android:layout_height="match_parent"
         android:clipChildren="false"/>
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginStart="50dp"
-        android:visibility="invisible"
-        android:background="@android:color/holo_red_light"/>
+    <LinearLayout
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="50dp"
-        android:visibility="invisible"
-        android:background="@android:color/holo_red_light"/>
+        <ProgressBar
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:text="Initializing Faker..."/>
+
+    </LinearLayout>
 
 </FrameLayout>
