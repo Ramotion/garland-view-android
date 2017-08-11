@@ -8,14 +8,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_header_height"
-        android:paddingStart="8dp"
-        android:paddingTop="8dp"
         android:background="@drawable/green_corners_top">
 
         <TextView
             android:id="@+id/header_text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:textSize="@dimen/header_title_text_size"
             android:textColor="@android:color/white"/>
@@ -24,6 +24,8 @@
             android:id="@+id/header_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:alpha="0"
             android:textColor="@android:color/white"/>
 
@@ -37,8 +39,8 @@
 
         <FrameLayout
             android:id="@+id/header_middle_collapsible"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -60,7 +62,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="52dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -106,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:text="@string/answer"
             android:textColor="@color/header_green"
             android:textSize="@dimen/item_footer_text_size"/>
@@ -115,7 +117,7 @@
             android:layout_width="@dimen/item_icon_size"
             android:layout_height="@dimen/item_icon_size"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="44dp"
             android:src="@drawable/ic_comment_black_24dp"
             android:alpha="@dimen/gray_alpha"/>
 
@@ -124,7 +126,7 @@
             android:layout_width="@dimen/item_icon_size"
             android:layout_height="@dimen/item_icon_size"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_favorite_black_24dp"
             android:alpha="@dimen/gray_alpha"/>
 

@@ -14,7 +14,7 @@
     <FrameLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="@dimen/inner_item_height">
 
         <include layout="@layout/outer_header"/>
 

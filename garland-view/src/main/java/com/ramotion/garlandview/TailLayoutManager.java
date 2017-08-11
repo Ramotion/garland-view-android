@@ -20,7 +20,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         void transformPage(@NonNull T item, float scrollPosition);
     }
 
-    private final static int DEFAULT_ITEM_START = 50;
+    private final static int DEFAULT_ITEM_START = 40;
     private final static int DEFAULT_ITEM_GAP = 0;
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
