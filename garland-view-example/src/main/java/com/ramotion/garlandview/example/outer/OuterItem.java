@@ -19,6 +19,7 @@ import com.ramotion.garlandview.example.inner.InnerData;
 import com.ramotion.garlandview.header.HeaderDecorator;
 import com.ramotion.garlandview.header.HeaderItem;
 import com.ramotion.garlandview.inner.InnerLayoutManager;
+import com.ramotion.garlandview.inner.InnerRecyclerView;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class OuterItem extends HeaderItem {
     private final View mHeader;
     private final View mHeaderAlpha;
 
-    private final RecyclerView mRecyclerView;
+    private final InnerRecyclerView mRecyclerView;
 
     private final View mHeaderMiddle;
     private final View mHeaderMiddleCollapsible;
@@ -88,7 +89,7 @@ public class OuterItem extends HeaderItem {
         mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
 
         // Init RecyclerView
-        mRecyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+        mRecyclerView = (InnerRecyclerView) itemView.findViewById(R.id.recycler_view);
         mRecyclerView.setRecycledViewPool(pool);
         mRecyclerView.setAdapter(new InnerAdapter());
         mRecyclerView.setLayoutManager(new InnerLayoutManager());
@@ -116,7 +117,7 @@ public class OuterItem extends HeaderItem {
     }
 
     @Override
-    public ViewGroup getViewGroup() {
+    public InnerRecyclerView getViewGroup() {
         return mRecyclerView;
     }
 

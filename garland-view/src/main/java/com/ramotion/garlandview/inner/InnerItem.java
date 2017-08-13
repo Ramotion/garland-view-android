@@ -25,6 +25,9 @@ public abstract class InnerItem extends RecyclerView.ViewHolder {
         ViewCompat.setY(view, ViewCompat.getY(view) - offset);
     }
 
+    /**
+     * @return  Must return main item layout
+     */
     protected abstract View getInnerLayout();
 
 }
