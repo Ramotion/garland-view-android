@@ -16,6 +16,8 @@ import com.ramotion.R;
 public class TailLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
+    private int mScrollToPosition = RecyclerView.NO_POSITION;
+
     public interface PageTransformer<T extends TailItem> {
         void transformPage(@NonNull T item, float scrollPosition);
     }
@@ -135,6 +137,8 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
 
     @Override
     public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        mScrollToPosition = RecyclerView.NO_POSITION;
+
         final int childCount = getChildCount();
         if (childCount == 0) {
             return 0;
@@ -187,8 +191,12 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
 
     @Override
     public void scrollToPosition(int position) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (position < 0 || position >= getItemCount()) {
+            return;
+        }
+
+        mScrollToPosition = position;
+        requestLayout();
     }
 
     public TailLayoutManager setPageTransformer(PageTransformer transformer) {
@@ -222,6 +230,10 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     }
 
     private int getAnchorPosition() {
+        if (mScrollToPosition != RecyclerView.NO_POSITION) {
+            return mScrollToPosition;
+        }
+
         if (getChildCount() == 0) {
             return 0;
         } else {

@@ -14,6 +14,8 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
 
     private RecyclerView mRecyclerView;
 
+    private int mScrollToPosition = RecyclerView.NO_POSITION;
+
     @Override
     public void onAttachedToWindow(RecyclerView view) {
         if (!(view instanceof InnerRecyclerView)) {
@@ -88,6 +90,8 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
 
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        mScrollToPosition = RecyclerView.NO_POSITION;
+
         final int childCount = getChildCount();
         if (childCount == 0) {
             return 0;
@@ -130,8 +134,12 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
 
     @Override
     public void scrollToPosition(int position) {
-        // TODO: implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (position < 0 || position >= getItemCount()) {
+            return;
+        }
+
+        mScrollToPosition = position;
+        requestLayout();
     }
 
     @Override
@@ -165,6 +173,10 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
     }
 
     private int getAnchorPosition() {
+        if (mScrollToPosition != RecyclerView.NO_POSITION) {
+            return mScrollToPosition;
+        }
+
         if (getChildCount() == 0) {
             return 0;
         } else {
