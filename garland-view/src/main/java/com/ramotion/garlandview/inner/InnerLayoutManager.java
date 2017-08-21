@@ -2,6 +2,8 @@ package com.ramotion.garlandview.inner;
 
 
 import android.graphics.PointF;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -9,6 +11,46 @@ import android.view.View;
 
 public class InnerLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+
+    private static class SavedState implements Parcelable {
+
+        int anchorPos;
+
+        SavedState() {
+
+        }
+
+        SavedState(Parcel in) {
+            anchorPos = in.readInt();
+        }
+
+        public SavedState(SavedState other) {
+            anchorPos = other.anchorPos;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(anchorPos);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel parcel) {
+                return new SavedState(parcel);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+
+    }
 
     private final SparseArray<View> mViewCache = new SparseArray<>();
 
@@ -140,6 +182,22 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
 
         mScrollToPosition = position;
         requestLayout();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        SavedState state = new SavedState();
+        state.anchorPos = getAnchorPosition();
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable parcelable) {
+        if (parcelable instanceof SavedState) {
+            SavedState state = (SavedState) parcelable;
+            mScrollToPosition = state.anchorPos;
+            requestLayout();
+        }
     }
 
     @Override
