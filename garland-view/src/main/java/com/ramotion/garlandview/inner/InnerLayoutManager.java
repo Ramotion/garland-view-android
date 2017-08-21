@@ -279,7 +279,7 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
             return;
         }
 
-        final int viewDecoratedHeight = getDecoratedMeasuredHeight(anchorView); // TODO: check value after top changed
+        final int viewDecoratedHeight = getDecoratedMeasuredHeight(anchorView);
         final int anchorTop = getDecoratedBottom(anchorView) - viewDecoratedHeight;
 
         final int pos = anchorPos - 1;

@@ -92,7 +92,6 @@ public class OuterItem extends HeaderItem {
         mRecyclerView = (InnerRecyclerView) itemView.findViewById(R.id.recycler_view);
         mRecyclerView.setRecycledViewPool(pool);
         mRecyclerView.setAdapter(new InnerAdapter());
-        mRecyclerView.setLayoutManager(new InnerLayoutManager());
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -137,6 +136,7 @@ public class OuterItem extends HeaderItem {
         final InnerData header = innerDataList.subList(0, 1).get(0);
         final List<InnerData> tail = innerDataList.subList(1, innerDataList.size());
 
+        mRecyclerView.setLayoutManager(new InnerLayoutManager());
         ((InnerAdapter)mRecyclerView.getAdapter()).addData(tail);
 
         Glide.with(context)
@@ -159,11 +159,7 @@ public class OuterItem extends HeaderItem {
 
     void clearContent() {
         Glide.clear(mAvatar);
-
         ((InnerAdapter)mRecyclerView.getAdapter()).clearData();
-
-        // FIXME: temporary fix
-        mRecyclerView.setLayoutManager(new InnerLayoutManager());
     }
 
     private float computeRatio(RecyclerView recyclerView) {
