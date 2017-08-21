@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import io.bloco.faker.Faker;
 import io.reactivex.Single;

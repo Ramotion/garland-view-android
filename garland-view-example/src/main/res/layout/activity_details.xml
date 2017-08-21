@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundTop"
-    android:transitionName="blackBackground"
     tools:context="com.ramotion.garlandview.example.DetailsActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -34,12 +33,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/card_bottom"
-            android:transitionName="@string/transition_line"
             app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_name"
-            android:transitionName="@string/transition_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -57,7 +54,6 @@
 
         <TextView
             android:id="@+id/tv_info"
-            android:transitionName="@string/transition_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"
@@ -92,6 +88,7 @@
             android:layout_marginEnd="8dp" />
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="What's your go-to song when you're singing in the shower"
@@ -103,14 +100,12 @@
             app:layout_constraintLeft_toLeftOf="@+id/card_bottom"
             android:layout_marginRight="16dp"
             app:layout_constraintRight_toRightOf="@+id/card_bottom"
-            android:id="@+id/textView4"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_title"
-            android:transitionName="@string/transition_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"

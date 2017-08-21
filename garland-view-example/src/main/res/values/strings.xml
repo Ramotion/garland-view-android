@@ -9,8 +9,4 @@
 
     <string name="transition_avatar_border" translatable="false">avatar_border</string>
     <string name="transition_card" translatable="false">card</string>
-    <string name="transition_name">name</string>
-    <string name="transition_info">info</string>
-    <string name="transition_title">title</string>
-    <string name="transition_line">line</string>
 </resources>
