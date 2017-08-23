@@ -17,13 +17,18 @@
             android:id="@+id/tv_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Item text here"
-            android:textSize="@dimen/item_title_text_size"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="@+id/avatar_border" />
+            android:ellipsize="end"
+            android:gravity="start"
+            android:text="Item text here"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/item_title_text_size"
+            android:maxLines="1"
+            app:layout_constraintHorizontal_bias="0.008"
+            app:layout_constraintLeft_toLeftOf="@+id/avatar_border"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/avatar_border"
@@ -59,13 +64,17 @@
             app:layout_constraintTop_toTopOf="@+id/avatar_border"
             android:layout_marginTop="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/avatar_border"
-            android:layout_marginBottom="0dp">
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.0">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
+                android:ellipsize="end"
                 android:textSize="@dimen/item_name_text_size"
                 android:textColor="@android:color/black"/>
 
@@ -73,6 +82,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:alpha="0.3"
                 android:textSize="@dimen/item_info_text_size"
                 android:textColor="@android:color/black"/>

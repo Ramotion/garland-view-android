@@ -7,7 +7,6 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:clipChildren="false"
         android:layout_height="@dimen/item_header_height"
         android:background="@drawable/green_corners_top">
 
@@ -18,7 +17,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:gravity="start"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="@dimen/header_title_text_size"
             android:textColor="@android:color/white"/>
 
