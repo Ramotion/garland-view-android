@@ -341,7 +341,7 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
             }
 
             if (view.getTop() > 0) {
-                ((InnerItem) mRecyclerView.getChildViewHolder(view)).onItemViewHeightChanged(viewHeight);
+                ((InnerItem) mRecyclerView.getChildViewHolder(view)).resetInnerLayoutOffset();
             }
         }
     }

@@ -15,14 +15,14 @@ public abstract class InnerItem extends RecyclerView.ViewHolder {
 
     void onItemViewHeightChanged(int newHeight) {
         if ((prevHeight != 0) && (newHeight != prevHeight)) {
-            shiftUpInnerLayout(prevHeight - newHeight);
+            final View view = getInnerLayout();
+            ViewCompat.setY(view, ViewCompat.getY(view) - (prevHeight - newHeight));
         }
         prevHeight = newHeight;
     }
 
-    protected void shiftUpInnerLayout(int offset) {
-        final View view = getInnerLayout();
-        ViewCompat.setY(view, ViewCompat.getY(view) - offset);
+    void resetInnerLayoutOffset() {
+        ViewCompat.setY(getInnerLayout(), 0);
     }
 
     /**
