@@ -5,6 +5,8 @@ import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ramotion.R;
+
 public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     private static final float INACTIVE_SCALE = 0.7f;
@@ -16,14 +18,18 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     public static class TransformParams {
         public final float position;
+        public final float floorDiff;
         public final float scale;
         public final float alpha;
         public final float alphaChild;
         public final float pivotX;
         public final float offsetY;
 
-        TransformParams(float position, float scale, float alpha, float alphaChild, float pivotX, float offsetY) {
+        TransformParams(float position, float floorDiff, float scale, float alpha,
+                        float alphaChild, float pivotX, float offsetY)
+        {
             this.position = position;
+            this.floorDiff = floorDiff;
             this.scale = scale;
             this.alpha = alpha;
             this.alphaChild = alphaChild;
@@ -45,12 +51,17 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         final int viewHeight = child.getMeasuredHeight();
         final TransformParams params = getParamsForPosition(scrollPosition, child.getWidth(), viewHeight);
         applyAlphaScaleEffect(item.getViewGroup(), params, viewHeight);
-        applyTailEffect(item.getViewGroup(), scrollPosition, viewHeight);
+        applyTailEffect(item.getViewGroup(), params);
     }
 
     public TransformParams getParamsForPosition(float position, int childWidth, int childHeight) {
         if (position == mParamsPosition && mParams != null) {
             return mParams;
+        }
+
+        float floorDiff = position - (float) Math.floor(position);
+        if (floorDiff == 0f) {
+            floorDiff = 1f;
         }
 
         final float scale = computeRatio(INACTIVE_SCALE, 1, position);
@@ -61,7 +72,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
         final float offsetY = (childHeight - childHeight * scale) / 2;
 
-        mParams = new TransformParams(position, scale, alpha, alphaChild, pivotX, offsetY);
+        mParams = new TransformParams(position, floorDiff, scale, alpha, alphaChild, pivotX, offsetY);
         mParamsPosition = position;
 
         return mParams;
@@ -86,8 +97,16 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             ViewCompat.setPivotX(view, params.pivotX);
             ViewCompat.setAlpha(view, params.alphaChild);
 
+            boolean isHeaderView;
+            if (params.floorDiff == 1f || view.getTag(R.id.tail_header_tag) == null) {
+                isHeaderView = view.getY() < viewHeight;
+                view.setTag(R.id.tail_header_tag, isHeaderView);
+            } else {
+                isHeaderView = (Boolean) view.getTag(R.id.tail_header_tag);
+            }
+
             final float scale;
-            if (view.getY() < viewHeight) {
+            if (isHeaderView) {
                 scale = params.scale;
             } else {
                 scale = computeRatio(scaleMin, 1, params.position);
@@ -97,7 +116,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             ViewCompat.setScaleX(view, scale);
             ViewCompat.setScaleY(view, scale);
 
-            if (view.getY() < viewHeight) {
+            if (isHeaderView) {
                 ViewCompat.setTranslationY(view, params.offsetY);
             } else {
                 ViewCompat.setTranslationY(view, j * params.offsetY);
@@ -106,7 +125,10 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         }
     }
 
-    private void applyTailEffect(@NonNull ViewGroup vg, float position, int viewHeight) {
+    private void applyTailEffect(@NonNull ViewGroup vg, @NonNull TransformParams params) {
+        final float position = params.position;
+        final float floorDiff = params.floorDiff;
+
         if (position < -1 || position > 1) {
             for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
                 ViewCompat.setX(vg.getChildAt(i), 0);
@@ -114,19 +136,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             return;
         }
 
-        float floorDiff = position - (float) Math.floor(position);
-        if (floorDiff == 0f) {
-            floorDiff = 1f;
-        }
-
-        View firstOffsetChild = vg.getChildAt(0);
-        for (int i = 1, cnt = vg.getChildCount(); i < cnt; i++) {
-            final View child = vg.getChildAt(i);
-            if (child.getY() > viewHeight) {
-                firstOffsetChild = child;
-                break;
-            }
-        }
+        final View firstOffsetChild = vg.getChildAt(vg.getChildCount() - 1);
 
         float sign;
         final float childX = ViewCompat.getX(firstOffsetChild);
@@ -147,7 +157,8 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         for (int i = 0, j = 1, cnt = vg.getChildCount(); i < cnt; i++) {
             final View child = vg.getChildAt(i);
 
-            if (child.getY() < viewHeight) {
+            final boolean isHeaderView = (Boolean) child.getTag(R.id.tail_header_tag);
+            if (isHeaderView) {
                 continue;
             }
 
