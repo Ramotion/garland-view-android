@@ -8,6 +8,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/details_transition</item>
         <item name="android:windowExitTransition">@transition/details_transition</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
 </resources>

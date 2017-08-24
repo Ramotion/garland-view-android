@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundTop"
     tools:context="com.ramotion.garlandview.example.DetailsActivity">
 
     <android.support.constraint.ConstraintLayout
