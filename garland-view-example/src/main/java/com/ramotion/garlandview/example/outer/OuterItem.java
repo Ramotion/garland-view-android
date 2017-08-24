@@ -21,6 +21,7 @@ import com.ramotion.garlandview.header.HeaderItem;
 import com.ramotion.garlandview.inner.InnerLayoutManager;
 import com.ramotion.garlandview.inner.InnerRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -50,18 +51,20 @@ public class OuterItem extends HeaderItem {
 
     private final InnerRecyclerView mRecyclerView;
 
-    private final View mHeaderMiddle;
-    private final View mHeaderMiddleCollapsible;
-    private final View mHeaderMiddleAnswer;
-    private final View mHeaderFooterCollapsible;
+    private final ImageView mAvatar;
     private final TextView mHeaderCaption1;
     private final TextView mHeaderCaption2;
     private final TextView mName;
     private final TextView mInfo;
-    private final ImageView mAvatar;
 
-    private final int mHeaderMiddleHeight;
+    private final View mMiddle;
+    private final View mMiddleAnswer;
+    private final View mFooter;
+
+    private final List<View> mMiddleCollapsible = new ArrayList<>(2);
+
     private final int m10dp;
+    private final int m120dp;
     private final int mTitleSize1;
     private final int mTitleSize2;
 
@@ -71,22 +74,26 @@ public class OuterItem extends HeaderItem {
         super(itemView);
 
         // Init header
-        mHeaderMiddleHeight = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_middle_height);
         m10dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp10);
+        m120dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp120);
         mTitleSize1 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_title_text_size);
         mTitleSize2 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_name_text_size);
 
         mHeader = itemView.findViewById(R.id.header);
         mHeaderAlpha = itemView.findViewById(R.id.header_alpha);
-        mHeaderMiddle = itemView.findViewById(R.id.header_middle);
-        mHeaderMiddleCollapsible = mHeaderMiddle.findViewById(R.id.header_middle_collapsible);
-        mHeaderMiddleAnswer= mHeaderMiddle.findViewById(R.id.header_middle_answer);
-        mHeaderFooterCollapsible = itemView.findViewById(R.id.header_footer);
+
         mHeaderCaption1 = (TextView) itemView.findViewById(R.id.header_text_1);
         mHeaderCaption2 = (TextView) itemView.findViewById(R.id.header_text_2);
         mName = (TextView) itemView.findViewById(R.id.tv_name);
         mInfo = (TextView) itemView.findViewById(R.id.tv_info);
         mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
+
+        mMiddle = itemView.findViewById(R.id.header_middle);
+        mMiddleAnswer= itemView.findViewById(R.id.header_middle_answer);
+        mFooter = itemView.findViewById(R.id.header_footer);
+
+        mMiddleCollapsible.add((View)mAvatar.getParent());
+        mMiddleCollapsible.add((View)mName.getParent());
 
         // Init RecyclerView
         mRecyclerView = (InnerRecyclerView) itemView.findViewById(R.id.recycler_view);
@@ -182,26 +189,30 @@ public class OuterItem extends HeaderItem {
         final float answerRatio = Math.max(0, Math.min(ANSWER_RATIO_START, ratio) - ANSWER_RATIO_DIFF) / ANSWER_RATIO_MAX;
         final float middleRatio = Math.max(0, Math.min(MIDDLE_RATIO_START, ratio) - MIDDLE_RATIO_DIFF) / MIDDLE_RATIO_MAX;
 
-        ViewCompat.setPivotY(mHeaderFooterCollapsible, 0);
-        ViewCompat.setScaleY(mHeaderFooterCollapsible, footerRatio);
-        ViewCompat.setAlpha(mHeaderFooterCollapsible, footerRatio);
+        ViewCompat.setPivotY(mFooter, 0);
+        ViewCompat.setScaleY(mFooter, footerRatio);
+        ViewCompat.setAlpha(mFooter, footerRatio);
 
-        ViewCompat.setPivotX(mHeaderMiddleCollapsible, mHeaderMiddleCollapsible.getWidth() / 7);
-        ViewCompat.setPivotY(mHeaderMiddleCollapsible, mHeaderMiddleCollapsible.getHeight() / 2);
-        ViewCompat.setScaleX(mHeaderMiddleCollapsible, avatarRatio);
-        ViewCompat.setScaleY(mHeaderMiddleCollapsible, avatarRatio);
-        ViewCompat.setAlpha(mHeaderMiddleCollapsible, avatarRatio);
-
-        ViewCompat.setPivotY(mHeaderMiddleAnswer, mHeaderMiddleAnswer.getHeight());
-        ViewCompat.setScaleY(mHeaderMiddleAnswer, 1f - answerRatio);
-        ViewCompat.setAlpha(mHeaderMiddleAnswer, 1f - answerRatio);
+        ViewCompat.setPivotY(mMiddleAnswer, mMiddleAnswer.getHeight());
+        ViewCompat.setScaleY(mMiddleAnswer, 1f - answerRatio);
+        ViewCompat.setAlpha(mMiddleAnswer, 1f - answerRatio);
 
         ViewCompat.setAlpha(mHeaderCaption1, answerRatio);
         ViewCompat.setAlpha(mHeaderCaption2, 1f - answerRatio);
 
-        final ViewGroup.LayoutParams lp = mHeaderMiddle.getLayoutParams();
-        lp.height = mHeaderMiddleHeight - (int)(m10dp * (1f - middleRatio));
-        mHeaderMiddle.setLayoutParams(lp);
+        final View mc2 = mMiddleCollapsible.get(1);
+        ViewCompat.setPivotX(mc2, 0);
+        ViewCompat.setPivotY(mc2, mc2.getHeight() / 2);
+
+        for (final View view: mMiddleCollapsible) {
+            ViewCompat.setScaleX(view, avatarRatio);
+            ViewCompat.setScaleY(view, avatarRatio);
+            ViewCompat.setAlpha(view, avatarRatio);
+        }
+
+        final ViewGroup.LayoutParams lp = mMiddle.getLayoutParams();
+        lp.height = m120dp - (int)(m10dp * (1f - middleRatio));
+        mMiddle.setLayoutParams(lp);
     }
 
 }

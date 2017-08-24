@@ -15,17 +15,17 @@
 
         <TextView
             android:id="@+id/tv_header"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:ellipsize="end"
             android:gravity="start"
             android:text="Item text here"
             android:textColor="@android:color/black"
             android:textSize="@dimen/item_title_text_size"
             android:maxLines="1"
-            app:layout_constraintHorizontal_bias="0.008"
+            android:ellipsize="end"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/avatar_border"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@+id/avatar_border"
             android:layout_marginLeft="8dp"
@@ -74,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
+                android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="@dimen/item_name_text_size"
                 android:textColor="@android:color/black"/>
@@ -82,6 +83,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:ellipsize="end"
                 android:alpha="0.3"
                 android:textSize="@dimen/item_info_text_size"

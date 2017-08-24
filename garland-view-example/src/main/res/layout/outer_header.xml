@@ -1,112 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_header_height"
-        android:background="@drawable/green_corners_top">
-
-        <TextView
-            android:id="@+id/header_text_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="start"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="@dimen/header_title_text_size"
-            android:textColor="@android:color/white"/>
-
-        <TextView
-            android:id="@+id/header_text_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:alpha="0"
-            android:textColor="@android:color/white"/>
-
-    </FrameLayout>
-
-    <FrameLayout
+    <View
         android:id="@+id/header_middle"
-        android:background="@color/header_green"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_middle_height">
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@drawable/green_corners_top"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"/>
 
-        <FrameLayout
-            android:id="@+id/header_middle_collapsible"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+    <TextView
+        android:id="@+id/header_text_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/header_title_text_size"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/header_middle"
+        app:layout_constraintTop_toTopOf="@+id/header_middle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/header_text_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="@+id/header_middle"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/header_middle"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <FrameLayout
+        android:id="@+id/avatar_border"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/avatar_border"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="@+id/header_middle"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/header_middle"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/header_footer"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <View
-                android:id="@+id/avatar_border"
-                android:layout_width="@dimen/item_avatar_size"
-                android:layout_height="@dimen/item_avatar_size"
-                android:background="@drawable/avatar_border"
-                android:layout_gravity="center_vertical"/>
-
-            <ImageView
-                android:id="@+id/avatar"
-                android:scaleType="centerCrop"
-                android:layout_marginStart="2dp"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_gravity="center_vertical"/>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="52dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/item_name_text_size"
-                    android:textColor="@android:color/white"/>
-
-                <TextView
-                    android:id="@+id/tv_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/item_info_text_size"
-                    android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/header_middle_answer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/answer"
-            android:textColor="@android:color/white"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:alpha="0"
-            android:scaleY="0"/>
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"/>
 
     </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/avatar_border"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/avatar_border"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_border"
+        android:layout_marginStart="8dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/header_text_2">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_name_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_info_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/header_middle_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/answer"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/header_middle"
+        android:alpha="0"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/header_footer" />
 
     <FrameLayout
         android:id="@+id/header_footer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_footer_height"
-        android:background="@drawable/white_corners_bottom">
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/white_corners_bottom"
+        app:layout_constraintLeft_toLeftOf="@+id/header_middle"
+        app:layout_constraintRight_toRightOf="@+id/header_middle"
+        app:layout_constraintTop_toBottomOf="@+id/header_middle">
 
         <TextView
             android:layout_width="wrap_content"
@@ -115,15 +142,15 @@
             android:layout_marginStart="16dp"
             android:text="@string/answer"
             android:textColor="@color/header_green"
-            android:textSize="@dimen/item_footer_text_size"/>
+            android:textSize="@dimen/item_footer_text_size" />
 
         <ImageView
             android:layout_width="@dimen/item_icon_size"
             android:layout_height="@dimen/item_icon_size"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="44dp"
-            android:src="@drawable/ic_comment_black_24dp"
-            android:alpha="@dimen/gray_alpha"/>
+            android:alpha="@dimen/gray_alpha"
+            android:src="@drawable/ic_comment_black_24dp" />
 
         <ImageView
             android:id="@+id/view2"
@@ -131,9 +158,9 @@
             android:layout_height="@dimen/item_icon_size"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_favorite_black_24dp"
-            android:alpha="@dimen/gray_alpha"/>
+            android:alpha="@dimen/gray_alpha"
+            android:src="@drawable/ic_favorite_black_24dp" />
 
     </FrameLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
