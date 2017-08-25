@@ -2,6 +2,7 @@ package com.ramotion.garlandview.header;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.View;
 
 import com.ramotion.garlandview.TailItemTransformer;
@@ -20,7 +21,7 @@ public class HeaderTransformer implements TailLayoutManager.PageTransformer<Head
         ViewCompat.setPivotX(header, params.pivotX);
         ViewCompat.setScaleX(header, params.scale);
         ViewCompat.setScaleY(header, params.scale);
-        ViewCompat.setAlpha(header, params.alpha);
+        ViewCompat.setAlpha(header, scrollPosition < 0 ? params.alphaLeft : params.alphaRight);
         ViewCompat.setTranslationY(header, params.offsetY);
 
         ViewCompat.setAlpha(item.getHeaderAlphaView(), 1 - params.alphaChild);

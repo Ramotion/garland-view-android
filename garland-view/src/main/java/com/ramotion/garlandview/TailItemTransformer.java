@@ -11,7 +11,8 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     private static final float INACTIVE_SCALE = 0.7f;
     private static final float INACTIVE_SCALE_CHILD = 0.3f;
-    private static final float INACTIVE_ALPHA = 0.5f;
+    private static final float INACTIVE_ALPHA_LEFT = 0.2f;
+    private static final float INACTIVE_ALPHA_RIGHT = 0.1f;
     private static final float INACTIVE_ALPHA_CHILD = 0.0f;
     private static final float PIVOT_X_SCALE = 0.8f;
     private static final int OFFSET_MAX = 150;
@@ -20,18 +21,20 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         public final float position;
         public final float floorDiff;
         public final float scale;
-        public final float alpha;
+        public final float alphaLeft; // TODO: move to header transformer
+        public final float alphaRight;
         public final float alphaChild;
         public final float pivotX;
         public final float offsetY;
 
-        TransformParams(float position, float floorDiff, float scale, float alpha,
-                        float alphaChild, float pivotX, float offsetY)
+        TransformParams(float position, float floorDiff, float scale, float alphaLeft,
+                        float alphaRight, float alphaChild, float pivotX, float offsetY)
         {
             this.position = position;
             this.floorDiff = floorDiff;
             this.scale = scale;
-            this.alpha = alpha;
+            this.alphaLeft = alphaLeft;
+            this.alphaRight = alphaRight;
             this.alphaChild = alphaChild;
             this.pivotX = pivotX;
             this.offsetY = offsetY;
@@ -65,19 +68,21 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         }
 
         final float scale = computeRatio(INACTIVE_SCALE, 1, position);
-        final float alpha = computeRatio(INACTIVE_ALPHA, 1, position);
+        final float alphaLeft = computeRatio(INACTIVE_ALPHA_LEFT, 1, position);
+        final float alphaRight = computeRatio(INACTIVE_ALPHA_RIGHT, 1, position);
         final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
         final float pivotRatio = Math.max(-1, Math.min(1, position));
         final float half = childWidth / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
         final float offsetY = (childHeight - childHeight * scale) / 2;
 
-        mParams = new TransformParams(position, floorDiff, scale, alpha, alphaChild, pivotX, offsetY);
+        mParams = new TransformParams(position, floorDiff, scale, alphaLeft, alphaRight, alphaChild, pivotX, offsetY);
         mParamsPosition = position;
 
         return mParams;
     }
 
+    // TODO: optimize
     private float computeRatio(float minValue, float maxValue, float position) {
         if (position < -1 || position > 1) {
             return minValue;
