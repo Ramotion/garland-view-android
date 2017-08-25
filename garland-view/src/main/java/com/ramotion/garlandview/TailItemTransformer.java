@@ -10,10 +10,25 @@ import com.ramotion.R;
 public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     private static final float INACTIVE_SCALE = 0.7f;
+    private static final float INACTIVE_SCALE_MAX = 1f;
+    private static final float INACTIVE_SCALE_DIFF = INACTIVE_SCALE_MAX - INACTIVE_SCALE;
+
     private static final float INACTIVE_SCALE_CHILD = 0.3f;
+    private static final float INACTIVE_SCALE_CHILD_MAX = 1f;
+    private static final float INACTIVE_SCALE_CHILD_DIFF = INACTIVE_SCALE_CHILD_MAX - INACTIVE_SCALE_CHILD;
+
     private static final float INACTIVE_ALPHA_LEFT = 0.2f;
+    private static final float INACTIVE_ALPHA_LEFT_MAX = 1f;
+    private static final float INACTIVE_ALPHA_LEFT_DIFF = INACTIVE_ALPHA_LEFT_MAX - INACTIVE_ALPHA_LEFT;
+
     private static final float INACTIVE_ALPHA_RIGHT = 0.1f;
+    private static final float INACTIVE_ALPHA_RIGHT_MAX = 1f;
+    private static final float INACTIVE_ALPHA_RIGHT_DIFF = INACTIVE_ALPHA_RIGHT_MAX - INACTIVE_ALPHA_RIGHT;
+
     private static final float INACTIVE_ALPHA_CHILD = 0.0f;
+    private static final float INACTIVE_ALPHA_CHILD_MAX = 1f;
+    private static final float INACTIVE_ALPHA_CHILD_DIFF = INACTIVE_ALPHA_CHILD_MAX - INACTIVE_ALPHA_CHILD;
+
     private static final float PIVOT_X_SCALE = 0.8f;
     private static final int OFFSET_MAX = 150;
 
@@ -21,18 +36,21 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         public final float position;
         public final float floorDiff;
         public final float scale;
-        public final float alphaLeft; // TODO: move to header transformer
+        public final float scaleChild;
+        public final float alphaLeft;
         public final float alphaRight;
         public final float alphaChild;
         public final float pivotX;
         public final float offsetY;
 
-        TransformParams(float position, float floorDiff, float scale, float alphaLeft,
-                        float alphaRight, float alphaChild, float pivotX, float offsetY)
+        TransformParams(float position, float floorDiff, float scale, float scaleChild,
+                        float alphaLeft, float alphaRight, float alphaChild,
+                        float pivotX, float offsetY)
         {
             this.position = position;
             this.floorDiff = floorDiff;
             this.scale = scale;
+            this.scaleChild = scaleChild;
             this.alphaLeft = alphaLeft;
             this.alphaRight = alphaRight;
             this.alphaChild = alphaChild;
@@ -67,34 +85,32 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
             floorDiff = 1f;
         }
 
-        final float scale = computeRatio(INACTIVE_SCALE, 1, position);
-        final float alphaLeft = computeRatio(INACTIVE_ALPHA_LEFT, 1, position);
-        final float alphaRight = computeRatio(INACTIVE_ALPHA_RIGHT, 1, position);
-        final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, 1, position);
+        final float scale = computeRatio(INACTIVE_SCALE, INACTIVE_SCALE_DIFF, position);
+        final float scaleChild = computeRatio(INACTIVE_SCALE_CHILD, INACTIVE_SCALE_CHILD_DIFF, position);
+        final float alphaChild = computeRatio(INACTIVE_ALPHA_CHILD, INACTIVE_ALPHA_CHILD_DIFF, position);
+        final float alphaLeft = computeRatio(INACTIVE_ALPHA_LEFT, INACTIVE_ALPHA_LEFT_DIFF, position);
+        final float alphaRight = computeRatio(INACTIVE_ALPHA_RIGHT, INACTIVE_ALPHA_RIGHT_DIFF, position);
         final float pivotRatio = Math.max(-1, Math.min(1, position));
         final float half = childWidth / 2;
         final float pivotX = half - pivotRatio * half * PIVOT_X_SCALE;
         final float offsetY = (childHeight - childHeight * scale) / 2;
 
-        mParams = new TransformParams(position, floorDiff, scale, alphaLeft, alphaRight, alphaChild, pivotX, offsetY);
         mParamsPosition = position;
+        mParams = new TransformParams(position, floorDiff, scale, scaleChild,
+                alphaLeft, alphaRight, alphaChild, pivotX, offsetY);
 
         return mParams;
     }
 
-    // TODO: optimize
-    private float computeRatio(float minValue, float maxValue, float position) {
+    private float computeRatio(float minValue, float diff, float position) {
         if (position < -1 || position > 1) {
             return minValue;
         }
 
-        return minValue + (maxValue - minValue) * (1 - Math.abs(position));
+        return minValue + diff * (1 - Math.abs(position));
     }
 
     private void applyAlphaScaleEffect(@NonNull ViewGroup vg, @NonNull TransformParams params, int viewHeight) {
-        final float scaleStep = (INACTIVE_SCALE - INACTIVE_SCALE_CHILD) / 3; // Divide on visible children count
-        float scaleMin = INACTIVE_SCALE_CHILD;
-
         int j = 0;
         for (int i = 0, cnt = vg.getChildCount(); i < cnt; i++) {
             final View view = vg.getChildAt(i);
@@ -110,14 +126,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
                 isHeaderView = (Boolean) view.getTag(R.id.tail_header_tag);
             }
 
-            final float scale;
-            if (isHeaderView) {
-                scale = params.scale;
-            } else {
-                scale = computeRatio(scaleMin, 1, params.position);
-                scaleMin += scaleStep;
-            }
-
+            final float scale = isHeaderView ? params.scale : params.scaleChild;
             ViewCompat.setScaleX(view, scale);
             ViewCompat.setScaleY(view, scale);
 
