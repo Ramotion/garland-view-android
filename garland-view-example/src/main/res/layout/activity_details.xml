@@ -139,7 +139,7 @@
         android:transitionName="@string/transition_avatar_border"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/avatar_border"
+        android:background="@drawable/avatar_border_item"
         android:layout_centerVertical="true"
         app:layout_constraintTop_toTopOf="@+id/card"
         app:layout_constraintBottom_toTopOf="@+id/card"

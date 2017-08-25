@@ -1,14 +1,18 @@
 package com.ramotion.garlandview.example.outer;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,8 +80,8 @@ public class OuterItem extends HeaderItem {
         // Init header
         m10dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp10);
         m120dp = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.dp120);
-        mTitleSize1 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_title_text_size);
-        mTitleSize2 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.item_name_text_size);
+        mTitleSize1 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.header_title2_text_size);
+        mTitleSize2 = itemView.getContext().getResources().getDimensionPixelSize(R.dimen.header_title2_name_text_size);
 
         mHeader = itemView.findViewById(R.id.header);
         mHeaderAlpha = itemView.findViewById(R.id.header_alpha);
@@ -115,6 +119,9 @@ public class OuterItem extends HeaderItem {
         mRecyclerView.addItemDecoration(new HeaderDecorator(
                 itemView.getContext().getResources().getDimensionPixelSize(R.dimen.inner_item_height),
                 itemView.getContext().getResources().getDimensionPixelSize(R.dimen.inner_item_offset)));
+
+        // Init fonts
+        DataBindingUtil.bind(((FrameLayout)mHeader).getChildAt(0));
     }
 
     @Override
@@ -154,8 +161,9 @@ public class OuterItem extends HeaderItem {
         final String title1 = header.title + "?";
 
         final Spannable title2 = new SpannableString(header.title + "? - " + header.name);
-        title2.setSpan(new AbsoluteSizeSpan(mTitleSize1), 0, title1.length() - 1, SPAN_INCLUSIVE_INCLUSIVE);
-        title2.setSpan(new AbsoluteSizeSpan(mTitleSize2), title1.length(), title2.length() - 1, SPAN_INCLUSIVE_INCLUSIVE);
+        title2.setSpan(new AbsoluteSizeSpan(mTitleSize1), 0, title1.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        title2.setSpan(new AbsoluteSizeSpan(mTitleSize2), title1.length(), title2.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        title2.setSpan(new ForegroundColorSpan(Color.argb(204, 255, 255, 255)), title1.length(), title2.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
         mHeaderCaption1.setText(title1);
         mHeaderCaption2.setText(title2);
@@ -195,7 +203,7 @@ public class OuterItem extends HeaderItem {
 
         ViewCompat.setPivotY(mMiddleAnswer, mMiddleAnswer.getHeight());
         ViewCompat.setScaleY(mMiddleAnswer, 1f - answerRatio);
-        ViewCompat.setAlpha(mMiddleAnswer, 1f - answerRatio);
+        ViewCompat.setAlpha(mMiddleAnswer, 0.5f - answerRatio);
 
         ViewCompat.setAlpha(mHeaderCaption1, answerRatio);
         ViewCompat.setAlpha(mHeaderCaption2, 1f - answerRatio);

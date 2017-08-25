@@ -1,11 +1,13 @@
 package com.ramotion.garlandview.example.inner;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.garlandview.example.R;
+import com.ramotion.garlandview.example.databinding.InnerItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +19,8 @@ public class InnerAdapter extends com.ramotion.garlandview.inner.InnerAdapter<In
 
     @Override
     public InnerItem onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new InnerItem(view);
+        final InnerItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), viewType, parent, false);
+        return new InnerItem(binding.getRoot());
     }
 
     @Override
