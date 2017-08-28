@@ -1,6 +1,5 @@
 package com.ramotion.garlandview.example;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -21,7 +20,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     private static final String BUNDLE_NAME = "BUNDLE_NAME";
     private static final String BUNDLE_INFO = "BUNDLE_INFO";
-    private static final String BUNDLE_TITLE = "BUNDLE_TITLE";
     private static final String BUNDLE_AVATAR_URL = "BUNDLE_AVATAR_URL";
 
     public static void start(final MainActivity activity, final InnerItem item) {
@@ -29,15 +27,17 @@ public class DetailsActivity extends AppCompatActivity {
 
         starter.putExtra(BUNDLE_NAME, item.getItemData().name);
         starter.putExtra(BUNDLE_INFO, item.mAddress.getText().toString());
-        starter.putExtra(BUNDLE_TITLE, item.getItemData().title);
         starter.putExtra(BUNDLE_AVATAR_URL, item.getItemData().avatarUrl);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Pair<View, String> p1 = Pair.create(item.itemView, activity.getString(R.string.transition_card));
             final Pair<View, String> p2 = Pair.create(item.mAvatarBorder, activity.getString(R.string.transition_avatar_border));
+//            final Pair<View, String> p3 = Pair.create((View)item.mName, activity.getString(R.string.transition_name));
+//            final Pair<View, String> p4 = Pair.create((View)item.mAddress, activity.getString(R.string.transition_info));
 
             final ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(activity, p1, p2);
+//                    .makeSceneTransitionAnimation(activity, p1, p2, p3, p4);
 
             activity.startActivity(starter, options.toBundle());
         } else {
@@ -52,7 +52,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
-        ((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra(BUNDLE_TITLE));
+
+        // TODO: set from Faker
+//        ((TextView) findViewById(R.id.tv_status)).setText(getIntent().getStringExtra(BUNDLE_TITLE));
 
         Glide.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
@@ -69,8 +71,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                 @Override public void onTransitionStart(Transition transition) {
                     if (isClosing) {
-                        findViewById(R.id.textView3).animate().alpha(0).start();
-                        findViewById(R.id.card).animate().alpha(0).start();
+//                        findViewById(R.id.textView3).animate().alpha(0).start();
+//                        findViewById(R.id.card).animate().alpha(0).start();
                     }
                 }
 

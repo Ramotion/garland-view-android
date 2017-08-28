@@ -10,6 +10,8 @@
         <item name="android:windowExitTransition">@transition/details_transition</item>
 
         <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

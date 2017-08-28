@@ -11,4 +11,8 @@
     <color name="item_name_color">#aab4ba</color>
     <color name="item_info_color">#bdc5cc</color>
     <color name="item_separator_color">#c8c9cc</color>
+
+    <color name="details_name_color">#333333</color>
+    <color name="details_info_color">@color/item_info_color</color>
+    <color name="details_status_color">#90ba47</color>
 </resources>
