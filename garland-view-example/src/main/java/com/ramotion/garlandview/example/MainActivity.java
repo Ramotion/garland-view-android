@@ -7,6 +7,7 @@ import android.view.View;
 import com.ramotion.garlandview.TailLayoutManager;
 import com.ramotion.garlandview.TailRecyclerView;
 import com.ramotion.garlandview.TailSnapHelper;
+import com.ramotion.garlandview.example.details.DetailsActivity;
 import com.ramotion.garlandview.example.inner.InnerData;
 import com.ramotion.garlandview.example.inner.InnerItem;
 import com.ramotion.garlandview.example.outer.OuterAdapter;

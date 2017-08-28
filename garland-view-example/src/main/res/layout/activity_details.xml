@@ -12,26 +12,19 @@
         android:layout_height="0dp"
         android:src="@drawable/details_top_background"
         android:scaleType="centerCrop"
-        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-        android:layout_marginBottom="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp"
         android:id="@+id/imageView2"/>
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/details_image_gradient"
-        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="@+id/imageView2"
-        android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/imageView2"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        android:layout_marginBottom="0dp"
         app:layout_constraintTop_toTopOf="@+id/frameLayout"
         android:layout_marginTop="8dp" />
 
@@ -43,7 +36,6 @@
         android:layout_marginBottom="64dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="0dp"
         android:background="@drawable/white_corners"
         android:transitionName="@string/transition_card"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +43,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteY="105dp" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
     <FrameLayout
         android:transitionName="@string/transition_avatar_border"
@@ -65,9 +58,9 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/card"
         app:layout_constraintTop_toTopOf="@+id/card"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/card">
+        app:layout_constraintBottom_toTopOf="@+id/card"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <ImageView
             android:id="@+id/avatar"
@@ -87,8 +80,6 @@
         android:textSize="24sp"
         android:textColor="@color/details_name_color"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="0dp"
         android:transitionName="@string/transition_name"
         app:font='@{"SF-UI-Display-Regular.ttf"}'
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
@@ -104,13 +95,13 @@
         app:font='@{"SF-UI-Display-Regular.ttf"}'
         android:transitionName="@string/transition_info"
         android:gravity="center"
-        android:layout_marginRight="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/card"
         app:layout_constraintRight_toRightOf="@+id/card"
         app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:id="@+id/tv_status"
@@ -124,7 +115,25 @@
         app:font='@{"SF-UI-Display-Semibold.ttf"}'
         app:layout_constraintRight_toRightOf="@+id/card"
         app:layout_constraintLeft_toLeftOf="@+id/card"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_info"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/details_list_color"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/card"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/card"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+
 
 </android.support.constraint.ConstraintLayout>
 
