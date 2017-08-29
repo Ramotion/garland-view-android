@@ -6,20 +6,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Transition;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ramotion.garlandview.example.GarlandApp;
 import com.ramotion.garlandview.example.MainActivity;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerItem;
 
+import io.bloco.faker.Faker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
 
     private static final String BUNDLE_NAME = "BUNDLE_NAME";
     private static final String BUNDLE_INFO = "BUNDLE_INFO";
@@ -53,11 +54,10 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        ((GarlandApp)getApplication()).addListener(this);
+
         ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
-
-        // TODO: set from Faker
-//        ((TextView) findViewById(R.id.tv_status)).setText(getIntent().getStringExtra(BUNDLE_TITLE));
 
         ((RecyclerView)findViewById(R.id.recycler_view)).setAdapter(new DetailsAdapter());
 
@@ -65,29 +65,11 @@ public class DetailsActivity extends AppCompatActivity {
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into((ImageView) findViewById(R.id.avatar));
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-                private boolean isClosing = false;
-
-                @Override public void onTransitionPause(Transition transition) {}
-                @Override public void onTransitionResume(Transition transition) {}
-                @Override public void onTransitionCancel(Transition transition) {}
-
-                @Override public void onTransitionStart(Transition transition) {
-                    if (isClosing) {
-//                        findViewById(R.id.textView3).animate().alpha(0).start();
-//                        findViewById(R.id.card).animate().alpha(0).start();
-                    }
-                }
-
-                @Override public void onTransitionEnd(Transition transition) {
-                    if (!isClosing) {
-                        isClosing = true;
-                    }
-                }
-            });
-        }
+    @Override
+    public void onFakerReady(Faker faker) {
+        ((TextView) findViewById(R.id.tv_status)).setText(faker.book.title());
     }
 
     public void onCardClick(View v) {

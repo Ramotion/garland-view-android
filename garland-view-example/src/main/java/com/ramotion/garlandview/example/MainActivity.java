@@ -21,25 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.bloco.faker.Faker;
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
 
-    private final static int COUNT = 10;
+    private final static int OUTER_COUNT = 10;
+    private final static int INNER_COUNT = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initFaker();
+        ((GarlandApp)getApplication()).addListener(this);
     }
 
     @Override
@@ -54,36 +48,18 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    private void initFaker() {
-        Single.create(new SingleOnSubscribe<List<List<InnerData>>>() {
-            @Override
-            public void subscribe(@NonNull SingleEmitter<List<List<InnerData>>> e) throws Exception {
-                final Faker faker = new Faker();
-                final List<List<InnerData>> data = new ArrayList<>();
-
-                for (int i = 0; i < COUNT && !e.isDisposed(); i++) {
-                    final int innerCount = 20;
-                    final List<InnerData> innDataList = new ArrayList<InnerData>();
-                    for (int j = 0; j < innerCount && !e.isDisposed(); j++) {
-                        innDataList.add(createInnerData(faker));
-                    }
-                    data.add(innDataList);
-                }
-
-                if (!e.isDisposed()) {
-                    e.onSuccess(data);
-                }
+    @Override
+    public void onFakerReady(Faker faker) {
+        final List<List<InnerData>> outerData = new ArrayList<>();
+        for (int i = 0; i < OUTER_COUNT; i++) {
+            final List<InnerData> innerData = new ArrayList<>();
+            for (int j = 0; j < INNER_COUNT; j++) {
+                innerData.add(createInnerData(faker));
             }
+            outerData.add(innerData);
+        }
 
-        })
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<List<List<InnerData>>>() {
-            @Override
-            public void accept(List<List<InnerData>> data) throws Exception {
-                initRecyclerView(data);
-            }
-        });
+        initRecyclerView(outerData);
     }
 
     private void initRecyclerView(List<List<InnerData>> data) {
