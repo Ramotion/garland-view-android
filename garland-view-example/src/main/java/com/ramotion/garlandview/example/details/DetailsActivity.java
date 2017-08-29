@@ -17,10 +17,15 @@ import com.ramotion.garlandview.example.MainActivity;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.inner.InnerItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.bloco.faker.Faker;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class DetailsActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
+
+    private static final int ITEM_COUNT = 2;
 
     private static final String BUNDLE_NAME = "BUNDLE_NAME";
     private static final String BUNDLE_INFO = "BUNDLE_INFO";
@@ -59,8 +64,6 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
         ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
 
-        ((RecyclerView)findViewById(R.id.recycler_view)).setAdapter(new DetailsAdapter());
-
         Glide.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
                 .bitmapTransform(new CropCircleTransformation(this))
@@ -70,6 +73,13 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
     @Override
     public void onFakerReady(Faker faker) {
         ((TextView) findViewById(R.id.tv_status)).setText(faker.book.title());
+
+        final List<DetailsData> data = new ArrayList<>();
+        for (int i = 0; i < ITEM_COUNT; i++) {
+            data.add(new DetailsData(faker.book.title(), faker.name.name()));
+        }
+
+        ((RecyclerView)findViewById(R.id.recycler_view)).setAdapter(new DetailsAdapter(data));
     }
 
     public void onCardClick(View v) {

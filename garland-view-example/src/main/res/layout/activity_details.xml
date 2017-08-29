@@ -124,14 +124,14 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/details_list_color"
-        app:layout_constraintBottom_toBottomOf="@+id/card"
+        android:background="@drawable/details_lists_corners_bottom"
         android:layout_marginBottom="0dp"
         android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/card"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/card"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintRight_toRightOf="@+id/card"
+        app:layout_constraintLeft_toLeftOf="@+id/card"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintTop_toBottomOf="@+id/tv_status" />
 
 

@@ -30,5 +30,5 @@
 
     <item name="gray_alpha" type="dimen" format="float">0.3</item>
 
-    <dimen name="details_avatar_border">3dp</dimen>
+    <dimen name="details_avatar_border">5dp</dimen>
 </resources>

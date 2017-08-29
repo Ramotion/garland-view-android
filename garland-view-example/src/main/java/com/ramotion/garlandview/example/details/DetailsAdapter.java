@@ -9,10 +9,17 @@ import android.view.ViewGroup;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.databinding.DetailsItemBinding;
 
+import java.util.List;
+
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsItem> {
 
-    static final int COUNT = 3;
+    final List<DetailsData> mData;
+
+    public DetailsAdapter(final List<DetailsData> data) {
+        super();
+        mData = data;
+    }
 
     @Override
     public DetailsItem onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -23,11 +30,12 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsItem> {
 
     @Override
     public void onBindViewHolder(DetailsItem holder, int position) {
+        holder.setContent(mData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return COUNT;
+        return mData.size();
     }
 
 }
