@@ -74,6 +74,7 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
     public void onFakerReady(Faker faker) {
         ((TextView) findViewById(R.id.tv_status)).setText(faker.book.title());
 
+        // TODO: make static package visible and shared between this and profile activity
         final List<DetailsData> data = new ArrayList<>();
         for (int i = 0; i < ITEM_COUNT; i++) {
             data.add(new DetailsData(faker.book.title(), faker.name.name()));
@@ -83,7 +84,14 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
     }
 
     public void onCardClick(View v) {
-        super.onBackPressed();
+//        super.onBackPressed();
+        ProfileActivity.start(this, getIntent().getStringExtra(BUNDLE_AVATAR_URL), findViewById(R.id.avatar));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        } else {
+            finish();
+        }
     }
 
 }

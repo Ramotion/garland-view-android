@@ -28,7 +28,9 @@
     <dimen name="item_avatar_size">@dimen/header_avatar_size</dimen>
     <dimen name="item_icon_size">@dimen/header_icon_size</dimen>
 
-    <item name="gray_alpha" type="dimen" format="float">0.3</item>
+    <item name="gray_alpha" format="float" type="dimen">0.3</item>
 
     <dimen name="details_avatar_border">5dp</dimen>
+
+    <dimen name="profile_header_half">160dp</dimen>
 </resources>
