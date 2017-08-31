@@ -16,15 +16,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/imageView2"/>
+        android:id="@+id/iv_background"/>
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/details_image_gradient"
-        app:layout_constraintRight_toRightOf="@+id/imageView2"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView2"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintRight_toRightOf="@+id/iv_background"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_background"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_background"
         app:layout_constraintTop_toTopOf="@+id/frameLayout"
         android:layout_marginTop="8dp" />
 

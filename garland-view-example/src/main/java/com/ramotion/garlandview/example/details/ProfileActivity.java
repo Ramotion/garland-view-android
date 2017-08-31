@@ -12,23 +12,40 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.R;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class ProfileActivity extends AppCompatActivity {
 
+    private static final String BUNDLE_NAME = "BUNDLE_NAME";
+    private static final String BUNDLE_INFO = "BUNDLE_INFO";
+    private static final String BUNDLE_STATUS = "BUNDLE_STATUS";
     private static final String BUNDLE_AVATAR_URL = "BUNDLE_AVATAR_URL";
 
-    public static void start(Activity activity, String url, View avatar) {
+    public static void start(Activity activity,
+                             String url, String name, String info, String status,
+                             View avatar, View card, View image, View list) {
         Intent starter = new Intent(activity, ProfileActivity.class);
+        starter.putExtra(BUNDLE_NAME, name);
+        starter.putExtra(BUNDLE_INFO, info);
+        starter.putExtra(BUNDLE_STATUS, status);
         starter.putExtra(BUNDLE_AVATAR_URL, url);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Pair<View, String> p1 = Pair.create(avatar, activity.getString(R.string.transition_avatar_border));
-            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, p1);
+            final Pair<View, String> p2 = Pair.create(card, activity.getString(R.string.transition_card));
+            final Pair<View, String> p3 = Pair.create(image, activity.getString(R.string.transition_background));
+            final Pair<View, String> p4 = Pair.create(list, activity.getString(R.string.transition_list));
+
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2, p3, p4);
             activity.startActivity(starter, options.toBundle());
         } else {
             activity.startActivity(starter);
@@ -44,6 +61,15 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
+        ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
+        ((TextView) findViewById(R.id.tv_status)).setText(getIntent().getStringExtra(BUNDLE_STATUS));
+
+        Glide.with(this)
+                .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into((ImageView) findViewById(R.id.avatar));
 
         final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

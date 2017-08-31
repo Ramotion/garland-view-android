@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp190"
                     android:src="@drawable/details_top_background"
+                    android:transitionName="@string/transition_background"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"/>
 
@@ -59,6 +60,7 @@
                 android:layout_height="@dimen/dp190"
                 android:background="@android:color/white"
                 android:clipChildren="false"
+                android:transitionName="@string/transition_card"
                 android:layout_gravity="bottom">
 
                 <FrameLayout
@@ -141,6 +143,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/details_list_color"
+        android:transitionName="@string/transition_list"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

@@ -85,7 +85,16 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
 
     public void onCardClick(View v) {
 //        super.onBackPressed();
-        ProfileActivity.start(this, getIntent().getStringExtra(BUNDLE_AVATAR_URL), findViewById(R.id.avatar));
+
+        ProfileActivity.start(this,
+                getIntent().getStringExtra(BUNDLE_AVATAR_URL),
+                getIntent().getStringExtra(BUNDLE_NAME),
+                getIntent().getStringExtra(BUNDLE_INFO),
+                ((TextView) findViewById(R.id.tv_status)).getText().toString(),
+                findViewById(R.id.avatar),
+                findViewById(R.id.card),
+                findViewById(R.id.iv_background),
+                findViewById(R.id.recycler_view));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAfterTransition();
