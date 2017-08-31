@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -101,8 +104,8 @@
                         android:textColor="@color/details_name_color"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:transitionName="@string/transition_name"/>
-                        <!--app:font='@{"SF-UI-Display-Regular.ttf"}'-->
+                        android:transitionName="@string/transition_name"
+                        app:font='@{"SF-UI-Display-Regular.ttf"}'/>
 
                     <TextView
                         android:text="Info Text"
@@ -115,8 +118,8 @@
                         android:gravity="center"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_marginTop="8dp"/>
-                        <!--app:font='@{"SF-UI-Display-Regular.ttf"}'-->
+                        android:layout_marginTop="8dp"
+                        app:font='@{"SF-UI-Display-Regular.ttf"}'/>
 
                     <TextView
                         android:text="Status Text"
@@ -128,8 +131,8 @@
                         android:transitionName="@string/transition_status"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="@color/details_status_color"/>
-                        <!--app:font='@{"SF-UI-Display-Semibold.ttf"}'-->
+                        android:textColor="@color/details_status_color"
+                        app:font='@{"SF-UI-Display-Semibold.ttf"}'/>
 
                 </LinearLayout>
 
@@ -148,3 +151,5 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>
+
+</layout>

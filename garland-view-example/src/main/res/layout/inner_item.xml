@@ -25,7 +25,7 @@
             app:font='@{"SF-UI-Display-Semibold.ttf"}'
             android:textColor="@android:color/black"
             android:textSize="@dimen/item_title_text_size"
-            android:maxLines="1"
+            android:maxLines="2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/avatar_border"
             app:layout_constraintRight_toRightOf="parent"

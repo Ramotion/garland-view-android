@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.R;
+import com.ramotion.garlandview.example.details.DetailsData;
 
 import java.util.ArrayList;
 
@@ -29,15 +32,18 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String BUNDLE_INFO = "BUNDLE_INFO";
     private static final String BUNDLE_STATUS = "BUNDLE_STATUS";
     private static final String BUNDLE_AVATAR_URL = "BUNDLE_AVATAR_URL";
+    private static final String BUNDLE_LIST_DATA = "BUNDLE_LIST_DATA";
 
     public static void start(Activity activity,
                              String url, String name, String info, String status,
-                             View avatar, View card, View image, View list) {
+                             View avatar, View card, View image, View list,
+                             ArrayList<DetailsData> listData) {
         Intent starter = new Intent(activity, ProfileActivity.class);
         starter.putExtra(BUNDLE_NAME, name);
         starter.putExtra(BUNDLE_INFO, info);
         starter.putExtra(BUNDLE_STATUS, status);
         starter.putExtra(BUNDLE_AVATAR_URL, url);
+        starter.putParcelableArrayListExtra(BUNDLE_LIST_DATA, listData);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Pair<View, String> p1 = Pair.create(avatar, activity.getString(R.string.transition_avatar_border));
@@ -55,7 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        DataBindingUtil.setContentView(this, R.layout.activity_profile);
+//        setContentView(R.layout.activity_profile);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +72,10 @@ public class ProfileActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
         ((TextView) findViewById(R.id.tv_status)).setText(getIntent().getStringExtra(BUNDLE_STATUS));
+
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final ArrayList<DetailsData> listData = getIntent().getParcelableArrayListExtra(BUNDLE_LIST_DATA);
+        recyclerView.setAdapter(new ProfileAdapter(listData));
 
         Glide.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))

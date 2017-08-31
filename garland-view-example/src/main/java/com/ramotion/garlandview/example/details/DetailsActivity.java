@@ -32,6 +32,8 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
     private static final String BUNDLE_INFO = "BUNDLE_INFO";
     private static final String BUNDLE_AVATAR_URL = "BUNDLE_AVATAR_URL";
 
+    private final ArrayList<DetailsData> mListData = new ArrayList<>();
+
     public static void start(final MainActivity activity, final InnerItem item) {
         Intent starter = new Intent(activity, DetailsActivity.class);
 
@@ -75,13 +77,11 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
     public void onFakerReady(Faker faker) {
         ((TextView) findViewById(R.id.tv_status)).setText(faker.book.title());
 
-        // TODO: make static package visible and shared between this and profile activity
-        final List<DetailsData> data = new ArrayList<>();
         for (int i = 0; i < ITEM_COUNT; i++) {
-            data.add(new DetailsData(faker.book.title(), faker.name.name()));
+            mListData.add(new DetailsData(faker.book.title(), faker.name.name()));
         }
 
-        ((RecyclerView)findViewById(R.id.recycler_view)).setAdapter(new DetailsAdapter(data));
+        ((RecyclerView)findViewById(R.id.recycler_view)).setAdapter(new DetailsAdapter(mListData));
     }
 
     public void onCardClick(View v) {
@@ -95,7 +95,8 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
                 findViewById(R.id.avatar),
                 findViewById(R.id.card),
                 findViewById(R.id.iv_background),
-                findViewById(R.id.recycler_view));
+                findViewById(R.id.recycler_view),
+                mListData);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAfterTransition();
