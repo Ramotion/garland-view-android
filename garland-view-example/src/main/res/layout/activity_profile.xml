@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            android:clipChildren="false"
             app:contentScrim="?attr/colorPrimary"
             app:scrimVisibleHeightTrigger="240dp"
             app:titleEnabled="false"
@@ -57,7 +58,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_header_half"
                 android:background="@android:color/holo_blue_bright"
-                android:layout_gravity="bottom"/>
+                android:clipChildren="false"
+                android:layout_gravity="bottom">
+
+                <FrameLayout
+                    android:id="@+id/avatar_border"
+                    android:transitionName="@string/transition_avatar_border"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="-50dp"
+                    android:background="@drawable/avatar_border_details">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/details_avatar_border"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"/>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/profile_texts_v_max_offset"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:text="Name Text"
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:textColor="@color/details_name_color"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:transitionName="@string/transition_name"/>
+                        <!--app:font='@{"SF-UI-Display-Regular.ttf"}'-->
+
+                    <TextView
+                        android:text="Info Text"
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textColor="@color/details_info_color"
+                        android:transitionName="@string/transition_info"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginTop="8dp"/>
+                        <!--app:font='@{"SF-UI-Display-Regular.ttf"}'-->
+
+                    <TextView
+                        android:text="Status Text"
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18.4sp"
+                        android:transitionName="@string/transition_status"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/details_status_color"/>
+                        <!--app:font='@{"SF-UI-Display-Semibold.ttf"}'-->
+
+                </LinearLayout>
+
+            </FrameLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -69,13 +143,5 @@
         android:background="@color/details_list_color"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <!-- TODO: remove
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@android:color/holo_blue_bright"
-        app:layout_behavior="com.ramotion.garlandview.example.details.ProfileToolBarBehavior"/>
-    -->
 
 </android.support.design.widget.CoordinatorLayout>

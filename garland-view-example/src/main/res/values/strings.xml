@@ -11,4 +11,5 @@
     <string name="transition_card" translatable="false">card</string>
     <string name="transition_name" translatable="false">name</string>
     <string name="transition_info" translatable="false">info</string>
+    <string name="transition_status" translatable="false">status</string>
 </resources>
