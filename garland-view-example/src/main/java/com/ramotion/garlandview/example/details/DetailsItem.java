@@ -7,10 +7,19 @@ import android.widget.TextView;
 
 import com.ramotion.garlandview.example.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 class DetailsItem extends RecyclerView.ViewHolder {
 
     DetailsItem(View itemView) {
         super(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(DetailsItem.this);
+            }
+        });
     }
 
     void setContent(DetailsData data) {
