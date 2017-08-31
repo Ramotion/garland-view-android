@@ -34,14 +34,14 @@
                 <ImageView
                     android:id="@+id/header_image"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_header_half"
+                    android:layout_height="@dimen/dp190"
                     android:src="@drawable/details_top_background"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_header_half"
+                    android:layout_height="@dimen/dp160"
                     android:src="@drawable/details_top_background"/>
 
             </LinearLayout>
@@ -49,15 +49,15 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_header_half"
+                android:layout_height="@dimen/dp160"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
             <FrameLayout
                 android:id="@+id/header_info"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_header_half"
-                android:background="@android:color/holo_blue_bright"
+                android:layout_height="@dimen/dp190"
+                android:background="@android:color/white"
                 android:clipChildren="false"
                 android:layout_gravity="bottom">
 

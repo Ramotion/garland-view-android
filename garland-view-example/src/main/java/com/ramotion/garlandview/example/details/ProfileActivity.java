@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
             final int textVMinOffset = getResources().getDimensionPixelSize(R.dimen.profile_texts_v_min_offset);
             final int textVMaxOffset = getResources().getDimensionPixelSize(R.dimen.profile_texts_v_max_offset);
             final int textVDiff = textVMaxOffset - textVMinOffset;
-            final int headerHalf = getResources().getDimensionPixelSize(R.dimen.profile_header_half);
+            final int header160 = getResources().getDimensionPixelSize(R.dimen.dp160);
             final int toolBarHeight;
 
             {
@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 final int diff = toolBarHeight + verticalOffset;
-                final int y = diff < 0 ? headerHalf - diff : headerHalf;
+                final int y = diff < 0 ? header160 - diff : header160;
                 headerImage.setBottom(y);
                 headerInfo.setTop(y);
 

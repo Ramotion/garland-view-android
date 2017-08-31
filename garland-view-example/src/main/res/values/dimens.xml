@@ -32,7 +32,8 @@
 
     <dimen name="details_avatar_border">5dp</dimen>
 
-    <dimen name="profile_header_half">160dp</dimen>
+    <dimen name="dp160">160dp</dimen>
+    <dimen name="dp190">190dp</dimen>
     <dimen name="profile_avatar_h_offset">16dp</dimen>
     <dimen name="profile_avatar_v_offset">8dp</dimen>
     <dimen name="profile_avatar_size">100dp</dimen>
