@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.details;
+package com.ramotion.garlandview.example.profile;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -143,7 +143,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public int getStatusBarHeight() {
+    @Override
+    public boolean onSupportNavigateUp() {
+        super.onBackPressed();
+        return true;
+    }
+
+    private int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {

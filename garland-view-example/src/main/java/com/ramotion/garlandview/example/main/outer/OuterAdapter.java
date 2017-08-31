@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.outer;
+package com.ramotion.garlandview.example.main.outer;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.ramotion.garlandview.TailAdapter;
 import com.ramotion.garlandview.example.R;
-import com.ramotion.garlandview.example.inner.InnerData;
+import com.ramotion.garlandview.example.main.inner.InnerData;
 
 import java.util.List;
 

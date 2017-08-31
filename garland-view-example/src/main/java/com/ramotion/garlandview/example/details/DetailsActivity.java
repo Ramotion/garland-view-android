@@ -13,9 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.GarlandApp;
-import com.ramotion.garlandview.example.MainActivity;
+import com.ramotion.garlandview.example.main.MainActivity;
 import com.ramotion.garlandview.example.R;
-import com.ramotion.garlandview.example.inner.InnerItem;
+import com.ramotion.garlandview.example.main.inner.InnerItem;
+import com.ramotion.garlandview.example.profile.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;

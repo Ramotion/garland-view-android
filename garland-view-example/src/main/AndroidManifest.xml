@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".details.ProfileActivity"
+            android:name=".profile.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example.outer;
+package com.ramotion.garlandview.example.main.outer;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.R;
-import com.ramotion.garlandview.example.inner.InnerAdapter;
-import com.ramotion.garlandview.example.inner.InnerData;
+import com.ramotion.garlandview.example.main.inner.InnerAdapter;
+import com.ramotion.garlandview.example.main.inner.InnerData;
 import com.ramotion.garlandview.header.HeaderDecorator;
 import com.ramotion.garlandview.header.HeaderItem;
 import com.ramotion.garlandview.inner.InnerLayoutManager;

@@ -1,4 +1,4 @@
-package com.ramotion.garlandview.example;
+package com.ramotion.garlandview.example.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,12 @@ import android.view.View;
 import com.ramotion.garlandview.TailLayoutManager;
 import com.ramotion.garlandview.TailRecyclerView;
 import com.ramotion.garlandview.TailSnapHelper;
+import com.ramotion.garlandview.example.GarlandApp;
+import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.details.DetailsActivity;
-import com.ramotion.garlandview.example.inner.InnerData;
-import com.ramotion.garlandview.example.inner.InnerItem;
-import com.ramotion.garlandview.example.outer.OuterAdapter;
+import com.ramotion.garlandview.example.main.inner.InnerData;
+import com.ramotion.garlandview.example.main.inner.InnerItem;
+import com.ramotion.garlandview.example.main.outer.OuterAdapter;
 import com.ramotion.garlandview.header.HeaderTransformer;
 
 import org.greenrobot.eventbus.EventBus;
