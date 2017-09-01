@@ -30,7 +30,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class DetailsActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
 
-    private static final int ITEM_COUNT = 2;
+    private static final int ITEM_COUNT = 4;
 
     private static final String BUNDLE_NAME = "BUNDLE_NAME";
     private static final String BUNDLE_INFO = "BUNDLE_INFO";

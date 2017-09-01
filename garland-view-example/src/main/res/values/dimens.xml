@@ -38,6 +38,7 @@
     <dimen name="profile_avatar_v_offset">8dp</dimen>
     <dimen name="profile_avatar_size">100dp</dimen>
 
+    <dimen name="profile_texts_h_offset">32dp</dimen>
     <dimen name="profile_texts_v_max_offset">66dp</dimen>
     <dimen name="profile_texts_v_min_offset">8dp</dimen>
 </resources>

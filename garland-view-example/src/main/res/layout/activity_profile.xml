@@ -91,14 +91,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/profile_texts_v_max_offset"
-                    android:animateLayoutChanges="true"
-                    android:gravity="center">
+                    android:layout_marginStart="@dimen/profile_texts_h_offset"
+                    android:layout_marginEnd="@dimen/profile_texts_h_offset">
 
                     <TextView
-                        android:text="Name Text"
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/details_name_color"
@@ -108,21 +108,20 @@
                         app:font='@{"SF-UI-Display-Regular.ttf"}'/>
 
                     <TextView
-                        android:text="Info Text"
                         android:id="@+id/tv_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17sp"
                         android:textColor="@color/details_info_color"
                         android:transitionName="@string/transition_info"
-                        android:gravity="center"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:layout_marginTop="8dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
                         app:font='@{"SF-UI-Display-Regular.ttf"}'/>
 
                     <TextView
-                        android:text="Status Text"
                         android:id="@+id/tv_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -132,6 +131,8 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@color/details_status_color"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
                         app:font='@{"SF-UI-Display-Semibold.ttf"}'/>
 
                 </LinearLayout>

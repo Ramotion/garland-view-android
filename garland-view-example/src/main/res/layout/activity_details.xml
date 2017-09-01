@@ -74,50 +74,56 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="24sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/details_name_color"
         android:layout_marginTop="16dp"
         android:transitionName="@string/transition_name"
         app:font='@{"SF-UI-Display-Regular.ttf"}'
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:layout_constraintRight_toRightOf="@+id/card"
-        app:layout_constraintLeft_toLeftOf="@+id/card"/>
+        app:layout_constraintLeft_toLeftOf="@+id/card"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp" />
 
     <TextView
         android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="17sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/details_info_color"
         app:font='@{"SF-UI-Display-Regular.ttf"}'
         android:transitionName="@string/transition_info"
         android:gravity="center"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/card"
         app:layout_constraintRight_toRightOf="@+id/card"
-        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
-        android:layout_marginStart="8dp" />
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp" />
 
     <TextView
         android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:textSize="18.4sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center"
         android:textColor="@color/details_status_color"
         app:font='@{"SF-UI-Display-Semibold.ttf"}'
         app:layout_constraintRight_toRightOf="@+id/card"
         app:layout_constraintLeft_toLeftOf="@+id/card"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_info"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

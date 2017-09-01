@@ -96,6 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
             final int avatarHOffset = getResources().getDimensionPixelSize(R.dimen.profile_avatar_h_offset);
             final int avatarVOffset = getResources().getDimensionPixelSize(R.dimen.profile_avatar_v_offset);
             final int avatarSize = getResources().getDimensionPixelSize(R.dimen.profile_avatar_size);
+            final int textHOffset = getResources().getDimensionPixelSize(R.dimen.profile_texts_h_offset);
             final int textVMinOffset = getResources().getDimensionPixelSize(R.dimen.profile_texts_v_min_offset);
             final int textVMaxOffset = getResources().getDimensionPixelSize(R.dimen.profile_texts_v_max_offset);
             final int textVDiff = textVMaxOffset - textVMinOffset;
@@ -142,13 +143,12 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
 
+                texts.setX(textHOffset + (avatarSize * 0.5f - avatarVOffset) * (1f - ratio));
                 texts.setY(textVMinOffset + textVDiff * ratio);
                 texts.setScaleX(0.8f + 0.2f * ratio);
                 texts.setScaleY(0.8f + 0.2f * ratio);
                 for (int i = 0; i < textStart.size(); i++) {
-                    texts.getChildAt(i).setX(Math.max(
-                            avatarSize * 0.5f + avatarHOffset * 3,
-                            textStart.get(i) * ratio));
+                    texts.getChildAt(i).setX(textStart.get(i) * ratio);
                 }
             }
         });

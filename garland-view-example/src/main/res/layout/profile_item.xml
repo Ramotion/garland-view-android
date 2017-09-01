@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    app:font='@{"SF-UI-Display-Medium.ttf"}'
+                    app:font='@{"SF-UI-Display-Semibold.ttf"}'
                     android:textSize="@dimen/item_name_text_size"
                     android:textColor="@color/details_item_header"/>
 
