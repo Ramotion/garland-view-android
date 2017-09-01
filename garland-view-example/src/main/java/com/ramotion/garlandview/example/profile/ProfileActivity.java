@@ -62,14 +62,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_profile);
-//        setContentView(R.layout.activity_profile);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
+        final String fullName = getIntent().getStringExtra(BUNDLE_NAME);
+        final String title = fullName.split(" ")[0] + getString(R.string.profile);
+
+        ((TextView) findViewById(R.id.tv_title)).setText(title);
+        ((TextView) findViewById(R.id.tv_name)).setText(fullName);
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
         ((TextView) findViewById(R.id.tv_status)).setText(getIntent().getStringExtra(BUNDLE_STATUS));
 
@@ -147,9 +150,6 @@ public class ProfileActivity extends AppCompatActivity {
                             avatarSize * 0.5f + avatarHOffset * 3,
                             textStart.get(i) * ratio));
                 }
-
-                Log.d("D", String.format("total: %d, current: %d, ratio: %f",
-                        appBarLayout.getTotalScrollRange(), verticalOffset, ratio));
             }
         });
     }
