@@ -15,4 +15,7 @@
     <string name="transition_status" translatable="false">status</string>
     <string name="transition_background" translatable="false">background</string>
     <string name="transition_list" translatable="false">list</string>
+    <string name="details_connect">CONNECT</string>
+    <string name="details_close">CLOSE</string>
+    <string name="details_details">DETAILS</string>
 </resources>
