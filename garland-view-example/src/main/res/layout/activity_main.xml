@@ -10,6 +10,7 @@
         android:orientation="vertical">
 
         <View
+            android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:background="@color/backgroundTop"/>

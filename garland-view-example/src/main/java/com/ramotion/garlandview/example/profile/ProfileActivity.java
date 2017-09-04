@@ -8,9 +8,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.util.Pair;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -154,6 +156,28 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+
+                boolean isStarting = true;
+
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    if (isStarting) {
+                        isStarting = false;
+
+                        ViewCompat.setTransitionName(findViewById(R.id.header_image), null);
+                        ViewCompat.setTransitionName(findViewById(R.id.recycler_view), null);
+                    }
+                }
+
+                @Override public void onTransitionEnd(Transition transition) {}
+                @Override public void onTransitionCancel(Transition transition) {}
+                @Override public void onTransitionPause(Transition transition) {}
+                @Override public void onTransitionResume(Transition transition) {}
+            });
+        }
     }
 
     @Override

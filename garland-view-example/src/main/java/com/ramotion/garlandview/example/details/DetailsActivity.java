@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.ramotion.garlandview.example.GarlandApp;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.main.MainActivity;
-import com.ramotion.garlandview.example.main.inner.InnerItem;
 import com.ramotion.garlandview.example.profile.ProfileActivity;
 
 import java.util.ArrayList;
@@ -33,23 +32,20 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
 
     private final ArrayList<DetailsData> mListData = new ArrayList<>();
 
-    public static void start(final MainActivity activity, final InnerItem item) {
+    public static void start(final MainActivity activity,
+                             final String name, final String address, final String url,
+                             final View card, final View avatar, final View background) {
         Intent starter = new Intent(activity, DetailsActivity.class);
 
-        starter.putExtra(BUNDLE_NAME, item.getItemData().name);
-        starter.putExtra(BUNDLE_INFO, item.mAddress.getText().toString());
-        starter.putExtra(BUNDLE_AVATAR_URL, item.getItemData().avatarUrl);
+        starter.putExtra(BUNDLE_NAME, name);
+        starter.putExtra(BUNDLE_INFO, address);
+        starter.putExtra(BUNDLE_AVATAR_URL, url);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            final Pair<View, String> p1 = Pair.create(item.itemView, activity.getString(R.string.transition_card));
-            final Pair<View, String> p2 = Pair.create(item.mAvatarBorder, activity.getString(R.string.transition_avatar_border));
-//            final Pair<View, String> p3 = Pair.create((View)item.mName, activity.getString(R.string.transition_name));
-//            final Pair<View, String> p4 = Pair.create((View)item.mAddress, activity.getString(R.string.transition_info));
+            final Pair<View, String> p1 = Pair.create(card, activity.getString(R.string.transition_card));
+            final Pair<View, String> p2 = Pair.create(avatar, activity.getString(R.string.transition_avatar_border));
 
-            final ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation(activity, p1, p2);
-//                    .makeSceneTransitionAnimation(activity, p1, p2, p3, p4);
-
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, p1, p2);
             activity.startActivity(starter, options.toBundle());
         } else {
             activity.startActivity(starter);

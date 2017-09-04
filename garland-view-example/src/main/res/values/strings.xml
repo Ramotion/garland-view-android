@@ -10,11 +10,9 @@
 
     <string name="transition_avatar_border" translatable="false">avatar_border</string>
     <string name="transition_card" translatable="false">card</string>
-    <string name="transition_name" translatable="false">name</string>
-    <string name="transition_info" translatable="false">info</string>
-    <string name="transition_status" translatable="false">status</string>
     <string name="transition_background" translatable="false">background</string>
     <string name="transition_list" translatable="false">list</string>
+
     <string name="details_connect">CONNECT</string>
     <string name="details_close">CLOSE</string>
     <string name="details_details">DETAILS</string>

@@ -12,6 +12,7 @@
         android:layout_height="0dp"
         android:src="@drawable/details_top_background"
         android:scaleType="centerCrop"
+        android:transitionName="@string/transition_background"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
@@ -81,7 +82,6 @@
         android:ellipsize="end"
         android:textColor="@color/details_name_color"
         android:layout_marginTop="16dp"
-        android:transitionName="@string/transition_name"
         app:font='@{"SF-UI-Display-Regular.ttf"}'
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:layout_constraintRight_toRightOf="@+id/card"
@@ -98,7 +98,6 @@
         android:ellipsize="end"
         android:textColor="@color/details_info_color"
         app:font='@{"SF-UI-Display-Regular.ttf"}'
-        android:transitionName="@string/transition_info"
         android:gravity="center"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/card"
