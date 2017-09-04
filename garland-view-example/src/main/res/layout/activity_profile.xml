@@ -26,13 +26,19 @@
             app:contentScrim="?attr/colorPrimary"
             app:scrimVisibleHeightTrigger="240dp"
             app:titleEnabled="false"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp160"
+                    android:layout_marginTop="@dimen/dp190"
+                    android:src="@drawable/details_top_background"/>
 
                 <ImageView
                     android:id="@+id/header_image"
@@ -40,15 +46,9 @@
                     android:layout_height="@dimen/dp190"
                     android:src="@drawable/details_top_background"
                     android:transitionName="@string/transition_background"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"/>
+                    android:scaleType="centerCrop"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp160"
-                    android:src="@drawable/details_top_background"/>
-
-            </LinearLayout>
+            </FrameLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

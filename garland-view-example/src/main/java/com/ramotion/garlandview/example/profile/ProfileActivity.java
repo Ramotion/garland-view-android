@@ -11,9 +11,9 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -121,8 +121,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 final int diff = toolBarHeight + verticalOffset;
                 final int y = diff < 0 ? header160 - diff : header160;
-                headerImage.setBottom(y);
                 headerInfo.setTop(y);
+
+                final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) headerImage.getLayoutParams();
+                lp.height = y;
+                headerImage.setLayoutParams(lp);
 
                 final int totalScrollRange = appBarLayout.getTotalScrollRange();
                 final float ratio = ((float)totalScrollRange + verticalOffset) / totalScrollRange;
@@ -139,7 +142,6 @@ public class ProfileActivity extends AppCompatActivity {
                 if (textStart.isEmpty() && verticalOffset == 0) {
                     for (int i = 0; i < texts.getChildCount(); i++) {
                         textStart.add(texts.getChildAt(i).getX());
-                        Log.d("D", String.format("i: %d, x: %f", i, textStart.get(i)));
                     }
                 }
 
