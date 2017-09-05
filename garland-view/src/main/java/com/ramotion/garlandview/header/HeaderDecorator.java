@@ -17,7 +17,11 @@ public class HeaderDecorator extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        final int topOffset = parent.getChildAdapterPosition(view) == 0 ? mHeaderHeight + mOffset : mOffset;
-        outRect.set(0, topOffset, 0, 0);
+        final int position = parent.getChildAdapterPosition(view);
+        final boolean isFirst = position == 0;
+        final boolean isLast = position == parent.getAdapter().getItemCount() - 1;
+        final int topOffset = isFirst ? mHeaderHeight + mOffset : mOffset;
+        final int bottomOffset = isLast ? mOffset : 0;
+        outRect.set(0, topOffset, 0, bottomOffset);
     }
 }
