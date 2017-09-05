@@ -8,6 +8,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/details_transition</item>
         <item name="android:windowExitTransition">@transition/details_transition</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/details_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/details_transition</item>
 
         <item name="android:windowBackground">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
