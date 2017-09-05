@@ -35,7 +35,7 @@
             android:id="@+id/avatar_border"
             android:layout_width="@dimen/item_avatar_size"
             android:layout_height="@dimen/item_avatar_size"
-            android:background="@drawable/avatar_border_item"
+            android:background="@drawable/avatar_border_header"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             app:layout_constraintLeft_toLeftOf="parent"

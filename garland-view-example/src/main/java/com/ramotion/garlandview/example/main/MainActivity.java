@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements GarlandApp.FakerR
                 faker.book.title(),
                 faker.name.name(),
                 faker.address.city() + ", " + faker.address.stateAbbr(),
-                faker.avatar.image(faker.internet.email()),
+                faker.avatar.image(faker.internet.email(), "150x150", "jpg", "set1", "bg1"),
                 faker.number.between(20, 50)
         );
     }

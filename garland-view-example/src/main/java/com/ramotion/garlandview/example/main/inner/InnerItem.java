@@ -69,6 +69,7 @@ public class InnerItem  extends com.ramotion.garlandview.inner.InnerItem {
 
         Glide.with(itemView.getContext())
                 .load(data.avatarUrl)
+                .placeholder(R.drawable.avatar_placeholder)
                 .bitmapTransform(new CropCircleTransformation(itemView.getContext()))
                 .into(mAvatar);
     }

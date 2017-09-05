@@ -64,6 +64,7 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
 
         Glide.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
+                .placeholder(R.drawable.avatar_placeholder)
                 .bitmapTransform(new CropCircleTransformation(this))
                 .into((ImageView) findViewById(R.id.avatar));
     }
