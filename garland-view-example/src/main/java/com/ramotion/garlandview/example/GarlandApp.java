@@ -24,7 +24,7 @@ public class GarlandApp extends Application {
 
     private Faker mFaker;
 
-    private List<WeakReference<FakerReadyListener>> mListeners = new ArrayList<>();
+    private final List<WeakReference<FakerReadyListener>> mListeners = new ArrayList<>();
 
     @Override
     public void onCreate() {

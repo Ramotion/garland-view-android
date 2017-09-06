@@ -12,9 +12,9 @@ import com.ramotion.garlandview.example.details.DetailsData;
 import java.util.List;
 
 
-public class ProfileAdapter extends RecyclerView.Adapter<ProfileItem> {
+class ProfileAdapter extends RecyclerView.Adapter<ProfileItem> {
 
-    final List<DetailsData> mData;
+    private final List<DetailsData> mData;
 
     public ProfileAdapter(final List<DetailsData> data) {
         super();

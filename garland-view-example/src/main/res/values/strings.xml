@@ -16,4 +16,5 @@
     <string name="details_connect">CONNECT</string>
     <string name="details_close">CLOSE</string>
     <string name="details_details">DETAILS</string>
+    <string name="initializing_faker">Initializing Faker...</string>
 </resources>

@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements GarlandApp.FakerR
         }
 
         DetailsActivity.start(this,
-                item.getItemData().name, item.mAddress.getText().toString(), item.getItemData().avatarUrl,
-                item.itemView, item.mAvatarBorder, findViewById(R.id.background));
+                item.getItemData().name, item.mAddress.getText().toString(),
+                item.getItemData().avatarUrl, item.itemView, item.mAvatarBorder);
     }
 
 }

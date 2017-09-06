@@ -3,7 +3,6 @@ package com.ramotion.garlandview.example.details;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.garlandview.example.R;
@@ -12,11 +11,11 @@ import com.ramotion.garlandview.example.databinding.DetailsItemBinding;
 import java.util.List;
 
 
-public class DetailsAdapter extends RecyclerView.Adapter<DetailsItem> {
+class DetailsAdapter extends RecyclerView.Adapter<DetailsItem> {
 
-    final List<DetailsData> mData;
+    private final List<DetailsData> mData;
 
-    public DetailsAdapter(final List<DetailsData> data) {
+    DetailsAdapter(final List<DetailsData> data) {
         super();
         mData = data;
     }

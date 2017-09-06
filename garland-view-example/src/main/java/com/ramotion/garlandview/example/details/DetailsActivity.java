@@ -34,7 +34,7 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
 
     public static void start(final MainActivity activity,
                              final String name, final String address, final String url,
-                             final View card, final View avatar, final View background) {
+                             final View card, final View avatar) {
         Intent starter = new Intent(activity, DetailsActivity.class);
 
         starter.putExtra(BUNDLE_NAME, name);

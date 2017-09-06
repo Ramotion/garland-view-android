@@ -2,7 +2,6 @@ package com.ramotion.garlandview.header;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 
 import com.ramotion.garlandview.TailItemTransformer;

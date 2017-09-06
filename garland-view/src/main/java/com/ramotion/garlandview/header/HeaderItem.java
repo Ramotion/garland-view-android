@@ -1,7 +1,6 @@
 package com.ramotion.garlandview.header;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.ramotion.garlandview.TailItem;
 import com.ramotion.garlandview.inner.InnerRecyclerView;

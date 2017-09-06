@@ -8,7 +8,6 @@
     <color name="backgroundBottom">#f5f6fa</color>
     <color name="header_green">#b3d577</color>
 
-    <!-- TODO: remove _color -->
     <color name="item_name_color">#aab4ba</color>
     <color name="item_info_color">#bdc5cc</color>
     <color name="item_separator_color">#c8c9cc</color>
