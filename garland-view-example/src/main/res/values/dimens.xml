@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="inner_item_offset">16dp</dimen>
+    <dimen name="inner_item_height">170dp</dimen>
+
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp120">120dp</dimen>
+
+    <dimen name="header_title1_text_size">22sp</dimen>
+    <dimen name="header_title2_text_size">20sp</dimen>
+    <dimen name="header_title2_name_text_size">17sp</dimen>
+    <dimen name="header_name_text_size">17sp</dimen>
+    <dimen name="header_info_text_size">14sp</dimen>
+    <dimen name="header_footer_text_size">13sp</dimen>
+    <dimen name="header_avatar_size">45dp</dimen>
+    <dimen name="header_icon_size">14dp</dimen>
+
+    <dimen name="item_title_text_size">18sp</dimen>
+    <dimen name="item_name_text_size">@dimen/header_name_text_size</dimen>
+    <dimen name="item_info_text_size">@dimen/header_info_text_size</dimen>
+    <dimen name="item_footer_text_size">@dimen/header_footer_text_size</dimen>
+    <dimen name="item_avatar_border">1dp</dimen>
+
+    <dimen name="item_avatar_size">@dimen/header_avatar_size</dimen>
+    <dimen name="item_icon_size">@dimen/header_icon_size</dimen>
+
+    <dimen name="details_avatar_border">5dp</dimen>
+
+    <dimen name="dp160">160dp</dimen>
+    <dimen name="dp190">190dp</dimen>
+    <dimen name="profile_avatar_h_offset">16dp</dimen>
+    <dimen name="profile_avatar_v_offset">8dp</dimen>
+    <dimen name="profile_avatar_size">100dp</dimen>
+
+    <dimen name="profile_texts_h_offset">32dp</dimen>
+    <dimen name="profile_texts_v_max_offset">66dp</dimen>
+    <dimen name="profile_texts_v_min_offset">8dp</dimen>
+</resources>

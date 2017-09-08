@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">@color/backgroundTop</color>
+    <color name="colorPrimaryDark">@color/backgroundTop</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="backgroundTop">#444a5a</color>
+    <color name="backgroundBottom">#f5f6fa</color>
+    <color name="header_green">#b3d577</color>
+
+    <color name="item_name_color">#aab4ba</color>
+    <color name="item_info_color">#bdc5cc</color>
+    <color name="item_separator_color">#c8c9cc</color>
+
+    <color name="details_name_color">#333333</color>
+    <color name="details_info_color">@color/item_name_color</color>
+    <color name="details_status_color">#90ba47</color>
+    <color name="details_list_color">#f5f6f9</color>
+    <color name="details_item_header">@color/details_name_color</color>
+    <color name="details_item_text">#858d92</color>
+    <color name="details_item_separator">@color/item_separator_color</color>
 </resources>

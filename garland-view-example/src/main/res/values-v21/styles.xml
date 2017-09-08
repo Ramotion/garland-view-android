@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/details_transition</item>
+        <item name="android:windowExitTransition">@transition/details_transition</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/details_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/details_transition</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+</resources>

@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">garlandview-example</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="answer">ANSWER</string>
+    <string name="answer_low">answer</string>
+    <string name="connect">CONNECT</string>
+    <string name="years">years</string>
+    <string name="asked">asked</string>
+    <string name="profile">"'s Profile"</string>
+
+    <string name="transition_avatar_border" translatable="false">avatar_border</string>
+    <string name="transition_card" translatable="false">card</string>
+    <string name="transition_background" translatable="false">background</string>
+    <string name="transition_list" translatable="false">list</string>
+
+    <string name="details_connect">CONNECT</string>
+    <string name="details_close">CLOSE</string>
+    <string name="details_details">DETAILS</string>
+    <string name="initializing_faker">Initializing Faker...</string>
 </resources>

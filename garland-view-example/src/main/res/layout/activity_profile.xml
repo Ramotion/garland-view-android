@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.ramotion.garlandview.example.profile.ProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:clipChildren="false"
+            app:contentScrim="?attr/colorPrimary"
+            app:scrimVisibleHeightTrigger="240dp"
+            app:titleEnabled="false"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp160"
+                    android:layout_marginTop="@dimen/dp190"
+                    android:src="@drawable/details_top_background"/>
+
+                <ImageView
+                    android:id="@+id/header_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp190"
+                    android:src="@drawable/details_top_background"
+                    android:transitionName="@string/transition_background"
+                    android:scaleType="centerCrop"/>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp160"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+            <FrameLayout
+                android:id="@+id/header_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp190"
+                android:background="@android:color/white"
+                android:clipChildren="false"
+                android:transitionName="@string/transition_card"
+                android:layout_gravity="bottom">
+
+                <FrameLayout
+                    android:id="@+id/avatar_border"
+                    android:transitionName="@string/transition_avatar_border"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="-50dp"
+                    android:background="@drawable/avatar_border_details">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/details_avatar_border"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"/>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/profile_texts_v_max_offset"
+                    android:layout_marginStart="@dimen/profile_texts_h_offset"
+                    android:layout_marginEnd="@dimen/profile_texts_h_offset">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:textColor="@color/details_name_color"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        app:font='@{"SF-UI-Display-Regular.ttf"}'/>
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textColor="@color/details_info_color"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginTop="8dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        app:font='@{"SF-UI-Display-Regular.ttf"}'/>
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18.4sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/details_status_color"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        app:font='@{"SF-UI-Display-Semibold.ttf"}'/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:textSize="25sp"
+                app:font='@{"SF-UI-Display-Regular.ttf"}'
+                app:layout_collapseMode="pin"
+                android:textColor="@android:color/white"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/details_list_color"
+        android:transitionName="@string/transition_list"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>
+
+</layout>
