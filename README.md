@@ -1,4 +1,5 @@
 ![header](./header.png)
+![animation](./preview.gif)
 
 # Garland View for Android
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
