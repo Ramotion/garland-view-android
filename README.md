@@ -13,7 +13,7 @@ This project is maintained by Ramotion, Inc. We specialize in the designing and 
 <img src="https://github.com/ramotion/gliding-collection/raw/master/contact_our_team@2x.png" width="187" height="34"></a> <br>
 
 
-The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=garland-view-android) available [here](https://store.ramotion.com/product/htc-one-a9-mockups?utm_source=gthb&utm_medium=special&utm_campaign=garland-view-android).
+The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=garland-view-android) available [here](hhttps://store.ramotion.com/product/samsung-galaxy-s7-edge-mockups?utm_source=gthb&utm_medium=special&utm_campaign=garland-view-android).
 
 ## Requirements
 ​
