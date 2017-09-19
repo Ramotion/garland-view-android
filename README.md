@@ -20,6 +20,28 @@ The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=speci
 - Android 4.4 KitKat (API lvl 19) or greater
 - Your favorite IDE
 
+## Installation
+​
+Just download the package from [here](http://central.maven.org/maven2/com/ramotion/garlandview/garland-view/0.1.0/garland-view-0.1.0.aar) and add it to your project classpath, or just use the maven repo:
+
+Gradle:
+```groovy
+compile 'com.ramotion.garlandview:garland-view:0.1.0'
+```
+SBT:
+```scala
+libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.1.0"
+```
+Maven:
+```xml
+<dependency>
+    <groupId>com.ramotion.garlandview</groupId>
+    <artifactId>garland-view</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
+
 ## Basic usage
 
 `GarlandView` consists of classes for inner items that are scrolled vertically
