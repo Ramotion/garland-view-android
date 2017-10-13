@@ -76,7 +76,15 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     private PageTransformer mPageTransformer;
 
     public TailLayoutManager(@NonNull Context context) {
-        this(context, null, 0, 0);
+        this(context, null);
+    }
+
+    public TailLayoutManager(@NonNull Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public TailLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
+        this(context, attrs, defStyleAttr, 0);
     }
 
     public TailLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -91,7 +99,7 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
             final TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.GarlandView, 0, 0);
             try {
                 mItemStart = a.getDimensionPixelSize(R.styleable.GarlandView_itemStart, defaultItemStart);
-                mItemGap = a.getDimensionPixelSize(R.styleable.GarlandView_itemGap, defaultItemStart);
+                mItemGap = a.getDimensionPixelSize(R.styleable.GarlandView_itemGap, defaultItemGap);
             } finally {
                 a.recycle();
             }
