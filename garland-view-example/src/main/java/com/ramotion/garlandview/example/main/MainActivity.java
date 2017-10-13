@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements GarlandApp.FakerR
         findViewById(R.id.progressBar).setVisibility(View.GONE);
 
         final TailRecyclerView rv = (TailRecyclerView) findViewById(R.id.recycler_view);
-        rv.setLayoutManager(new TailLayoutManager(this).setPageTransformer(new HeaderTransformer()));
+        ((TailLayoutManager)rv.getLayoutManager()).setPageTransformer(new HeaderTransformer());
         rv.setAdapter(new OuterAdapter(data));
 
         new TailSnapHelper().attachToRecyclerView(rv);

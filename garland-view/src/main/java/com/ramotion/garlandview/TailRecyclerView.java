@@ -9,15 +9,16 @@ import android.util.AttributeSet;
 public class TailRecyclerView extends RecyclerView {
 
     public TailRecyclerView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TailRecyclerView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TailRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setLayoutManager(new TailLayoutManager(context, attrs, defStyle));
     }
 
     @Override
