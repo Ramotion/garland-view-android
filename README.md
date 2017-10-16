@@ -26,18 +26,18 @@ Just download the package from [here](http://central.maven.org/maven2/com/ramoti
 
 Gradle:
 ```groovy
-compile 'com.ramotion.garlandview:garland-view:0.1.0'
+compile 'com.ramotion.garlandview:garland-view:0.2.1'
 ```
 SBT:
 ```scala
-libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.1.0"
+libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.2.1"
 ```
 Maven:
 ```xml
 <dependency>
     <groupId>com.ramotion.garlandview</groupId>
     <artifactId>garland-view</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
