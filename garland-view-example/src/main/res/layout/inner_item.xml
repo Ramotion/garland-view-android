@@ -8,8 +8,9 @@
     android:layout_height="@dimen/inner_item_height"
     android:layout_gravity="center"
     android:background="@drawable/white_corners"
-    android:translationZ="8dp"
-    android:clickable="true">
+    android:translationZ="2dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
