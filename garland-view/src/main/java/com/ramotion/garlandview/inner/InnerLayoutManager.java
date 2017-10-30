@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
+/**
+ * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
+ */
 public class InnerLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
@@ -205,6 +208,9 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
         removeAllViews();
     }
 
+    /**
+     * @return first visible item position.
+     */
     public int findFirstVisibleItemPosition() {
         return getChildCount() != 0 ? getPosition(getChildAt(0)) : RecyclerView.NO_POSITION;
     }

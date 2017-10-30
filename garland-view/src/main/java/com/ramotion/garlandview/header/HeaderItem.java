@@ -5,6 +5,9 @@ import android.view.View;
 import com.ramotion.garlandview.TailItem;
 import com.ramotion.garlandview.inner.InnerRecyclerView;
 
+/**
+ * Implementation of {@link TailItem}
+ */
 public abstract class HeaderItem extends TailItem<InnerRecyclerView> {
 
     public HeaderItem(View itemView) {

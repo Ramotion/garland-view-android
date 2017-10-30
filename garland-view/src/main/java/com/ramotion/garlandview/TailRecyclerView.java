@@ -6,6 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 
+/**
+ * Extended {@link android.support.v7.widget.RecyclerView}
+ * that works <b>only</b> with {@link TailLayoutManager} and {@link TailAdapter}.
+ */
 public class TailRecyclerView extends RecyclerView {
 
     public TailRecyclerView(Context context) {
@@ -21,6 +25,9 @@ public class TailRecyclerView extends RecyclerView {
         setLayoutManager(new TailLayoutManager(context, attrs, defStyle));
     }
 
+    /**
+     * @param adapter must be instance of TailAdapter class
+     */
     @Override
     public void setAdapter(Adapter adapter) {
         if (!(adapter instanceof TailAdapter)) {
@@ -29,6 +36,9 @@ public class TailRecyclerView extends RecyclerView {
         super.setAdapter(adapter);
     }
 
+    /**
+     * @param lm must be instance of TailLayoutManager class
+     */
     @Override
     public void setLayoutManager(LayoutManager lm) {
         if (!(lm instanceof TailLayoutManager)) {
