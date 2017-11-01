@@ -23,6 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.bloco.faker.Faker;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
@@ -51,17 +57,32 @@ public class MainActivity extends AppCompatActivity implements GarlandApp.FakerR
     }
 
     @Override
-    public void onFakerReady(Faker faker) {
-        final List<List<InnerData>> outerData = new ArrayList<>();
-        for (int i = 0; i < OUTER_COUNT; i++) {
-            final List<InnerData> innerData = new ArrayList<>();
-            for (int j = 0; j < INNER_COUNT; j++) {
-                innerData.add(createInnerData(faker));
-            }
-            outerData.add(innerData);
-        }
+    public void onFakerReady(final Faker faker) {
+        Single.create(new SingleOnSubscribe<List<List<InnerData>>>() {
+            @Override
+            public void subscribe(SingleEmitter<List<List<InnerData>>> e) throws Exception {
+                final List<List<InnerData>> outerData = new ArrayList<>();
+                for (int i = 0; i < OUTER_COUNT && !e.isDisposed(); i++) {
+                    final List<InnerData> innerData = new ArrayList<>();
+                    for (int j = 0; j < INNER_COUNT && !e.isDisposed(); j++) {
+                        innerData.add(createInnerData(faker));
+                    }
+                    outerData.add(innerData);
+                }
 
-        initRecyclerView(outerData);
+                if (!e.isDisposed()) {
+                    e.onSuccess(outerData);
+                }
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<List<List<InnerData>>>() {
+            @Override
+            public void accept(List<List<InnerData>> outerData) throws Exception {
+                initRecyclerView(outerData);
+            }
+        });
     }
 
     private void initRecyclerView(List<List<InnerData>> data) {
