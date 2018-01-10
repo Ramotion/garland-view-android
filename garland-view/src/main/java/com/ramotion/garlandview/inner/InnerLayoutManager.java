@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
+/**
+ * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
+ */
 public class InnerLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
 
@@ -134,11 +137,6 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         mScrollToPosition = RecyclerView.NO_POSITION;
 
-        final int childCount = getChildCount();
-        if (childCount == 0) {
-            return 0;
-        }
-
         int scrolled;
 
         if (dy < 0) { // scroll down
@@ -155,13 +153,20 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
                 scrolled = border - Math.abs(view0Top);
             }
         } else { // scroll up
-            final View view = getChildAt(childCount - 1);
+            final View view = getChildAt(getChildCount() - 1);
             final int viewBottom = getDecoratedBottom(view);
             final int viewNBottom = viewBottom + (getItemCount() - 1 - getPosition(view)) * getDecoratedMeasuredHeight(view);
             final int viewNBottomScrolled = viewNBottom - dy;
 
+            final int itemCount = getItemCount();
+            final int viewPos =  mRecyclerView.getChildAdapterPosition(view);
+            final boolean lastItem = itemCount - 1 == viewPos;
+
             final int border = getHeight();
-            if (viewNBottomScrolled >= border) {
+
+            if (lastItem && viewBottom < border) {
+                scrolled = 0;
+            } else if (viewNBottomScrolled >= border) {
                 scrolled = dy;
             } else {
                 scrolled = viewNBottom - border;
@@ -205,6 +210,9 @@ public class InnerLayoutManager extends RecyclerView.LayoutManager
         removeAllViews();
     }
 
+    /**
+     * @return first visible item position.
+     */
     public int findFirstVisibleItemPosition() {
         return getChildCount() != 0 ? getPosition(getChildAt(0)) : RecyclerView.NO_POSITION;
     }

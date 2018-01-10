@@ -8,6 +8,9 @@ import android.support.v7.widget.SnapHelper;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+/**
+ * Extended {@link SnapHelper} that works <b>only</b> with {@link TailLayoutManager}.
+ */
 public class TailSnapHelper extends SnapHelper {
 
     private static final int MAX_SCROLL_ON_FLING_DURATION = 300; // ms

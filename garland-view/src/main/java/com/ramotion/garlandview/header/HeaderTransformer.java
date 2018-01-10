@@ -7,9 +7,24 @@ import android.view.View;
 import com.ramotion.garlandview.TailItemTransformer;
 import com.ramotion.garlandview.TailLayoutManager;
 
+/**
+ * Implementation of {@link TailLayoutManager.PageTransformer}.
+ */
 public class HeaderTransformer implements TailLayoutManager.PageTransformer<HeaderItem> {
 
-    private final TailItemTransformer mTransformer = new TailItemTransformer();
+    private final TailItemTransformer mTransformer;
+
+    public HeaderTransformer() {
+        mTransformer = new TailItemTransformer();
+    }
+
+    /**
+     * Constructor that specifies inner item transformer.
+     * @param transformer inner item transformer.
+     */
+    public HeaderTransformer(@NonNull TailItemTransformer transformer) {
+        mTransformer = transformer;
+    }
 
     @Override
     public void transformPage(@NonNull HeaderItem item, float scrollPosition) {

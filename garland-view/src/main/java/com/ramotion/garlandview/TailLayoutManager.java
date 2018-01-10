@@ -15,8 +15,15 @@ import android.view.View;
 
 import com.ramotion.R;
 
+/**
+ * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
+ */
 public class TailLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {
+
+    public interface PageTransformer<T extends TailItem> {
+        void transformPage(@NonNull T item, float scrollPosition);
+    }
 
     private static class SavedState implements Parcelable {
 
@@ -60,10 +67,6 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
 
     private int mScrollToPosition = RecyclerView.NO_POSITION;
 
-    public interface PageTransformer<T extends TailItem> {
-        void transformPage(@NonNull T item, float scrollPosition);
-    }
-
     private final static int DEFAULT_ITEM_START = 30;
     private final static int DEFAULT_ITEM_GAP = 0;
 
@@ -75,18 +78,33 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
     private RecyclerView mRecyclerView;
     private PageTransformer mPageTransformer;
 
+    /**
+     * Creates TailLayoutManager with default values
+     * @param context Current context, will be used to access resources.
+     */
     public TailLayoutManager(@NonNull Context context) {
         this(context, null);
     }
 
+    /**
+     * XML constructor
+     * See {@link R.styleable#GarlandView_itemStart}
+     * See {@link R.styleable#GarlandView_itemGap}
+     */
     public TailLayoutManager(@NonNull Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    /**
+     * See {@link TailLayoutManager#TailLayoutManager(Context)}
+     */
     public TailLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
+    /**
+     * See {@link TailLayoutManager#TailLayoutManager(Context)}
+     */
     public TailLayoutManager(@NonNull Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final float density = context.getResources().getDisplayMetrics().density;
         final int defaultItemStart = (int) (density * DEFAULT_ITEM_START);
@@ -270,11 +288,20 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         removeAllViews();
     }
 
-    public TailLayoutManager setPageTransformer(PageTransformer transformer) {
+    /**
+     * Set page transformer,
+     * @param transformer new page transformer or null.
+     * @return current instance of TailLayoutManager.
+     */
+    public TailLayoutManager setPageTransformer(@NonNull PageTransformer transformer) {
         mPageTransformer = transformer;
         return this;
     }
 
+    /**
+     * Return current center view or null.
+      * @return current center view or null.
+     */
     @Nullable
     public View getCenterView() {
         final int center = getWidth() / 2;
@@ -296,6 +323,10 @@ public class TailLayoutManager extends RecyclerView.LayoutManager
         return centerChild;
     }
 
+    /**
+     * Return item start offset.
+     * @return item start offset in pixels.
+     */
     public int getItemStart() {
         return mItemStart;
     }

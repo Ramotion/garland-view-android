@@ -71,8 +71,8 @@ Finally, place `TailRecyclerView` in the Activity's layout. Next, create a TailL
 specify it as a LayoutManager for `TailRecyclerView`.
 
 Here are the attributes of `TailRecyclerView` you can specify in the XML layout:
-*`itemStart` - Outer item left and right offset size.
-*`itemGap` -  Distance between outer items.
+* `itemStart` - Outer item left and right offset size.
+* `itemGap` -  Distance between outer items.
 
 ## License
 ​

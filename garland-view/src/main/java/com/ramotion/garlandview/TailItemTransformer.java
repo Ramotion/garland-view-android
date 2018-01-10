@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import com.ramotion.R;
 
+/**
+ * Implementation of {@link TailLayoutManager.PageTransformer}
+ */
 public class TailItemTransformer implements TailLayoutManager.PageTransformer {
 
     private static final float INACTIVE_SCALE = 0.7f;
@@ -43,7 +46,7 @@ public class TailItemTransformer implements TailLayoutManager.PageTransformer {
         public final float pivotX;
         public final float offsetY;
 
-        TransformParams(float position, float floorDiff, float scale, float scaleChild,
+        public TransformParams(float position, float floorDiff, float scale, float scaleChild,
                         float alphaLeft, float alphaRight, float alphaChild,
                         float pivotX, float offsetY)
         {

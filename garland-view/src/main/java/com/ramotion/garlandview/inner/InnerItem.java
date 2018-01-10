@@ -5,6 +5,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+/**
+ * ViewHolder class for {@link InnerRecyclerView}.
+ */
 public abstract class InnerItem extends RecyclerView.ViewHolder {
 
     private int prevHeight;
