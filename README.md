@@ -22,22 +22,22 @@ The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=speci
 
 ## Installation
 ​
-Just download the package from [here](http://central.maven.org/maven2/com/ramotion/garlandview/garland-view/0.1.0/garland-view-0.1.0.aar) and add it to your project classpath, or just use the maven repo:
+Just download the package from [here](http://central.maven.org/maven2/com/ramotion/garlandview/garland-view/0.3.2/garland-view-0.3.2.aar) and add it to your project classpath, or just use the maven repo:
 
 Gradle:
 ```groovy
-compile 'com.ramotion.garlandview:garland-view:0.2.1'
+compile 'com.ramotion.garlandview:garland-view:0.3.2'
 ```
 SBT:
 ```scala
-libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.2.1"
+libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.3.2"
 ```
 Maven:
 ```xml
 <dependency>
     <groupId>com.ramotion.garlandview</groupId>
     <artifactId>garland-view</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 
