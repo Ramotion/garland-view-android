@@ -1,5 +1,6 @@
 ![header](./header.png)
-![animation](./preview.gif)
+<img src="https://github.com/Ramotion/garland-view-android/blob/master/preview.gif" width="600" height="450" />
+<br><br/>
 
 # Garland View for Android
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
