@@ -1,7 +1,7 @@
 package com.ramotion.garlandview.inner;
 
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adapter class for {@link InnerRecyclerView}.

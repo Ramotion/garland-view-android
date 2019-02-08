@@ -1,11 +1,12 @@
 package com.ramotion.garlandview.example.details;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ramotion.garlandview.example.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class DetailsItem extends RecyclerView.ViewHolder {
 

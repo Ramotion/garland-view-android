@@ -1,7 +1,6 @@
 package com.ramotion.garlandview.example.main.outer;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.main.inner.InnerData;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class OuterAdapter extends TailAdapter<OuterItem> {
 

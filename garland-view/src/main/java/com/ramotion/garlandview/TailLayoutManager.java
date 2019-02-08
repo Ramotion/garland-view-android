@@ -6,17 +6,18 @@ import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 
 import com.ramotion.R;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
+ * A {@link androidx.recyclerview.widget.RecyclerView.LayoutManager} implementation.
  */
 public class TailLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {

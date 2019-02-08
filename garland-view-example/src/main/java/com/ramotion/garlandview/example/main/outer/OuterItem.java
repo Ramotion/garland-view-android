@@ -1,11 +1,7 @@
 package com.ramotion.garlandview.example.main.outer;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
@@ -17,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.main.inner.InnerAdapter;
 import com.ramotion.garlandview.example.main.inner.InnerData;
+import com.ramotion.garlandview.example.utils.GlideApp;
 import com.ramotion.garlandview.header.HeaderDecorator;
 import com.ramotion.garlandview.header.HeaderItem;
 import com.ramotion.garlandview.inner.InnerLayoutManager;
@@ -28,7 +26,10 @@ import com.ramotion.garlandview.inner.InnerRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 
@@ -153,10 +154,10 @@ public class OuterItem extends HeaderItem {
         mRecyclerView.setLayoutManager(new InnerLayoutManager());
         ((InnerAdapter)mRecyclerView.getAdapter()).addData(tail);
 
-        Glide.with(context)
+        GlideApp.with(context)
                 .load(header.avatarUrl)
                 .placeholder(R.drawable.avatar_placeholder)
-                .bitmapTransform(new CropCircleTransformation(context))
+                .transform(new CircleCrop())
                 .into(mAvatar);
 
         final String title1 = header.title + "?";
@@ -174,7 +175,7 @@ public class OuterItem extends HeaderItem {
     }
 
     void clearContent() {
-        Glide.clear(mAvatar);
+        Glide.with(mAvatar.getContext()).clear(mAvatar);
         ((InnerAdapter)mRecyclerView.getAdapter()).clearData();
     }
 

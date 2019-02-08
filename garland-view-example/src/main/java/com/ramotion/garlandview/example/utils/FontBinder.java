@@ -2,9 +2,10 @@ package com.ramotion.garlandview.example.utils;
 
 
 import android.content.res.AssetManager;
-import android.databinding.BindingAdapter;
 import android.graphics.Typeface;
 import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
 
 public class FontBinder {
 

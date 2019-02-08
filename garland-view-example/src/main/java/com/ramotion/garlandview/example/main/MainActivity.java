@@ -1,7 +1,6 @@
 package com.ramotion.garlandview.example.main;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.ramotion.garlandview.TailLayoutManager;
@@ -22,6 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import io.bloco.faker.Faker;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;

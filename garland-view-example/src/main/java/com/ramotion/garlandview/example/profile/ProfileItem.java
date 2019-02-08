@@ -1,12 +1,13 @@
 package com.ramotion.garlandview.example.profile;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.details.DetailsData;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ProfileItem extends RecyclerView.ViewHolder {
 

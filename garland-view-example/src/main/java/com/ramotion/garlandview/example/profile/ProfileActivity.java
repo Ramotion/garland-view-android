@@ -4,14 +4,8 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.util.Pair;
 import android.view.View;
@@ -20,13 +14,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.google.android.material.appbar.AppBarLayout;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.details.DetailsData;
+import com.ramotion.garlandview.example.utils.GlideApp;
 
 import java.util.ArrayList;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -82,10 +82,10 @@ public class ProfileActivity extends AppCompatActivity {
         final ArrayList<DetailsData> listData = getIntent().getParcelableArrayListExtra(BUNDLE_LIST_DATA);
         recyclerView.setAdapter(new ProfileAdapter(listData));
 
-        Glide.with(this)
+        GlideApp.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
                 .placeholder(R.drawable.avatar_placeholder)
-                .bitmapTransform(new CropCircleTransformation(this))
+                .transform(new CircleCrop())
                 .into((ImageView) findViewById(R.id.avatar));
 
         final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
@@ -108,7 +108,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             {
                 final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
-                        new int[] { android.R.attr.actionBarSize });
+                        new int[]{android.R.attr.actionBarSize});
                 toolBarHeight = (int) styledAttributes.getDimension(0, 0) + getStatusBarHeight();
                 styledAttributes.recycle();
 
@@ -131,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
                 headerImage.setLayoutParams(lp);
 
                 final int totalScrollRange = appBarLayout.getTotalScrollRange();
-                final float ratio = ((float)totalScrollRange + verticalOffset) / totalScrollRange;
+                final float ratio = ((float) totalScrollRange + verticalOffset) / totalScrollRange;
 
                 final int avatarHalf = avatar.getMeasuredHeight() / 2;
                 final int avatarRightest = appBarLayout.getMeasuredWidth() / 2 - avatarHalf - avatarHOffset;
@@ -173,10 +173,21 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
 
-                @Override public void onTransitionEnd(Transition transition) {}
-                @Override public void onTransitionCancel(Transition transition) {}
-                @Override public void onTransitionPause(Transition transition) {}
-                @Override public void onTransitionResume(Transition transition) {}
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+                }
             });
         }
     }

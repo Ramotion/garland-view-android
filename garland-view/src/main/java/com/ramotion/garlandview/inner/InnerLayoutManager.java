@@ -4,13 +4,14 @@ package com.ramotion.garlandview.inner;
 import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
- * A {@link android.support.v7.widget.RecyclerView.LayoutManager} implementation.
+ * A {@link androidx.recyclerview.widget.RecyclerView.LayoutManager} implementation.
  */
 public class InnerLayoutManager extends RecyclerView.LayoutManager
         implements RecyclerView.SmoothScroller.ScrollVectorProvider {

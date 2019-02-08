@@ -1,7 +1,5 @@
 package com.ramotion.garlandview.example.profile;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +8,9 @@ import com.ramotion.garlandview.example.databinding.ProfileItemBinding;
 import com.ramotion.garlandview.example.details.DetailsData;
 
 import java.util.List;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 class ProfileAdapter extends RecyclerView.Adapter<ProfileItem> {
