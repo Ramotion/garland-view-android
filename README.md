@@ -34,22 +34,22 @@ ___
 - Your favorite IDE
 
 ## Installation
-Just download the package from [here](http://central.maven.org/maven2/com/ramotion/garlandview/garland-view/0.3.2/garland-view-0.3.2.aar) and add it to your project classpath, or just use the maven repo:
+Just download the package from [here](http://central.maven.org/maven2/com/ramotion/garlandview/garland-view/0.3.3/garland-view-0.3.3.aar) and add it to your project classpath, or just use the maven repo:
 
 Gradle:
 ```groovy
-compile 'com.ramotion.garlandview:garland-view:0.3.2'
+compile 'com.ramotion.garlandview:garland-view:0.3.3'
 ```
 SBT:
 ```scala
-libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.3.2"
+libraryDependencies += "com.ramotion.garlandview" % "garland-view" % "0.3.3"
 ```
 Maven:
 ```xml
 <dependency>
     <groupId>com.ramotion.garlandview</groupId>
     <artifactId>garland-view</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
 </dependency>
 ```
 
