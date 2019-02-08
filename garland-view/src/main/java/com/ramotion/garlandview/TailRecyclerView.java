@@ -1,13 +1,14 @@
 package com.ramotion.garlandview;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
- * Extended {@link android.support.v7.widget.RecyclerView}
+ * Extended {@link androidx.recyclerview.widget.RecyclerView}
  * that works <b>only</b> with {@link TailLayoutManager} and {@link TailAdapter}.
  */
 public class TailRecyclerView extends RecyclerView {

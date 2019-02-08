@@ -1,7 +1,5 @@
 package com.ramotion.garlandview.example.main.inner;
 
-import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +8,9 @@ import com.ramotion.garlandview.example.databinding.InnerItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 
 
 public class InnerAdapter extends com.ramotion.garlandview.inner.InnerAdapter<InnerItem> {

@@ -1,12 +1,12 @@
 package com.ramotion.garlandview.example;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import io.bloco.faker.Faker;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;

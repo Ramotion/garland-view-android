@@ -4,23 +4,23 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.ramotion.garlandview.example.GarlandApp;
 import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.main.MainActivity;
 import com.ramotion.garlandview.example.profile.ProfileActivity;
+import com.ramotion.garlandview.example.utils.GlideApp;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import io.bloco.faker.Faker;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class DetailsActivity extends AppCompatActivity implements GarlandApp.FakerReadyListener {
 
@@ -62,10 +62,10 @@ public class DetailsActivity extends AppCompatActivity implements GarlandApp.Fak
         ((TextView) findViewById(R.id.tv_name)).setText(getIntent().getStringExtra(BUNDLE_NAME));
         ((TextView) findViewById(R.id.tv_info)).setText(getIntent().getStringExtra(BUNDLE_INFO));
 
-        Glide.with(this)
+        GlideApp.with(this)
                 .load(getIntent().getStringExtra(BUNDLE_AVATAR_URL))
                 .placeholder(R.drawable.avatar_placeholder)
-                .bitmapTransform(new CropCircleTransformation(this))
+                .transform(new CircleCrop())
                 .into((ImageView) findViewById(R.id.avatar));
     }
 

@@ -1,11 +1,12 @@
 package com.ramotion.garlandview;
 
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ramotion.R;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 /**
  * Implementation of {@link TailLayoutManager.PageTransformer}

@@ -1,7 +1,5 @@
 package com.ramotion.garlandview.example.details;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +7,9 @@ import com.ramotion.garlandview.example.R;
 import com.ramotion.garlandview.example.databinding.DetailsItemBinding;
 
 import java.util.List;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 class DetailsAdapter extends RecyclerView.Adapter<DetailsItem> {
