@@ -3,7 +3,7 @@ apply plugin: 'signing'
 apply plugin: 'com.bmuschko.nexus'
 
 group = 'com.ramotion.garlandview'
-version = '0.3.2'
+version = '0.3.3'
 
 android {
     compileSdkVersion 28
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         versionName version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
